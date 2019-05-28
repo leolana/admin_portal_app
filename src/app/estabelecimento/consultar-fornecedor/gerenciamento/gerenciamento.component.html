@@ -1,23 +1,21 @@
 <app-content-header></app-content-header>
 
 <section class="content">
-
-    <alpe-tabs [tabs]="tabs">
-        <ng-template #fornecedorPendente>
-            <alpe-fornecedor-pendente></alpe-fornecedor-pendente>
-        </ng-template>
-        <ng-template #fornecedorAprovado>
-            <alpe-fornecedor-aprovado></alpe-fornecedor-aprovado>
-        </ng-template>
-        <ng-template #fornecedorCancelado>
-            <alpe-fornecedor-cancelado></alpe-fornecedor-cancelado>
-        </ng-template>
-        <ng-template #fornecedorReprovado>
-            <alpe-fornecedor-reprovado></alpe-fornecedor-reprovado>
-        </ng-template>
-        <ng-template #fornecedorIndicacao>
-            <alpe-fornecedor-indicacao></alpe-fornecedor-indicacao>
-        </ng-template>
-    </alpe-tabs>
-
+  <alpe-tabs [tabs]="tabs">
+    <ng-template #fornecedorPendente>
+      <alpe-fornecedor-pendente></alpe-fornecedor-pendente>
+    </ng-template>
+    <ng-template #fornecedorAprovado>
+      <alpe-fornecedor-aprovado></alpe-fornecedor-aprovado>
+    </ng-template>
+    <ng-template #fornecedorCancelado>
+      <alpe-fornecedor-cancelado></alpe-fornecedor-cancelado>
+    </ng-template>
+    <ng-template #fornecedorReprovado>
+      <alpe-fornecedor-reprovado></alpe-fornecedor-reprovado>
+    </ng-template>
+    <ng-template #fornecedorIndicacao>
+      <alpe-fornecedor-indicacao></alpe-fornecedor-indicacao>
+    </ng-template>
+  </alpe-tabs>
 </section>

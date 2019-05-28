@@ -16,30 +16,26 @@ import { NgxCurrencyModule } from 'ngx-currency';
 import { DatePickerModule } from '../core/date-picker/date-picker.module';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ThemeModule,
-        PipesModule,
-        ReactiveFormsModule,
-        CoreModule,
-        FormsModule,
-        NgxCurrencyModule,
-        DatePickerModule,
-    ],
-    declarations: [
-        CessaoDetalheComponent,
-        CessaoStatusStepComponent,
-        TimeLineRecebiveisComponent,
-        CessaoConsultarComponent,
-        SolicitarCessaoComponent,
-        SolicitarCessaoDefaultComponent,
-        SolicitarCessaoRecorrenteComponent,
-        SolicitarCessaoParceladoComponent,
-    ],
-    exports: [
-        SolicitarCessaoComponent,
-        CessaoDetalheComponent,
-        CessaoConsultarComponent,
-    ]
+  imports: [
+    CommonModule,
+    ThemeModule,
+    PipesModule,
+    ReactiveFormsModule,
+    CoreModule,
+    FormsModule,
+    NgxCurrencyModule,
+    DatePickerModule,
+  ],
+  declarations: [
+    CessaoDetalheComponent,
+    CessaoStatusStepComponent,
+    TimeLineRecebiveisComponent,
+    CessaoConsultarComponent,
+    SolicitarCessaoComponent,
+    SolicitarCessaoDefaultComponent,
+    SolicitarCessaoRecorrenteComponent,
+    SolicitarCessaoParceladoComponent,
+  ],
+  exports: [SolicitarCessaoComponent, CessaoDetalheComponent, CessaoConsultarComponent],
 })
-export class CessaoModule { }
+export class CessaoModule {}

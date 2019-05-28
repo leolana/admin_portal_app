@@ -7,14 +7,13 @@ export enum DiaSemana {
   quinta = 8,
   sexta = 16,
   sabado = 32,
-  domingo = 64
+  domingo = 64,
 }
 
 @Pipe({
-  name: 'diasSemana'
+  name: 'diasSemana',
 })
 export class DiasSemanaPipe implements PipeTransform {
-
   transform(value: number): string {
     const diasSelecionados = [];
 
@@ -49,5 +48,4 @@ export class DiasSemanaPipe implements PipeTransform {
 
     return diasSelecionados.join(', ');
   }
-
 }

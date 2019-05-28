@@ -1,11 +1,11 @@
-.td-div-buttons> :not(:first-child) {
-    margin-left: 5px;
+.td-div-buttons > :not(:first-child) {
+  margin-left: 5px;
 }
 
 .nowrap {
-    white-space:nowrap;
+  white-space: nowrap;
 }
 
 .mt-15 {
-    margin-top: 15px;
+  margin-top: 15px;
 }

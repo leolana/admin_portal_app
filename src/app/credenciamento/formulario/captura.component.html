@@ -1,77 +1,100 @@
-<app-content-header title="Credenciamento Pessoa {{ tiposPessoa.descricoes[tipoPessoa] }} / Captura">
+<app-content-header
+  title="Credenciamento Pessoa {{ tiposPessoa.descricoes[tipoPessoa] }} / Captura"
+>
 </app-content-header>
 <app-wizard [steps]="steps" [tipoPessoa]="tipoPessoa" [config]="wizardConfig"></app-wizard>
 
 <section class="content">
-	<form [formGroup]="formCaptura" url="true" [waitFor]="true">
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">Captura</h3>
-			</div>
-			<div class="box-body">
-				<div class="capturas">
-					<div *ngFor="let captura of capturas">
-						<div class="thumbnail">
-							<img
-								src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDI0MiAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTY1OTA4YjdlMGIgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMnB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNjU5MDhiN2UwYiI+PHJlY3Qgd2lkdGg9IjI0MiIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI4OS44MDQ2ODc1IiB5PSIxMDUuMSI+MjQyeDIwMDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==">
-							<div class="caption">
-								<h4>{{ captura.produto.nome }} - {{ tiposCaptura.descricoes[captura.tipoCaptura] }}</h4>
-								<div class="row mb-5">
-									<div class="col-md-12">
-										<div class="input-group" [class.has-error]="captura.valor.invalid && captura.valor.dirty">
-											<label for="valor" class="input-group-addon">R$</label>
-											<input type="numeric" class="form-control" id="valor"
-											[formControl]="captura.valor" currencyMask maxlength="15">
-										</div>
-										<span class="pull-right gray">
-											{{ captura.tipoCaptura == tiposCaptura.aluguel ? '- mensal' : ' -' }}
-										</span>
-									</div>
-								</div>
-								<div class="row">
-									<label class="col-xs-3 col-sm-2 col-md-6 col-lg-5 control-label">Quantidade:</label>
-									<div class="col-xs-9 col-sm-10 col-md-6 col-lg-7">
-										<input type="text" class="form-control input-sm"
-											[formControl]="captura.quantidade" maxlength="3" currencyMask
-											[options]="{ precision: 0 }">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="pull-right">
-					<button class="btn btn-primary btn-xs" (click)="resetarValores()">
-						<em class="fa fa-history fa-lg"></em>
-						Resetar Valores
-					</button>
-				</div>
-			</div>
-		</div>
+  <form [formGroup]="formCaptura" url="true" [waitFor]="true">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Captura</h3>
+      </div>
+      <div class="box-body">
+        <div class="capturas">
+          <div *ngFor="let captura of capturas">
+            <div class="thumbnail">
+              <img
+                src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDI0MiAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTY1OTA4YjdlMGIgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMnB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNjU5MDhiN2UwYiI+PHJlY3Qgd2lkdGg9IjI0MiIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI4OS44MDQ2ODc1IiB5PSIxMDUuMSI+MjQyeDIwMDwvdGV4dD48L2c+PC9nPjwvc3ZnPg=="
+              />
+              <div class="caption">
+                <h4>
+                  {{ captura.produto.nome }} - {{ tiposCaptura.descricoes[captura.tipoCaptura] }}
+                </h4>
+                <div class="row mb-5">
+                  <div class="col-md-12">
+                    <div
+                      class="input-group"
+                      [class.has-error]="captura.valor.invalid && captura.valor.dirty"
+                    >
+                      <label for="valor" class="input-group-addon">R$</label>
+                      <input
+                        type="numeric"
+                        class="form-control"
+                        id="valor"
+                        [formControl]="captura.valor"
+                        currencyMask
+                        maxlength="15"
+                      />
+                    </div>
+                    <span class="pull-right gray">
+                      {{ captura.tipoCaptura == tiposCaptura.aluguel ? '- mensal' : ' -' }}
+                    </span>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-xs-3 col-sm-2 col-md-6 col-lg-5 control-label"
+                    >Quantidade:</label
+                  >
+                  <div class="col-xs-9 col-sm-10 col-md-6 col-lg-7">
+                    <input
+                      type="text"
+                      class="form-control input-sm"
+                      [formControl]="captura.quantidade"
+                      maxlength="3"
+                      currencyMask
+                      [options]="{ precision: 0 }"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pull-right">
+          <button class="btn btn-primary btn-xs" (click)="resetarValores()">
+            <em class="fa fa-history fa-lg"></em>
+            Resetar Valores
+          </button>
+        </div>
+      </div>
+    </div>
 
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">E-Commerce</h3>
-			</div>
-			<div class="box-body">
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="form-group" [class.has-error]="url.invalid && url.dirty">
-							<label>Site URL</label>
-							<input type="url" class="form-control" [formControl]="url" maxlength="255">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">E-Commerce</h3>
+      </div>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group" [class.has-error]="url.invalid && url.dirty">
+              <label>Site URL</label>
+              <input type="url" class="form-control" [formControl]="url" maxlength="255" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-		<div class="row">
-			<div class="col-xs-6 text-right">
-				<button type="button" class="btn btn-default btn-wlg" (click)="goBack()">Voltar</button>
-			</div>
-			<div class="col-xs-6 text-left">
-				<button type="button" class="btn btn-primary btn-wlg" (click)="submitForm()">Prosseguir</button>
-			</div>
-		</div>
-	</form>
+    <div class="row">
+      <div class="col-xs-6 text-right">
+        <button type="button" class="btn btn-default btn-wlg" (click)="goBack()">Voltar</button>
+      </div>
+      <div class="col-xs-6 text-left">
+        <button type="button" class="btn btn-primary btn-wlg" (click)="submitForm()">
+          Prosseguir
+        </button>
+      </div>
+    </div>
+  </form>
 </section>

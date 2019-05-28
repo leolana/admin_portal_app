@@ -1,48 +1,82 @@
-<app-content-header title="Solicitação de Cessão" [subtitleEvent]="subtitle.asObservable()"></app-content-header>
+<app-content-header
+  title="Solicitação de Cessão"
+  [subtitleEvent]="subtitle.asObservable()"
+></app-content-header>
 
 <section class="content {{ mobile ? 'mobile' : 'desktop' }}" *ngIf="vinculo">
-
-    <div class="box-filter box box-primary">
-        <div class="box-body">
-            <div class="row" *ngIf="vinculo.exibeValorDisponivel">
-                <div class="col-md-12 text-center">
-                    Valor Disponível para Cessão
-                    <h3 class="available-value" [class.text-success]="vinculo.valorDisponivel > 0" [class.text-danger]="vinculo.valorDisponivel <= 0">
-                        {{ vinculo.valorDisponivel | currency:'BRL' }}
-                    </h3>
-                </div>
-            </div>
-            <form class="row-flex">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="operacao">Tipo de Operação</label>
-                            <select class="form-control" id="operacao" [attr.disabled]="operacaoSelecionada || null" (change)="filter($event.target.value)"
-                                [value]="operacaoSelecionada">
-                                <option value=""></option>
-                                <option *ngFor="let o of operacoes" [value]="o.id">{{ o.text }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-12 text-sobre-cessao-recorrente" *ngIf="operacaoSelecionada == _operacoes.cessaoRecorrente">
-                        Após a primeira aprovação pelo <b>estabelecimento</b>, as próximas cessões mensais serão aprovadas automaticamente,
-                        desde que o estabelecimento não tenha cancelado e/ou revogado o Plano de Pagamento,
-                        bem como possua créditos disponíveis e suficientes quando da nova solicitação mensal 
-                        pelo <b>fornecedor</b>.
-                    </div>
-                </div>
-                <div class="buttons">
-                    <button type="button" class="btn btn-outline-primary btn-reset-filter" *ngIf="operacaoSelecionada" (click)="resetFilter()">Trocar Operação</button>
-                    <button type="button" class="btn btn-outline-primary btn-voltar" (click)="voltar()">Voltar</button>
-                </div>
-            </form>
+  <div class="box-filter box box-primary">
+    <div class="box-body">
+      <div class="row" *ngIf="vinculo.exibeValorDisponivel">
+        <div class="col-md-12 text-center">
+          Valor Disponível para Cessão
+          <h3
+            class="available-value"
+            [class.text-success]="vinculo.valorDisponivel > 0"
+            [class.text-danger]="vinculo.valorDisponivel <= 0"
+          >
+            {{ vinculo.valorDisponivel | currency:'BRL' }}
+          </h3>
         </div>
+      </div>
+      <form class="row-flex">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="operacao">Tipo de Operação</label>
+              <select
+                class="form-control"
+                id="operacao"
+                [attr.disabled]="operacaoSelecionada || null"
+                (change)="filter($event.target.value)"
+                [value]="operacaoSelecionada"
+              >
+                <option value=""></option>
+                <option *ngFor="let o of operacoes" [value]="o.id">{{ o.text }}</option>
+              </select>
+            </div>
+          </div>
+          <div
+            class="col-md-12 text-sobre-cessao-recorrente"
+            *ngIf="operacaoSelecionada == _operacoes.cessaoRecorrente"
+          >
+            Após a primeira aprovação pelo <b>estabelecimento</b>, as próximas cessões mensais serão
+            aprovadas automaticamente, desde que o estabelecimento não tenha cancelado e/ou revogado
+            o Plano de Pagamento, bem como possua créditos disponíveis e suficientes quando da nova
+            solicitação mensal pelo <b>fornecedor</b>.
+          </div>
+        </div>
+        <div class="buttons">
+          <button
+            type="button"
+            class="btn btn-outline-primary btn-reset-filter"
+            *ngIf="operacaoSelecionada"
+            (click)="resetFilter()"
+          >
+            Trocar Operação
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-voltar" (click)="voltar()">
+            Voltar
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <div class="box-cessao">
-        <cessao-default [pagamentos]="pagamentos" [vinculo]="vinculo" *ngIf="operacaoSelecionada == _operacoes.cessaoDefault"></cessao-default>
-        <cessao-recorrente [pagamentos]="pagamentos" [vinculo]="vinculo" *ngIf="operacaoSelecionada == _operacoes.cessaoRecorrente"></cessao-recorrente>
-        <cessao-parcelado [pagamentos]="pagamentos" [vinculo]="vinculo" *ngIf="operacaoSelecionada == _operacoes.cessaoParcelada"></cessao-parcelado>
-    </div>
-
+  <div class="box-cessao">
+    <cessao-default
+      [pagamentos]="pagamentos"
+      [vinculo]="vinculo"
+      *ngIf="operacaoSelecionada == _operacoes.cessaoDefault"
+    ></cessao-default>
+    <cessao-recorrente
+      [pagamentos]="pagamentos"
+      [vinculo]="vinculo"
+      *ngIf="operacaoSelecionada == _operacoes.cessaoRecorrente"
+    ></cessao-recorrente>
+    <cessao-parcelado
+      [pagamentos]="pagamentos"
+      [vinculo]="vinculo"
+      *ngIf="operacaoSelecionada == _operacoes.cessaoParcelada"
+    ></cessao-parcelado>
+  </div>
 </section>

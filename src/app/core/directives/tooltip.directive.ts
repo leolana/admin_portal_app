@@ -3,12 +3,12 @@ import { Directive, ElementRef, OnInit } from '@angular/core';
 declare const $: any;
 
 @Directive({
-    selector: '[tooltip]'
+  selector: '[tooltip]',
 })
 export class TooltipDirective implements OnInit {
-    constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef) {}
 
-    ngOnInit(): void {
-        $(this.el.nativeElement).tooltip();
-    }
+  ngOnInit(): void {
+    $(this.el.nativeElement).tooltip();
+  }
 }

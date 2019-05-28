@@ -1,34 +1,36 @@
-<app-content-header title="Informações do {{fornecedor}}"></app-content-header>
-<br>
+<app-content-header title="Informações do {{ fornecedor }}"></app-content-header>
+<br />
 <section class="content">
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Estabelecimentos vinculados</h3>
-        </div>
-        <div class="box-body no-padding">
-            <div class="table-primary">
-                <alpe-datatable [datatable]="vinculosFornecedor"></alpe-datatable>
-            </div>
-        </div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Estabelecimentos vinculados</h3>
     </div>
-    <br>
+    <div class="box-body no-padding">
+      <div class="table-primary">
+        <alpe-datatable [datatable]="vinculosFornecedor"></alpe-datatable>
+      </div>
+    </div>
+  </div>
+  <br />
 
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Usuários</h3>
-        </div>
-        <div class="box-body no-padding">
-            <alpe-tabs [tabs]="tabs">
-                <ng-template #fornecedorUsuarios>
-                    <alpe-fornecedores-usuarios></alpe-fornecedores-usuarios>
-                </ng-template>
-                <ng-template #fornecedorConvites>
-                    <alpe-fornecedores-convites></alpe-fornecedores-convites>
-                </ng-template>
-            </alpe-tabs>
-        </div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Usuários</h3>
     </div>
-    <div class="col-md-12 mb-15">
-        <button class="btn btn-primary pull-right" routerLink="/fornecedor/gerenciamento/cadastrados">Voltar</button>
+    <div class="box-body no-padding">
+      <alpe-tabs [tabs]="tabs">
+        <ng-template #fornecedorUsuarios>
+          <alpe-fornecedores-usuarios></alpe-fornecedores-usuarios>
+        </ng-template>
+        <ng-template #fornecedorConvites>
+          <alpe-fornecedores-convites></alpe-fornecedores-convites>
+        </ng-template>
+      </alpe-tabs>
     </div>
+  </div>
+  <div class="col-md-12 mb-15">
+    <button class="btn btn-primary pull-right" routerLink="/fornecedor/gerenciamento/cadastrados">
+      Voltar
+    </button>
+  </div>
 </section>

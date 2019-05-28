@@ -14,30 +14,30 @@ import { ParticipanteContatoComponent } from './dados-cadastrais/contato/contato
 import { ParticipanteDomiciliosComponent } from './dados-cadastrais/domicilios/domicilios.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ThemeModule,
-        PipesModule,
-        ReactiveFormsModule,
-        CoreModule,
-        FormsModule,
-        BrowserModule,
-        HttpClientModule,
-        NgxCurrencyModule,
-    ],
-    declarations: [
-        ParticipanteCadastroComponent,
-        ParticipanteContatoComponent,
-        ParticipanteDomiciliosComponent,
-        ParticipanteDadosCadastraisComponent,
-       ParticipanteTaxasComponent
-    ],
-    exports: [
-        ParticipanteTaxasComponent,
-        ParticipanteContatoComponent,
-        ParticipanteDomiciliosComponent,
-        ParticipanteDadosCadastraisComponent,
-       ParticipanteTaxasComponent
-    ]
+  imports: [
+    CommonModule,
+    ThemeModule,
+    PipesModule,
+    ReactiveFormsModule,
+    CoreModule,
+    FormsModule,
+    BrowserModule,
+    HttpClientModule,
+    NgxCurrencyModule,
+  ],
+  declarations: [
+    ParticipanteCadastroComponent,
+    ParticipanteContatoComponent,
+    ParticipanteDomiciliosComponent,
+    ParticipanteDadosCadastraisComponent,
+    ParticipanteTaxasComponent,
+  ],
+  exports: [
+    ParticipanteTaxasComponent,
+    ParticipanteContatoComponent,
+    ParticipanteDomiciliosComponent,
+    ParticipanteDadosCadastraisComponent,
+    ParticipanteTaxasComponent,
+  ],
 })
-export class ParticipanteModule { }
+export class ParticipanteModule {}

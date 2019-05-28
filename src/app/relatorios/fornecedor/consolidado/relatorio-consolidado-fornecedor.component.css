@@ -1,81 +1,81 @@
 .row-button {
-    display: flex;
-    margin-left: 15px;
-    margin-right: 15px;
+  display: flex;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
-.row-button>.form-group {
-    flex: 1;
-    margin-right: 15px;
+.row-button > .form-group {
+  flex: 1;
+  margin-right: 15px;
 }
 
 .mt-25 {
-    margin-top: 25px;
+  margin-top: 25px;
 }
 
 .timeline-wrapper {
-    padding: 9px 15px 2px 0;
-    border-bottom: 1px dotted #ececec;
+  padding: 9px 15px 2px 0;
+  border-bottom: 1px dotted #ececec;
 }
 
-.timelines>.timeline-wrapper>div {
-    margin-bottom: 0;
-    padding: 0 0 5px 0;
-    display: flex;
-    justify-content: space-between;
+.timelines > .timeline-wrapper > div {
+  margin-bottom: 0;
+  padding: 0 0 5px 0;
+  display: flex;
+  justify-content: space-between;
 }
 
 .timeline-itens {
-    display: none;
-    overflow: hidden;
-    margin: 0;
+  display: none;
+  overflow: hidden;
+  margin: 0;
 }
 
-.timeline-itens .timeline-item>.timeline-header:hover {
-    background-color: #f7f7f7;
-    border-radius: 5px;
+.timeline-itens .timeline-item > .timeline-header:hover {
+  background-color: #f7f7f7;
+  border-radius: 5px;
 }
 
 .timeline-itens .fa {
-    background: #f0f1f3;
-    color: #a0a0a0;
+  background: #f0f1f3;
+  color: #a0a0a0;
 }
 
-.timeline-itens .timeline-item>.timeline-header {
-    border-bottom: 0;
+.timeline-itens .timeline-item > .timeline-header {
+  border-bottom: 0;
 }
 
 .timeline-itens .timeline-item {
-    box-shadow: none;
+  box-shadow: none;
 }
 
-.timelines .timeline-head>div {
-    flex: initial;
+.timelines .timeline-head > div {
+  flex: initial;
 }
 
-.timelines .timeline-head>div:first-child {
-    word-break: break-all;
-    margin: 10px;
+.timelines .timeline-head > div:first-child {
+  word-break: break-all;
+  margin: 10px;
 }
 
-.timelines .timeline-head>div:last-child {
-    margin: 10px 0 10px 10px;
+.timelines .timeline-head > div:last-child {
+  margin: 10px 0 10px 10px;
 }
 
 .timeline-header {
-    font-size: 16px;
+  font-size: 16px;
 }
 
-.timeline>li:first-child {
-    margin-top: 20px;
+.timeline > li:first-child {
+  margin-top: 20px;
 }
 
-.timeline>li:last-child {
-    margin-bottom: 30px;
+.timeline > li:last-child {
+  margin-bottom: 30px;
 }
 
 .text-total {
-    padding-bottom: 10px;
-    padding: 15px 15px 15px 10px;
-    font-size: 16px;
+  padding-bottom: 10px;
+  padding: 15px 15px 15px 10px;
+  font-size: 16px;
 }

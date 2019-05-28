@@ -1,87 +1,89 @@
 <h3 class="sub-title" *ngIf="domicilios.length">Domicílios por Bandeira</h3>
 <div>
-    <div class="text-center empty-content" *ngIf="!domicilios.length && !arquivos.length">
-        Nenhum registro encontrado
-    </div>
+  <div class="text-center empty-content" *ngIf="!domicilios.length && !arquivos.length">
+    Nenhum registro encontrado
+  </div>
 
-    <div class="desktop" *ngIf="domicilios.length">
-        <table class="table">
-            <tbody class="text-center second-table data-table">
-                <tr>
-                    <td><strong>Bandeira</strong></td>
-                    <td><strong>Banco</strong></td>
-                    <td><strong>Agência</strong></td>
-                    <td><strong>Conta</strong></td>
-                </tr>
-                <tr *ngFor="let item of domicilios">
-                    <td><strong>{{ item.bandeira.text }}</strong></td>
-                    <td>{{ item.bancoNome }}</td>
-                    <td>{{ item.agencia }}</td>
-                    <td>{{ item.conta }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <div class="desktop" *ngIf="domicilios.length">
+    <table class="table">
+      <tbody class="text-center second-table data-table">
+        <tr>
+          <td><strong>Bandeira</strong></td>
+          <td><strong>Banco</strong></td>
+          <td><strong>Agência</strong></td>
+          <td><strong>Conta</strong></td>
+        </tr>
+        <tr *ngFor="let item of domicilios">
+          <td>
+            <strong>{{ item.bandeira.text }}</strong>
+          </td>
+          <td>{{ item.bancoNome }}</td>
+          <td>{{ item.agencia }}</td>
+          <td>{{ item.conta }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="mobile" *ngIf="domicilios.length">
-        <div class="row dados-taxa" *ngFor="let item of domicilios">
-            <div class="col-xs-12">
-                <div class="bandeira-header">
-                    <strong>{{ item.bandeira.text }}</strong>
-                </div>
-            </div>
-
-            <td class="col-xs-4"><strong>Banco</strong></td>
-            <td class="col-xs-4"><strong>Agência</strong></td>
-            <td class="col-xs-4"><strong>Conta</strong></td>
-
-            <div class="col-xs-4">
-                <span>{{ item.bancoNome }}</span>
-            </div>
-
-            <div class="col-xs-4">
-                <span>{{ item.agencia }}</span>
-            </div>
-
-            <div class="col-xs-4">
-                <span>{{ item.conta }}</span>
-            </div>
+  <div class="mobile" *ngIf="domicilios.length">
+    <div class="row dados-taxa" *ngFor="let item of domicilios">
+      <div class="col-xs-12">
+        <div class="bandeira-header">
+          <strong>{{ item.bandeira.text }}</strong>
         </div>
-    </div>
+      </div>
 
-    <div *ngIf="!domicilios" class="loading-container">
-        <div class="loading"></div>
-    </div>
+      <td class="col-xs-4"><strong>Banco</strong></td>
+      <td class="col-xs-4"><strong>Agência</strong></td>
+      <td class="col-xs-4"><strong>Conta</strong></td>
 
+      <div class="col-xs-4">
+        <span>{{ item.bancoNome }}</span>
+      </div>
+
+      <div class="col-xs-4">
+        <span>{{ item.agencia }}</span>
+      </div>
+
+      <div class="col-xs-4">
+        <span>{{ item.conta }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!domicilios" class="loading-container">
+    <div class="loading"></div>
+  </div>
 </div>
 
-
-
 <div class="box box-primary" *ngIf="arquivos.length">
-    <div class="box-header with-border">
-        <h3 class="box-title">Arquivos</h3>
+  <div class="box-header with-border">
+    <h3 class="box-title">Arquivos</h3>
+  </div>
+  <div class="box-body">
+    <table *ngIf="arquivos" class="table table-striped table-condensed">
+      <thead>
+        <tr>
+          <th>Nome do Arquivo</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let extrato of arquivos; let i = index">
+          <td>Extrato Bancário ({{ extrato.nome }})</td>
+          <td>
+            <button
+              class="btn btn-xs btn-success pull-right"
+              (click)="downloadExtrato(extrato.nome, extrato.id)"
+            >
+              <i class="fa fa-download"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!arquivos" class="loading-container">
+      <div class="loading"></div>
     </div>
-    <div class="box-body">
-        <table *ngIf="arquivos" class="table table-striped table-condensed">
-            <thead>
-                <tr>
-                    <th>Nome do Arquivo</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let extrato of arquivos; let i = index">
-                    <td>Extrato Bancário ({{ extrato.nome }})</td>
-                    <td>
-                        <button class="btn btn-xs btn-success pull-right" (click)="downloadExtrato(extrato.nome, extrato.id)">
-                            <i class="fa fa-download"></i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div *ngIf="!arquivos" class="loading-container">
-            <div class="loading"></div>
-        </div>
-    </div>
+  </div>
 </div>

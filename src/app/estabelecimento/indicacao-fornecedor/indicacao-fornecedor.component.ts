@@ -10,15 +10,15 @@ import { VinculoStatus, IVinculo } from 'src/app/interfaces/participante';
 
 @Component({
   templateUrl: './indicacao-fornecedor.component.html',
-  styleUrls: ['./indicacao-fornecedor.component.css']
+  styleUrls: ['./indicacao-fornecedor.component.css'],
 })
 export class IndicacaoFornecedorComponent implements OnInit {
   constructor(
     private estabelecimentoService: EstabelecimentoService,
     private prompt: PromptService,
     private notification: NotificationService,
-    private router: Router
-  ) { }
+    private router: Router,
+  ) {}
 
   // PROPERTIES
 
@@ -71,11 +71,11 @@ export class IndicacaoFornecedorComponent implements OnInit {
           return 'Telefone informado não é válido';
         }
       }
-    }
+    },
   };
 
   // METHODS
-  ngOnInit() { }
+  ngOnInit() {}
 
   checaDocumentoIndicacaoFornecedor() {
     const documento = this.formFilter.value.documento;
@@ -129,7 +129,8 @@ export class IndicacaoFornecedorComponent implements OnInit {
     json.documento = NumberFunctions.removeNonDigits(json.documento);
 
     this.estabelecimentoService.indicarFornecedorParaCadastro(json).subscribe(() => {
-      const message = 'Fornecedor indicado com sucesso, o cadastramento será realizado pelo Backoffice Alpe';
+      const message =
+        'Fornecedor indicado com sucesso, o cadastramento será realizado pelo Backoffice Alpe';
       this.notification.showSuccessMessage(message);
       this.router.navigateByUrl('/estabelecimento/fornecedores/indicacoes');
 
@@ -152,32 +153,31 @@ export class IndicacaoFornecedorComponent implements OnInit {
 
   reativarVinculo(vinculo: IVinculo) {
     const message = 'Este fornecedor está com o vínculo cancelado. Deseja reativar?';
-    this.prompt.confirm(message, 'Confirmação').then(ans => ans &&
-      this.estabelecimentoService.reativarVinculo(vinculo).subscribe(() => {
-        vinculo.status = VinculoStatus.aprovado;
+    this.prompt.confirm(message, 'Confirmação').then(
+      ans =>
+        ans &&
+        this.estabelecimentoService.reativarVinculo(vinculo).subscribe(() => {
+          vinculo.status = VinculoStatus.aprovado;
 
-        const fornecedor = vinculo.participante.nome;
-        const successMessage = `O vínculo com o fornecedor "${fornecedor}" foi reativado com sucesso`;
-        this.notification.showSuccessMessage(successMessage);
+          const fornecedor = vinculo.participante.nome;
+          const successMessage = `O vínculo com o fornecedor "${fornecedor}" foi reativado com sucesso`;
+          this.notification.showSuccessMessage(successMessage);
 
-        this.router.navigate(['estabelecimento/fornecedores/aprovado']);
-      })
+          this.router.navigate(['estabelecimento/fornecedores/aprovado']);
+        }),
     );
   }
 
-
   fornecedorEstaCancelado(id: number) {
-    this.estabelecimentoService
-      .obterVinculos(VinculoStatus.cancelado)
-      .subscribe(fornecedores => {
-        if (!fornecedores.length) return this.vincularFornecedor(id);
-        fornecedores.forEach(vinculo => {
-          if (vinculo.participante.id === id) {
-            return this.reativarVinculo(vinculo);
-          }
-          this.vincularFornecedor(id);
-        });
+    this.estabelecimentoService.obterVinculos(VinculoStatus.cancelado).subscribe(fornecedores => {
+      if (!fornecedores.length) return this.vincularFornecedor(id);
+      fornecedores.forEach(vinculo => {
+        if (vinculo.participante.id === id) {
+          return this.reativarVinculo(vinculo);
+        }
+        this.vincularFornecedor(id);
       });
+    });
   }
 
   reset() {

@@ -100,34 +100,32 @@
   padding-top: 0;
 }
 
-.header-taxa{
-    font-size: 14px;
-    background: #eee9ef;
-    width: 100%;
-    margin: 0;
+.header-taxa {
+  font-size: 14px;
+  background: #eee9ef;
+  width: 100%;
+  margin: 0;
 }
 
-.bandeira-header{
-    font-size: 14px;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    color: #6c1980;
+.bandeira-header {
+  font-size: 14px;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  color: #6c1980;
 }
 
-.with-minwidth{
-    min-width: 65px
+.with-minwidth {
+  min-width: 65px;
 }
 
-
-.mt-20{
+.mt-20 {
   margin-top: 20px;
   font-size: 14px;
 }
 
-.box-body{
+.box-body {
   margin-bottom: 35px;
 }
-
 
 .header-report {
   display: flex;
@@ -137,22 +135,22 @@
   border-bottom: 1px solid #6c1980;
 }
 
-.head-table{
+.head-table {
   padding: 2px;
   font-size: 18px;
 }
 
-.head-table-color{
+.head-table-color {
   background: #6c1980;
   color: #ffffff;
 }
 
-.head-table p{
+.head-table p {
   margin: 0;
   padding: 2px;
 }
 
-.data-table{
+.data-table {
   font-size: 14px;
 }
 
@@ -160,25 +158,24 @@
   width: 50%;
 }
 
-.second-table tr td{
+.second-table tr td {
   width: 25%;
 }
 
-.title-taxas{
+.title-taxas {
   border-bottom: 0.2px solid #6c1980;
   font-weight: bold;
 }
 
-.layer-white{
+.layer-white {
   margin: 0 2% 2% 2%;
-
 }
 
-.taxa-adm{
+.taxa-adm {
   padding: 5px;
 }
 
-.dados-taxa{
+.dados-taxa {
   border-bottom: 0.1px solid #b6b6b6;
   margin: auto;
 }
@@ -187,19 +184,19 @@
   margin-bottom: 10%;
 }
 
-.style-table{
+.style-table {
   text-align: center;
 }
 
-.third-table tr td{
+.third-table tr td {
   width: 50%;
 }
 
-.fourth-table tr td{
+.fourth-table tr td {
   width: 33%;
 }
 
-.dados-cadastrais tr td{
+.dados-cadastrais tr td {
   margin: 0 20% 0 20%;
 }
 
@@ -221,7 +218,7 @@
   outline: none;
 }
 
-.nav-tabs-custom>.nav-tabs>li.nav-tab-fill {
+.nav-tabs-custom > .nav-tabs > li.nav-tab-fill {
   flex-grow: 1;
   margin-right: 0;
 }
@@ -230,11 +227,10 @@
   flex-grow: 1;
 }
 
-.nav-tabs-custom>.nav-tabs>li:first-of-type.active>a.nav-tab-active {
+.nav-tabs-custom > .nav-tabs > li:first-of-type.active > a.nav-tab-active {
   border: 0;
   background-color: transparent;
 }
-
 
 @media (min-width: 992px) {
   .taxa-debito {
@@ -255,17 +251,16 @@
   .desktop {
     display: none;
   }
-  .style-table tr td:first-child{
+  .style-table tr td:first-child {
     text-align: start;
   }
   .style-table tr > td {
     width: 70%;
   }
-  .label-captura{
+  .label-captura {
     font-size: 11px;
   }
-  .third-table tr td:first-child{
+  .third-table tr td:first-child {
     color: #6c1980;
   }
 }
-

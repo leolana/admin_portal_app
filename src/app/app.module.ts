@@ -28,15 +28,15 @@ import { UsuariosModule } from './usuarios/usuarios.module';
 import { WizardModule } from './credenciamento/wizard/wizard.module';
 
 const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
-    align: 'right',
-    allowNegative: true,
-    allowZero: true,
-    decimal: ',',
-    precision: 2,
-    prefix: '',
-    suffix: '',
-    thousands: '.',
-    nullable: true
+  align: 'right',
+  allowNegative: true,
+  allowZero: true,
+  decimal: ',',
+  precision: 2,
+  prefix: '',
+  suffix: '',
+  thousands: '.',
+  nullable: true,
 };
 
 // COMPONENTS
@@ -81,89 +81,86 @@ import { ParticipanteModule } from './participante/participante.module';
 import { ModalCancelamentoModule } from './core/components/modal-cancelamento/modal-cancelamento.module';
 import { NotificacoesModule } from './core/notificacoes/notificacoes.module';
 
-
 // TODO: Extrair essa classe para outro arquivo e corrigir
 export class RavenErrorHandler implements ErrorHandler {
-    handleError(err: any): void {
-        Raven.captureException(err);
-    }
+  handleError(err: any): void {
+    Raven.captureException(err);
+  }
 }
 
 if (environment.sentryClientKey) {
-    Raven
-        .config(environment.sentryClientKey, {
-            environment: environment.envName,
-        })
-        .install();
+  Raven.config(environment.sentryClientKey, {
+    environment: environment.envName,
+  }).install();
 }
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        LoginComponent,
-        ChangePasswordComponent,
-        ResetPasswordComponent,
-        RecoverPasswordComponent,
-        RegisterComponent,
-        HomeComponent,
-        PromptComponent,
-        MenuComponent,
-        LoaderComponent,
-        CredenciamentoArquivosComponent,
-        CredenciamentoCapturaComponent,
-        CredenciamentoCondicoesComerciaisComponent,
-        CredenciamentoDadosCadastraisComponent,
-        CredenciamentoDadosInstalacaoComponent,
-        CredenciamentoDadosSocietariosComponent,
-        CredenciamentoDocumentosComponent,
-        CredenciamentoDomicilioBancarioComponent,
-        CredenciamentoPesquisaComponent,
-        CredenciamentoProspectarComponent,
-        CredenciamentoUploadComponent,
-        TermoComponent,
-        ImpersonateParticipanteComponent,
-        HealthComponent,
-        ExportacaoComponent,
-        ...TaxaComponents,
-    ],
-    imports: [
-        BrowserModule,
-        ReactiveFormsModule,
-        FormsModule,
-        HttpClientModule,
-        AppRoutingModule,
-        ThemeModule,
-        CoreModule,
-        PipesModule,
-        NotificacoesModule,
-        NgxMaskModule.forRoot(),
-        NgxCurrencyModule,
-        NotificationModule,
-        CredenciamentoStatusModule,
-        CessaoModule,
-        AntecipacaoModule,
-        FornecedorModule,
-        RelatoriosModule,
-        ParticipanteModule,
-        DatePickerModule,
-        WizardModule,
-        EstabelecimentoModule,
-        UsuariosModule,
-        EstabelecimentoModule,
-        ModalCancelamentoModule,
-    ],
-    entryComponents: [
-        PromptComponent,
-        CredenciamentoArquivosComponent,
-        ImpersonateParticipanteComponent
-    ],
-    providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ISODatesHttpInterceptor, multi: true },
-        { provide: LOCALE_ID, useValue: 'pt' },
-        { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
-        { provide: ErrorHandler, useClass: RavenErrorHandler }
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    ChangePasswordComponent,
+    ResetPasswordComponent,
+    RecoverPasswordComponent,
+    RegisterComponent,
+    HomeComponent,
+    PromptComponent,
+    MenuComponent,
+    LoaderComponent,
+    CredenciamentoArquivosComponent,
+    CredenciamentoCapturaComponent,
+    CredenciamentoCondicoesComerciaisComponent,
+    CredenciamentoDadosCadastraisComponent,
+    CredenciamentoDadosInstalacaoComponent,
+    CredenciamentoDadosSocietariosComponent,
+    CredenciamentoDocumentosComponent,
+    CredenciamentoDomicilioBancarioComponent,
+    CredenciamentoPesquisaComponent,
+    CredenciamentoProspectarComponent,
+    CredenciamentoUploadComponent,
+    TermoComponent,
+    ImpersonateParticipanteComponent,
+    HealthComponent,
+    ExportacaoComponent,
+    ...TaxaComponents,
+  ],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    ThemeModule,
+    CoreModule,
+    PipesModule,
+    NotificacoesModule,
+    NgxMaskModule.forRoot(),
+    NgxCurrencyModule,
+    NotificationModule,
+    CredenciamentoStatusModule,
+    CessaoModule,
+    AntecipacaoModule,
+    FornecedorModule,
+    RelatoriosModule,
+    ParticipanteModule,
+    DatePickerModule,
+    WizardModule,
+    EstabelecimentoModule,
+    UsuariosModule,
+    EstabelecimentoModule,
+    ModalCancelamentoModule,
+  ],
+  entryComponents: [
+    PromptComponent,
+    CredenciamentoArquivosComponent,
+    ImpersonateParticipanteComponent,
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ISODatesHttpInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'pt' },
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
+    { provide: ErrorHandler, useClass: RavenErrorHandler },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

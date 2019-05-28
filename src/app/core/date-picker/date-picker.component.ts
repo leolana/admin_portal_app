@@ -1,9 +1,21 @@
 import {
-  Component, OnChanges, forwardRef, Input, ViewChild, ElementRef,
-  ViewEncapsulation, AfterContentInit, OnDestroy, OnInit
+  Component,
+  OnChanges,
+  forwardRef,
+  Input,
+  ViewChild,
+  ElementRef,
+  ViewEncapsulation,
+  AfterContentInit,
+  OnDestroy,
+  OnInit,
 } from '@angular/core';
 import {
-  ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl, Validator
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NG_VALIDATORS,
+  FormControl,
+  Validator,
 } from '@angular/forms';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import { APP_DATE_FORMATS, AppDateAdapter } from './date-formats';
@@ -19,9 +31,10 @@ import * as textMask from 'vanilla-text-mask/dist/vanillaTextMask.js';
     { provide: DateAdapter, useClass: AppDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
   ],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class DatePickerComponent implements OnInit, OnChanges, ControlValueAccessor, Validator, AfterContentInit, OnDestroy {
+export class DatePickerComponent
+  implements OnInit, OnChanges, ControlValueAccessor, Validator, AfterContentInit, OnDestroy {
   mask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]; // dd/MM/yyyy
   maskedInputController;
   maxDate: Date;
@@ -43,23 +56,23 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     this.maskedInputController.destroy();
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngAfterContentInit(): void {
     setTimeout(() => {
       this.maskedInputController = textMask.maskInput({
         inputElement: this.inputElement.nativeElement,
-        mask: this.mask
+        mask: this.mask,
       });
     });
   }
 
-  onChange: any = (value) => {
+  onChange: any = value => {
     this.formControl.setValue(value);
     this.formControl.updateValueAndValidity();
   }
 
-  onTouched: any = () => { };
+  onTouched: any = () => {};
 
   focus() {
     this.inputElement.nativeElement.focus();

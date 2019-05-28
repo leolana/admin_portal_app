@@ -9,107 +9,121 @@ import { DocumentoPipe } from '../../../pipes/documento.pipe';
 import { tags } from '../../../core/tags';
 
 @Component({
-    selector: 'alpe-estabelecimentos-aprovados',
-    templateUrl: './estabelecimentos-aprovados.component.html',
-    styleUrls: ['./estabelecimentos-aprovados.component.css'],
-    encapsulation: ViewEncapsulation.None
+  selector: 'alpe-estabelecimentos-aprovados',
+  templateUrl: './estabelecimentos-aprovados.component.html',
+  styleUrls: ['./estabelecimentos-aprovados.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class EstabelecimentosAprovadosComponent implements OnInit {
-    constructor(
-        private service: FornecedorService,
-        private notification: NotificationService,
-        private prompt: PromptService,
-        private router: Router,
-    ) { }
+  constructor(
+    private service: FornecedorService,
+    private notification: NotificationService,
+    private prompt: PromptService,
+    private router: Router,
+  ) {}
 
-    valorTotalCessoes: number;
+  valorTotalCessoes: number;
 
-    datatable = new Datatable<IVinculo>({
-        table: [{
-            property: 'nome',
-            description: 'Nome'
-        }, {
-            property: 'documento',
-            description: 'CPF/CNPJ'
-        }, {
-            property: 'valorDisponivel',
-            description: 'Valor Disponível para Cessão',
-            pipe: 'currency'
-        }, {
-            property: 'diasAprovacao',
-            description: 'Prazo de Aprovação',
-            inputNumber: {
-                min: 2,
-                valueChange: vinculo => this.salvar(vinculo),
-                label: vinculo => vinculo.diasAprovacao == 1 ? 'dia útil' : 'dias úteis',
-            }
-        }, {
-            property: 'buttons',
-            description: '',
-            buttons: [{
-                text: 'Solicitar Cessão',
-                btnClass: 'btn btn-primary btn-solicitar-cessao',
-                fnAction: vinculo => this.solicitarCessao(vinculo)
-            }]
-        }],
-        data: [],
-        rowClasses: item => {
-            if (item.exibeValorDisponivel && item.valorDisponivel <= 0) {
-                return 'row-red';
-            }
-        }
+  datatable = new Datatable<IVinculo>({
+    table: [
+      {
+        property: 'nome',
+        description: 'Nome',
+      },
+      {
+        property: 'documento',
+        description: 'CPF/CNPJ',
+      },
+      {
+        property: 'valorDisponivel',
+        description: 'Valor Disponível para Cessão',
+        pipe: 'currency',
+      },
+      {
+        property: 'diasAprovacao',
+        description: 'Prazo de Aprovação',
+        inputNumber: {
+          min: 2,
+          valueChange: vinculo => this.salvar(vinculo),
+          label: vinculo => (vinculo.diasAprovacao == 1 ? 'dia útil' : 'dias úteis'),
+        },
+      },
+      {
+        property: 'buttons',
+        description: '',
+        buttons: [
+          {
+            text: 'Solicitar Cessão',
+            btnClass: 'btn btn-primary btn-solicitar-cessao',
+            fnAction: vinculo => this.solicitarCessao(vinculo),
+          },
+        ],
+      },
+    ],
+    data: [],
+    rowClasses: item => {
+      if (item.exibeValorDisponivel && item.valorDisponivel <= 0) {
+        return 'row-red';
+      }
+    },
+  });
+
+  @Input() set filters(value: any) {
+    if (!/aprovados$/i.test(this.router.url)) {
+      return;
+    }
+
+    const params = Object.assign(
+      {
+        status: VinculoStatus.aprovado,
+      },
+      value,
+    );
+
+    this.service.meusEstabelecimentos(params).subscribe(estabelecimentos => {
+      const documentoPipe = new DocumentoPipe();
+
+      estabelecimentos.forEach((e: any) => {
+        e.documento = documentoPipe.transform(e.participante.documento);
+        e.nome = e.participante.nome;
+        e.valorDisponivel = e.exibeValorDisponivel ? e.valorDisponivel : null;
+      });
+      this.datatable.updateData(estabelecimentos);
+      this.valorTotalCessoes = estabelecimentos.reduce(
+        (tot, e: any) => (e.exibeValorDisponivel ? tot + e.valorDisponivel : tot),
+        null,
+      );
     });
+  }
 
-    @Input() set filters(value: any) {
-        if (!/aprovados$/i.test(this.router.url)) {
-            return;
-        }
+  ngOnInit() {
+    this.router.navigate(['/fornecedor/estabelecimentos', 'aprovados']);
+  }
 
-        const params = Object.assign({
-            status: VinculoStatus.aprovado,
-        }, value);
-
-        this.service.meusEstabelecimentos(params).subscribe(estabelecimentos => {
-            const documentoPipe = new DocumentoPipe();
-
-            estabelecimentos.forEach((e: any) => {
-                e.documento = documentoPipe.transform(e.participante.documento);
-                e.nome = e.participante.nome;
-                e.valorDisponivel = e.exibeValorDisponivel ? e.valorDisponivel : null;
-            });
-            this.datatable.updateData(estabelecimentos);
-            this.valorTotalCessoes = estabelecimentos.reduce((tot, e: any) => e.exibeValorDisponivel ? tot + e.valorDisponivel : tot, null);
-        });
+  hasError(vinculo: IVinculo): boolean {
+    if (vinculo.diasAprovacao < 2) {
+      this.notification.showErrorMessage(tags['prazo-aprovacao-dias']);
+      return true;
     }
+    return false;
+  }
 
-    ngOnInit() {
-        this.router.navigate(['/fornecedor/estabelecimentos', 'aprovados']);
-    }
+  salvar(vinculo: IVinculo): void {
+    if (this.hasError(vinculo)) return;
 
-    hasError(vinculo: IVinculo): boolean {
-        if (vinculo.diasAprovacao < 2) {
-            this.notification.showErrorMessage(tags['prazo-aprovacao-dias']);
-            return true;
-        }
-        return false;
-    }
+    this.service.alterarVinculo(vinculo).subscribe();
+  }
 
-    salvar(vinculo: IVinculo): void {
-        if (this.hasError(vinculo)) return;
+  solicitarCessao(vinculo: IVinculo): void {
+    if (this.hasError(vinculo)) return;
 
-        this.service.alterarVinculo(vinculo).subscribe();
-    }
+    const estabelecimento = vinculo.participante.nome;
+    const message = `Deseja Solicitar Cessão para o Estabelecimento "${estabelecimento}"?`;
 
-    solicitarCessao(vinculo: IVinculo): void {
-        if (this.hasError(vinculo)) return;
-
-        const estabelecimento = vinculo.participante.nome;
-        const message = `Deseja Solicitar Cessão para o Estabelecimento "${estabelecimento}"?`;
-
-        this.prompt.confirm(message, 'Confirmação').then(yes => {
-            if (yes) {
-                this.router.navigateByUrl('fornecedor/solicitarcessao/' + vinculo.id);
-            }
-        });
-    }
+    this.prompt.confirm(message, 'Confirmação').then(yes => {
+      if (yes) {
+        this.router.navigateByUrl('fornecedor/solicitarcessao/' + vinculo.id);
+      }
+    });
+  }
 }

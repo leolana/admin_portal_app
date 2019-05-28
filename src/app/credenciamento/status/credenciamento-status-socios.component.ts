@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { TiposPessoa } from 'src/app/interfaces';
 
 @Component({
-    selector: 'alpe-credenciamento-status-socios',
-    templateUrl: './credenciamento-status-socios.component.html'
+  selector: 'alpe-credenciamento-status-socios',
+  templateUrl: './credenciamento-status-socios.component.html',
 })
 export class CredenciamentoStatusSociosComponent {
-    @Input() dados: any[];
+  @Input() dados: any[];
 
-    tiposPessoa = TiposPessoa;
+  tiposPessoa = TiposPessoa;
 }

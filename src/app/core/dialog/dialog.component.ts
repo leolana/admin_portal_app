@@ -1,29 +1,30 @@
-import { ElementRef } from '@angular/core';
+import { ElementRef } from '@angular/core'
 
-declare const $: any;
+declare const $: any
 
 export class DialogComponent {
-	constructor(private _e: ElementRef) {}
+  constructor(private _e: ElementRef) {}
 
-	result = null;
+  result = null
 
-	onInit(options) {}
+  onInit(options) {}
 
-	initialize(options, closeCallback) {
-		this.onInit(options);
+  initialize(options, closeCallback) {
+    this.onInit(options)
 
-		const modal = $(this._e.nativeElement).find('.modal').modal();
-		let closeHandled = false;
+    const modal = $(this._e.nativeElement)
+      .find('.modal')
+      .modal()
+    let closeHandled = false
 
-		this.result = (value) => {
-			closeHandled = true;
-			modal.modal('hide');
-			closeCallback(value);
-		};
+    this.result = value => {
+      closeHandled = true
+      modal.modal('hide')
+      closeCallback(value)
+    }
 
-		modal.on('hidden.bs.modal', e => {
-			if (!closeHandled)
-				closeCallback();
-		});
-	}
+    modal.on('hidden.bs.modal', e => {
+      if (!closeHandled) closeCallback()
+    })
+  }
 }

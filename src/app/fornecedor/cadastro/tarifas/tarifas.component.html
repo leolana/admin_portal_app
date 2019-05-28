@@ -1,85 +1,118 @@
-<app-content-header title="Cadastro de Fornecedor"  hideBreadCrumb="true"></app-content-header>
+<app-content-header title="Cadastro de Fornecedor" hideBreadCrumb="true"></app-content-header>
 
-<app-wizard [steps]="steps" fornecedor=true [config]="wizardConfig"> </app-wizard>
+<app-wizard [steps]="steps" fornecedor="true" [config]="wizardConfig"> </app-wizard>
 
 <section class="content">
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Tarifas</h3>
-        </div>
-        <div class="box-body">
-            <form [formGroup]="formTarifasAntecipacao" class="formAntecipacao">
-                <h4>Antecipação</h4>
-                <div class="form-group row" [class.has-error]="taxa.invalid && taxa.dirty">
-                    <label for="valorTaxaAntecipacao" class="col-sm-2 col-form-label">Taxa de Antecipação: </label>
-                    <div class="col-sm-4">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="inputvalorTaxaAntecipacao"
-                                formControlName="taxa" currencyMask maxlength="6" placeholder="00,00" required>
-                            <span class="input-group-addon"><i class="fa fa-percent"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <form class="formCessao">
-                <h4>Cessão</h4>
-                <div [formGroup]="taxas" *ngFor="let taxas of taxasCessao; let i = index">
-                    <div class="row align-items-center">
-                        <div class="col-md-4">
-
-                            <div class="form-group" [class.has-error]="taxas | hasError : 'valorInicio'">
-                                <label for="inputvalorInicio{{i}}">Valor Cessão inicial</label>
-                                <div class="input-group">
-                                    <label for="valorInicio{{i}}" class="input-group-addon">R$</label>
-                                    <input type="numeric" class="form-control" id="valorInicio{{i}}"
-                                        formControlName="valorInicio" currencyMask maxlength="15" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group" [class.has-error]="taxas | hasError : 'valorFim'">
-                                <label for="inputvalorFim{{i}}">Valor Cessão final</label>
-                                <div class="input-group">
-                                    <label for="valorFim{{i}}" class="input-group-addon">R$</label>
-                                    <input type="numeric" class="form-control" id="valorFim{{i}}"
-                                        formControlName="valorFim" currencyMask maxlength="15">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group" [class.has-error]="taxas | hasError : 'taxa'">
-                                <label for="inputTaxa{{i}}">Taxa de Cessão</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="inputTaxa{{i}}" formControlName="taxa"
-                                        currencyMask maxlength="6" placeholder="00,00">
-                                    <span class="input-group-addon"><i class="fa fa-percent"></i></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="box-tools col-md-1" [hidden]="hideButton(i, taxas)">
-                            <button class="btn btn-search-unlabeled btn-danger btn-sm" type="button"
-                                (click)="excluirTaxaCessao(taxas, i)">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <div class="form-group">
-                <button class="btn btn-primary btn-sm btn-add" type="button" (click)="adicionaTaxaCessao()">
-                    <i class="fa fa-plus"></i>
-                </button>
-                <strong>Adicionar Taxa Cessão</strong>
-            </div>
-        </div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Tarifas</h3>
     </div>
-    <div class="row">
-		<div class="col-xs-6 text-right">
-			<button type="button" class="btn btn-default btn-wlg" (click)="goBack()">Voltar</button>
-		</div>
-		<div class="col-xs-6 text-left">
-			<button type="button" class="btn btn-primary btn-wlg" (click)="submitForm()">Prosseguir</button>
-		</div>
-	</div>
+    <div class="box-body">
+      <form [formGroup]="formTarifasAntecipacao" class="formAntecipacao">
+        <h4>Antecipação</h4>
+        <div class="form-group row" [class.has-error]="taxa.invalid && taxa.dirty">
+          <label for="valorTaxaAntecipacao" class="col-sm-2 col-form-label"
+            >Taxa de Antecipação:
+          </label>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                id="inputvalorTaxaAntecipacao"
+                formControlName="taxa"
+                currencyMask
+                maxlength="6"
+                placeholder="00,00"
+                required
+              />
+              <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+            </div>
+          </div>
+        </div>
+      </form>
+      <form class="formCessao">
+        <h4>Cessão</h4>
+        <div [formGroup]="taxas" *ngFor="let taxas of taxasCessao; let i = index">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <div class="form-group" [class.has-error]="taxas | hasError: 'valorInicio'">
+                <label for="inputvalorInicio{{ i }}">Valor Cessão inicial</label>
+                <div class="input-group">
+                  <label for="valorInicio{{ i }}" class="input-group-addon">R$</label>
+                  <input
+                    type="numeric"
+                    class="form-control"
+                    id="valorInicio{{ i }}"
+                    formControlName="valorInicio"
+                    currencyMask
+                    maxlength="15"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group" [class.has-error]="taxas | hasError: 'valorFim'">
+                <label for="inputvalorFim{{ i }}">Valor Cessão final</label>
+                <div class="input-group">
+                  <label for="valorFim{{ i }}" class="input-group-addon">R$</label>
+                  <input
+                    type="numeric"
+                    class="form-control"
+                    id="valorFim{{ i }}"
+                    formControlName="valorFim"
+                    currencyMask
+                    maxlength="15"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group" [class.has-error]="taxas | hasError: 'taxa'">
+                <label for="inputTaxa{{ i }}">Taxa de Cessão</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputTaxa{{ i }}"
+                    formControlName="taxa"
+                    currencyMask
+                    maxlength="6"
+                    placeholder="00,00"
+                  />
+                  <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-tools col-md-1" [hidden]="hideButton(i, taxas)">
+              <button
+                class="btn btn-search-unlabeled btn-danger btn-sm"
+                type="button"
+                (click)="excluirTaxaCessao(taxas, i)"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="form-group">
+        <button class="btn btn-primary btn-sm btn-add" type="button" (click)="adicionaTaxaCessao()">
+          <i class="fa fa-plus"></i>
+        </button>
+        <strong>Adicionar Taxa Cessão</strong>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 text-right">
+      <button type="button" class="btn btn-default btn-wlg" (click)="goBack()">Voltar</button>
+    </div>
+    <div class="col-xs-6 text-left">
+      <button type="button" class="btn btn-primary btn-wlg" (click)="submitForm()">
+        Prosseguir
+      </button>
+    </div>
+  </div>
 </section>

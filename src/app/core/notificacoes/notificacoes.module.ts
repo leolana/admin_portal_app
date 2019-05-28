@@ -6,16 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ThemeModule } from '../theme/theme.module';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        BrowserModule,
-        ThemeModule,
-        FormsModule,
-    ],
-    declarations: [
-        NotificacoesComponent
-    ]
-
+  imports: [CommonModule, ReactiveFormsModule, BrowserModule, ThemeModule, FormsModule],
+  declarations: [NotificacoesComponent],
 })
-export class NotificacoesModule { }
+export class NotificacoesModule {}

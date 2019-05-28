@@ -1,92 +1,97 @@
-<app-content-header title="Relatório Consolidado" subtitle="Veja aqui suas últimas solicitações"></app-content-header>
+<app-content-header
+  title="Relatório Consolidado"
+  subtitle="Veja aqui suas últimas solicitações"
+></app-content-header>
 
 <section class="content">
-
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Filtro</h3>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Filtro</h3>
+    </div>
+    <div class="box-body no-padding">
+      <form [formGroup]="formFilter">
+        <div class="row-button">
+          <div class="form-group">
+            <label for="period">Período</label>
+            <select class="form-control" id="period" [alpeSelect2]="controls.period">
+              <option *ngFor="let period of lists.periods" [value]="period.id">
+                {{ period.text }}
+              </option>
+            </select>
+          </div>
+          <div class="button">
+            <button class="btn btn-primary mt-25" (click)="list()">
+              Pesquisar
+            </button>
+          </div>
         </div>
-        <div class="box-body no-padding">
-            <form [formGroup]="formFilter">
-                <div class="row-button">
-                    <div class="form-group">
-                        <label for="period">Período</label>
-                        <select class="form-control" id="period" [alpeSelect2]="controls.period">
-                            <option *ngFor="let period of lists.periods" [value]="period.id">
-                                {{ period.text }}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="button">
-                        <button class="btn btn-primary mt-25" (click)="list()">
-                            Pesquisar
-                        </button>
-                    </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Cessões</h3>
+    </div>
+    <div class="box-body no-padding">
+      <div class="timelines">
+        <div class="timeline-wrapper" *ngFor="let cessao of cessoes">
+          <div alpeExpandable="ul" closest=".timeline-wrapper" class="timeline-head">
+            <div>
+              <span class="timeline-header">{{ cessao.estabelecimento.nome }}</span>
+              <small> - {{ cessao.estabelecimento.cnpj | documento }}</small>
+            </div>
+            <div>
+              <span>{{ cessao.totalCessao | currency: 'BRL' }}</span>
+              <span class="text-gray margin-l-10">
+                <i class="fa fa-plus"></i>
+              </span>
+            </div>
+          </div>
+          <ul class="timeline">
+            <li *ngFor="let item of cessao.cessoes">
+              <i class="fa fa-long-arrow-right"></i>
+              <div class="timeline-item">
+                <div>
+                  Código da Cessão:
+                  <span>{{ item.codigoCessao }}</span>
                 </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Cessões</h3>
-        </div>
-        <div class="box-body no-padding">
-            <div class="timelines">
-                <div class="timeline-wrapper" *ngFor="let cessao of cessoes">
-                    <div alpeExpandable="ul" closest=".timeline-wrapper" class="timeline-head">
-                        <div>
-                            <span class="timeline-header">{{ cessao.estabelecimento.nome }}</span>
-                            <small> - {{ cessao.estabelecimento.cnpj | documento }}</small>
-                        </div>
-                        <div>
-                            <span>{{ cessao.totalCessao | currency:'BRL' }}</span>
-                            <span class="text-gray margin-l-10">
-                                <i class="fa fa-plus"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <ul class="timeline">
-                        <li *ngFor="let item of cessao.cessoes">
-                            <i class="fa fa-long-arrow-right"></i>
-                            <div class="timeline-item">
-                                <div>
-                                    Código da Cessão:
-                                    <span>{{ item.codigoCessao }}</span>
-                                </div>
-                                <div>
-                                    Data de Solicitação:
-                                    <span>{{ item.dataSolicitacao | date }}</span>
-                                </div>
-                                <div>
-                                    Valor da Cessão:
-                                    <span>{{ item.valor | currency:'BRL':'symbol':'1.2-2' }}</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                <div>
+                  Data de Solicitação:
+                  <span>{{ item.dataSolicitacao | date }}</span>
                 </div>
-            </div>
-            <div class="text-total text-primary">
-                Total
-                <strong class="pull-right">{{ result.totalCessao | currency:'BRL':'symbol':'1.2-2' }}</strong>
-            </div>
+                <div>
+                  Valor da Cessão:
+                  <span>{{ item.valor | currency: 'BRL':'symbol':'1.2-2' }}</span>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
+      </div>
+      <div class="text-total text-primary">
+        Total
+        <strong class="pull-right">{{
+          result.totalCessao | currency: 'BRL':'symbol':'1.2-2'
+        }}</strong>
+      </div>
     </div>
+  </div>
 
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Antecipações</h3>
-        </div>
-        <div class="box-body no-padding">
-            <div class="table-primary">
-                <alpe-datatable [datatable]="antecipacoesDatatable"></alpe-datatable>
-            </div>
-            <div class="text-total text-primary">
-                Total
-                <strong class="pull-right">{{ result.totalAntecipacao | currency:'BRL':'symbol':'1.2-2' }}</strong>
-            </div>
-        </div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Antecipações</h3>
     </div>
-
+    <div class="box-body no-padding">
+      <div class="table-primary">
+        <alpe-datatable [datatable]="antecipacoesDatatable"></alpe-datatable>
+      </div>
+      <div class="text-total text-primary">
+        Total
+        <strong class="pull-right">{{
+          result.totalAntecipacao | currency: 'BRL':'symbol':'1.2-2'
+        }}</strong>
+      </div>
+    </div>
+  </div>
 </section>

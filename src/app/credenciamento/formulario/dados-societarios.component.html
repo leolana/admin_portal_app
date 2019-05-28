@@ -1,161 +1,297 @@
 <app-content-header title="Credenciamento Pessoa Jurídica / Dados Societários"></app-content-header>
-<app-wizard [steps]="steps" tipoPessoa=2 [config]="wizardConfig"></app-wizard>
+<app-wizard [steps]="steps" tipoPessoa="2" [config]="wizardConfig"></app-wizard>
 
 <section class="content">
-	<div class="box-group">
-		<div class="box box-primary" *ngFor="let group of socios.controls; let i = index" [formGroup]="group" [waitFor]="true" url="true">
-			<div class="box-header with-border clickable" collapse="#dadosSocio_{{i}}">
-				<h3 class="box-title">{{ group.controls.nome.value || 'Dados do Sócio' }}</h3>
-				<div class="box-tools pull-right" [hidden]="socios.controls.length <= 1">
-					<button type="button" class="btn btn-danger btn-sm" (click)="removerSocio(i, $event)">
-						<i class="fa fa-trash"></i>
-					</button>
-				</div>
-			</div>
-			<div class="box-body collapse in" id="dadosSocio_{{i}}">
-				<div class="row">
-					<div class="col-md-2">
-						<div class="form-group">
-							<label>Tipo de Pessoa</label>
-							<div class="radio-group">
-								<label class="radio-inline">
-									<input type="radio" formControlName="tipoPessoa" [value]="tiposPessoa.fisica"> Física
-								</label>
-								<label class="radio-inline">
-									<input type="radio" formControlName="tipoPessoa" [value]="tiposPessoa.juridica"> Jurídica
-								</label>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-7" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.juridica">
-						<div class="form-group" [class.has-error]="group.controls.razaoSocial.invalid && group.controls.razaoSocial.dirty">
-							<label for="inputRazaoSocial_{{i}}">Razão Social</label>
-							<input type="text" class="form-control" id="inputRazaoSocial_{{i}}" formControlName="razaoSocial" maxlength="100"
-							required>
-						</div>
-					</div>
-					<div class="col-md-7" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.fisica">
-						<div class="form-group" [class.has-error]="group.controls.nome.invalid && group.controls.nome.dirty">
-							<label for="inputNome_{{i}}">Nome</label>
-							<input type="text" class="form-control" id="inputNome_{{i}}" formControlName="nome" maxlength="100" required>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<date-picker [label]="'Data de ' + (group.controls.tipoPessoa.value == tiposPessoa.fisica ? 'Nascimento' : 'Abertura')"
-							[formControl]="group.controls.aberturaNascimento" [id]="'inputAberturaNascimento_' + i"
-							[hasError]="group.controls.aberturaNascimento.invalid">
-						</date-picker>
-					</div>
-				</div>
-				<div class="row">
-					<div class="{{group.controls.tipoPessoa.value == tiposPessoa.fisica ? 'col-md-12' : 'col-md-6'}}" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.fisica">
-						<div class="form-group" [class.has-error]="group.controls.documento.invalid && group.controls.documento.dirty">
-							<label for="inputDocumento_{{i}}">CPF</label>
-							<input type="text" class="form-control" id="inputDocumento_{{i}}" formControlName="documento" mask="000.000.000-00"
-							minlength="11" required>
-						</div>
-					</div>
-					<div class="col-md-4" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.juridica">
-						<div class="form-group" [class.has-error]="group.controls.documento.invalid && group.controls.documento.dirty">
-							<label for="inputDocumento_{{i}}">CNPJ</label>
-							<input type="text" class="form-control" id="inputDocumento_{{i}}" formControlName="documento" mask="00.000.000/0000-00"
-							minlength="14" required>
-						</div>
-					</div>
-					<div class="col-md-4" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.juridica">
-						<div class="form-group" [class.has-error]="group.controls.inscricaoEstadual.invalid && group.controls.inscricaoEstadual.dirty">
-							<label for="inputInscricaoEstadual_{{i}}">Inscrição Estadual</label>
-							<div class="input-group">
-								<input type="text" class="form-control" id="inputInscricaoEstadual_{{i}}" formControlName="inscricaoEstadual"
-								 [attr.disabled]="inscricoes[i].inscricaoEstadualIsencao ? '' : null" maxlength="15" required>
-								<span class="input-group-addon">
-									<input 
-										type="checkbox"
-										[(ngModel)]="inscricoes[i].inscricaoEstadualIsencao"
-										[ngModelOptions]="{standalone: true}"
-										(change)="desabilitarInscricaoEstadual(group, i)">
-									<span style="margin-left: 3px; vertical-align: top;">Isento</span>
-								</span>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.juridica">
-						<div class="form-group" [class.has-error]="group.controls.inscricaoEstadual.invalid && group.controls.inscricaoEstadual.dirty">
-							<label for="inputInscricaoMunicipal_{{i}}">Inscrição Municipal</label>
-							<div class="input-group">
-								<input type="text" class="form-control" id="inputInscricaoMunicipal_{{i}}" formControlName="inscricaoMunicipal"
-								 [attr.disabled]="inscricoes[i].inscricaoMunicipalIsencao ? '' : null" maxlength="15" required>
-								<span class="input-group-addon">
-									<input
-										type="checkbox"
-										[(ngModel)]="inscricoes[i].inscricaoMunicipalIsencao"
-										[ngModelOptions]="{standalone: true}"
-										(change)="desabilitarInscricaoMunicipal(group, i)">
-									<span style="margin-left: 3px; vertical-align: top;">Isento</span>
-								</span>
-							</div>
-						</div>
-					</div>
+  <div class="box-group">
+    <div
+      class="box box-primary"
+      *ngFor="let group of socios.controls; let i = index"
+      [formGroup]="group"
+      [waitFor]="true"
+      url="true"
+    >
+      <div class="box-header with-border clickable" collapse="#dadosSocio_{{ i }}">
+        <h3 class="box-title">{{ group.controls.nome.value || 'Dados do Sócio' }}</h3>
+        <div class="box-tools pull-right" [hidden]="socios.controls.length <= 1">
+          <button type="button" class="btn btn-danger btn-sm" (click)="removerSocio(i, $event)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+      </div>
+      <div class="box-body collapse in" id="dadosSocio_{{ i }}">
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group">
+              <label>Tipo de Pessoa</label>
+              <div class="radio-group">
+                <label class="radio-inline">
+                  <input type="radio" formControlName="tipoPessoa" [value]="tiposPessoa.fisica" />
+                  Física
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" formControlName="tipoPessoa" [value]="tiposPessoa.juridica" />
+                  Jurídica
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.juridica">
+            <div
+              class="form-group"
+              [class.has-error]="
+                group.controls.razaoSocial.invalid && group.controls.razaoSocial.dirty
+              "
+            >
+              <label for="inputRazaoSocial_{{ i }}">Razão Social</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputRazaoSocial_{{ i }}"
+                formControlName="razaoSocial"
+                maxlength="100"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-7" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.fisica">
+            <div
+              class="form-group"
+              [class.has-error]="group.controls.nome.invalid && group.controls.nome.dirty"
+            >
+              <label for="inputNome_{{ i }}">Nome</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputNome_{{ i }}"
+                formControlName="nome"
+                maxlength="100"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <date-picker
+              [label]="
+                'Data de ' +
+                (group.controls.tipoPessoa.value == tiposPessoa.fisica ? 'Nascimento' : 'Abertura')
+              "
+              [formControl]="group.controls.aberturaNascimento"
+              [id]="'inputAberturaNascimento_' + i"
+              [hasError]="group.controls.aberturaNascimento.invalid"
+            >
+            </date-picker>
+          </div>
+        </div>
+        <div class="row">
+          <div
+            class="{{
+              group.controls.tipoPessoa.value == tiposPessoa.fisica ? 'col-md-12' : 'col-md-6'
+            }}"
+            *ngIf="group.controls.tipoPessoa.value == tiposPessoa.fisica"
+          >
+            <div
+              class="form-group"
+              [class.has-error]="group.controls.documento.invalid && group.controls.documento.dirty"
+            >
+              <label for="inputDocumento_{{ i }}">CPF</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputDocumento_{{ i }}"
+                formControlName="documento"
+                mask="000.000.000-00"
+                minlength="11"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-4" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.juridica">
+            <div
+              class="form-group"
+              [class.has-error]="group.controls.documento.invalid && group.controls.documento.dirty"
+            >
+              <label for="inputDocumento_{{ i }}">CNPJ</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputDocumento_{{ i }}"
+                formControlName="documento"
+                mask="00.000.000/0000-00"
+                minlength="14"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-4" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.juridica">
+            <div
+              class="form-group"
+              [class.has-error]="
+                group.controls.inscricaoEstadual.invalid && group.controls.inscricaoEstadual.dirty
+              "
+            >
+              <label for="inputInscricaoEstadual_{{ i }}">Inscrição Estadual</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputInscricaoEstadual_{{ i }}"
+                  formControlName="inscricaoEstadual"
+                  [attr.disabled]="inscricoes[i].inscricaoEstadualIsencao ? '' : null"
+                  maxlength="15"
+                  required
+                />
+                <span class="input-group-addon">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="inscricoes[i].inscricaoEstadualIsencao"
+                    [ngModelOptions]="{ standalone: true }"
+                    (change)="desabilitarInscricaoEstadual(group, i)"
+                  />
+                  <span style="margin-left: 3px; vertical-align: top;">Isento</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.juridica">
+            <div
+              class="form-group"
+              [class.has-error]="
+                group.controls.inscricaoEstadual.invalid && group.controls.inscricaoEstadual.dirty
+              "
+            >
+              <label for="inputInscricaoMunicipal_{{ i }}">Inscrição Municipal</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputInscricaoMunicipal_{{ i }}"
+                  formControlName="inscricaoMunicipal"
+                  [attr.disabled]="inscricoes[i].inscricaoMunicipalIsencao ? '' : null"
+                  maxlength="15"
+                  required
+                />
+                <span class="input-group-addon">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="inscricoes[i].inscricaoMunicipalIsencao"
+                    [ngModelOptions]="{ standalone: true }"
+                    (change)="desabilitarInscricaoMunicipal(group, i)"
+                  />
+                  <span style="margin-left: 3px; vertical-align: top;">Isento</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.juridica">
+            <div
+              class="form-group"
+              [class.has-error]="group.controls.nome.invalid && group.controls.nome.dirty"
+            >
+              <label for="inputNome_{{ i }}">Nome Fantasia</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputNome_{{ i }}"
+                formControlName="nome"
+                maxlength="100"
+                required
+              />
+            </div>
+          </div>
+          <div
+            class="{{
+              group.controls.tipoPessoa.value == tiposPessoa.fisica ? 'col-xs-12' : 'col-md-6'
+            }}"
+          >
+            <div
+              class="form-group"
+              [class.has-error]="group.controls.email.invalid && group.controls.email.dirty"
+            >
+              <label for="inputEmail_{{ i }}">E-mail</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputEmail_{{ i }}"
+                formControlName="email"
+                maxlength="200"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <input-telefone
+              [hasError]="group.controls.telefone.invalid"
+              [control]="group.controls.telefone"
+              label="Telefone"
+              id="inputTelefone_{{ i }}"
+            >
+            </input-telefone>
+          </div>
+          <div class="col-md-3" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.fisica">
+            <input-telefone
+              [hasError]="group.controls.celular.invalid"
+              [control]="group.controls.celular"
+              label="Celular"
+              id="inputCelular_{{ i }}"
+            >
+            </input-telefone>
+          </div>
+          <div class="col-md-3">
+            <div
+              class="form-group"
+              [class.has-error]="
+                group.controls.participacao.invalid && group.controls.participacao.dirty
+              "
+            >
+              <label for="inputParticipacao_{{ i }}">Participação</label>
+              <div class="input-group date">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputParticipacao_{{ i }}"
+                  formControlName="participacao"
+                  currencyMask
+                  maxlength="6"
+                  required
+                />
+                <label class="input-group-addon" for="inputDataNascimento">%</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.fisica">
+            <div class="form-group">
+              <label for="checkboxContato_{{ i }}">Marcar como contato para instalação</label>
+              <div>
+                <input
+                  type="checkbox"
+                  id="checkboxContato_{{ i }}"
+                  formControlName="contato"
+                  switch="small"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-				</div>
-				<div class="row">
-					<div class="col-md-6" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.juridica">
-						<div class="form-group" [class.has-error]="group.controls.nome.invalid && group.controls.nome.dirty">
-							<label for="inputNome_{{i}}">Nome Fantasia</label>
-							<input type="text" class="form-control" id="inputNome_{{i}}" formControlName="nome" maxlength="100" required>
-						</div>
-					</div>
-					<div class="{{ group.controls.tipoPessoa.value == tiposPessoa.fisica ? 'col-xs-12' : 'col-md-6' }}">
-						<div class="form-group" [class.has-error]="group.controls.email.invalid && group.controls.email.dirty">
-							<label for="inputEmail_{{i}}">E-mail</label>
-							<input type="text" class="form-control" id="inputEmail_{{i}}" formControlName="email" maxlength="200" required>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3">
-						<input-telefone [hasError]="group.controls.telefone.invalid" [control]="group.controls.telefone" label="Telefone" id="inputTelefone_{{i}}">
-						</input-telefone>
-					</div>
-					<div class="col-md-3" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.fisica">
-							<input-telefone [hasError]="group.controls.celular.invalid" [control]="group.controls.celular" label="Celular" id="inputCelular_{{i}}">
-							</input-telefone>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group" [class.has-error]="group.controls.participacao.invalid && group.controls.participacao.dirty">
-							<label for="inputParticipacao_{{i}}">Participação</label>
-							<div class="input-group date">
-								<input type="text" class="form-control" id="inputParticipacao_{{i}}" formControlName="participacao"
-								currencyMask maxlength="6" required>
-								<label class="input-group-addon" for="inputDataNascimento">%</label>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3" *ngIf="group.controls.tipoPessoa.value == tiposPessoa.fisica">
-						<div class="form-group">
-							<label for="checkboxContato_{{i}}">Marcar como contato para instalação</label>
-							<div>
-								<input type="checkbox" id="checkboxContato_{{i}}" formControlName="contato" switch="small">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+    <div class="box box-primary">
+      <div class="box-header with-border clickable" (click)="adicionarSocio()" collapse>
+        <h3 class="box-title">Adicionar outro sócio</h3>
+      </div>
+    </div>
+  </div>
 
-		<div class="box box-primary">
-			<div class="box-header with-border clickable" (click)="adicionarSocio()" collapse>
-				<h3 class="box-title">Adicionar outro sócio</h3>
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-xs-6 text-right">
-			<button class="btn btn-default btn-wlg" (click)="goBack()">Voltar</button>
-		</div>
-		<div class="col-xs-6 text-left">
-			<button class="btn btn-primary btn-wlg" (click)="submitForm()">Prosseguir</button>
-		</div>
-	</div>
+  <div class="row">
+    <div class="col-xs-6 text-right">
+      <button class="btn btn-default btn-wlg" (click)="goBack()">Voltar</button>
+    </div>
+    <div class="col-xs-6 text-left">
+      <button class="btn btn-primary btn-wlg" (click)="submitForm()">Prosseguir</button>
+    </div>
+  </div>
 </section>

@@ -1,27 +1,26 @@
-.thumbnail .row>label.control-label {
-    margin-top: 4px;
+.thumbnail .row > label.control-label {
+  margin-top: 4px;
 }
 
 .thumbnail {
-    margin-right: 4px;
+  margin-right: 4px;
 }
 
 .capturas {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
-.gray{
-    color: #aaabaa
+.gray {
+  color: #aaabaa;
 }
 
-.mb-5{
-    margin-bottom: 5px;
+.mb-5 {
+  margin-bottom: 5px;
 }
 
 @media (max-width: 700px) {
-    .capturas {
-        flex-direction: column;
-    }
-
+  .capturas {
+    flex-direction: column;
+  }
 }

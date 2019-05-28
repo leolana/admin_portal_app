@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { Horarios, IDadosInstalacao } from 'src/app/interfaces/credenciamento';
 
 @Component({
-    selector: 'alpe-credenciamento-status-instalacao',
-    templateUrl: './credenciamento-status-instalacao.component.html'
+  selector: 'alpe-credenciamento-status-instalacao',
+  templateUrl: './credenciamento-status-instalacao.component.html',
 })
 export class CredenciamentoStatusInstalacaoComponent {
-    @Input() dados: IDadosInstalacao;
+  @Input() dados: IDadosInstalacao;
 
-    horarios = Horarios;
+  horarios = Horarios;
 }

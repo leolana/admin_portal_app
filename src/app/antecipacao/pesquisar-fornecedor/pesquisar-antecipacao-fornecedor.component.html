@@ -1,156 +1,185 @@
 <app-content-header title="Antecipações Realizadas"></app-content-header>
 
 <section class="content antecipacoes-fornecedor">
-
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Filtros</h3>
-        </div>
-        <div class="box-body" [formGroup]="form">
-            <div class="row">
-                <div class="col-md-3">
-                    <date-picker label="Data da Solicitação (início)" [formControl]="controls.dataSolicitacaoInicio"
-                        id="inputDataSolicitacaoInicio" [hasError]="hasError.dataSolicitacaoInicio()">
-                    </date-picker>
-                </div>
-                <div class="col-md-3">
-                    <date-picker label="Data da Solicitação (fim)" [formControl]="controls.dataSolicitacaoFim"
-                        id="inputDataSolicitacaoFim" [hasError]="hasError.dataSolicitacaoFim()">
-                    </date-picker>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group" [class.has-error]="controls.bandeirasIds | hasError">
-                        <label for="selectBandeira">Bandeira</label>
-                        <select class="form-control" id="selectBandeira" [alpeSelect2]="controls.bandeirasIds" multiple>
-                            <option *ngFor="let item of combos.bandeiras" [value]="item.id">
-                                {{ item.text }}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group" [class.has-error]="controls.produtoId | hasError">
-                        <label for="selectProduto">Produto</label>
-                        <select class="form-control" id="selectProduto" [alpeSelect2]="controls.produtoId" multiple>
-                            <option *ngFor="let item of combos.produtos" [value]="item.id">
-                                {{ item.nome }}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <button type="button" class="btn btn-primary pull-right mr-15" (click)="filter()">Pesquisar</button>
-            <button type="button" class="btn btn-default pull-right mr-15" (click)="clearFilter()">Limpar</button>
-        </div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Filtros</h3>
     </div>
-
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Resultado</h3>
+    <div class="box-body" [formGroup]="form">
+      <div class="row">
+        <div class="col-md-3">
+          <date-picker
+            label="Data da Solicitação (início)"
+            [formControl]="controls.dataSolicitacaoInicio"
+            id="inputDataSolicitacaoInicio"
+            [hasError]="hasError.dataSolicitacaoInicio()"
+          >
+          </date-picker>
         </div>
-        <div class="box-body no-padding">
-
-            <div class="cards" *ngIf="mobile">
-                <ng-container *ngFor="let antecipacao of table">
-                    <div class="card" [class.debito-card]="isDebit(antecipacao)">
-                        <div class="card-row" *ngIf="antecipacao.dataVenda">
-                            <span class="small">Data da Solicitação</span>
-                            <label>{{ antecipacao.dataAntecipacaoIso }}</label>
-                        </div>
-                        <div class="card-row" *ngIf="antecipacao.codigo">
-                            <span class="small">Código da Antecipação</span>
-                            <label>{{ antecipacao.codigo }}</label>
-                        </div>
-                        <div class="card-row" *ngIf="antecipacao.valorSolicitado">
-                            <span class="small">Valor Solicitado</span>
-                            <label
-                                [class.debito]="isDebit(antecipacao)">{{ antecipacao.valorSolicitado | currency:'BRL':'symbol':'1.2-2' }}</label>
-                        </div>
-                        <div class="card-row" *ngIf="antecipacao.bandeiraId">
-                            <span class="small">Bandeira</span>
-                            <label>{{ antecipacao.bandeira.nome}}</label>
-                        </div>
-                        <div class="card-row" *ngIf="antecipacao.eventoId">
-                            <span class="small">Produto</span>
-                            <label>{{ antecipacao.evento.nome}}</label>
-                        </div>
-                        <div class="card-row" *ngIf="antecipacao.taxaAntecipacao">
-                            <span class="small">% Taxa e Antecipação</span>
-                            <label>{{ antecipacao.taxaAntecipacao}} {{isDebit(antecipacao) ? '' : '%'}}</label>
-                        </div>
-                        <div class="card-row" *ngIf="antecipacao.descontoAntecipacao">
-                            <span class="small">Valor do Desconto Antecipação</span>
-                            <label>{{ antecipacao.descontoAntecipacao | currency:'BRL' }}</label>
-                        </div>
-                        <div class="card-row" *ngIf="antecipacao.valorAntecipado">
-                            <span class="small">Valor Líquido Antecipado</span>
-                            <label>{{ antecipacao.valorAntecipado | currency:'BRL':'symbol':'1.2-2' }}</label>
-                        </div>
-                        <div class="card-row" *ngIf="antecipacao.dataPagamento">
-                            <span class="small">Data de Pagamento</span>
-                            <label>{{ antecipacao.dataPagamentoIso }}</label>
-                        </div>
-                        <div class="card-row" *ngIf="antecipacao.domicilioBancario">
-                            <span class="small">Domicilio Bancário</span>
-                            <label>{{ antecipacao.domicilioBancario }}</label>
-                        </div>
-                    </div>
-                </ng-container>
-
-                <ng-container>
-                    <div class="card">
-                        <div class="card-row">
-                            <span class="small">Total Líquido Antecipado:</span>
-                            <label>{{ total | currency:'BRL':'symbol':'1.2-2' }}</label>
-                        </div>
-                    </div>
-                </ng-container>
-            </div>
-
-            <div class="table-responsive" *ngIf="!mobile">
-                <table class="table table-primary table-striped table-hover text-center table-nowrap table-primary"
-                    [hidden]="!table.length">
-                    <thead>
-                        <th>Data da Solicitação</th>
-                        <th>Código da Antecipação</th>
-                        <th>Valor Solicitado</th>
-                        <th>Bandeira</th>
-                        <th>Produto</th>
-                        <th>% Taxa de Antecipação</th>
-                        <th>Valor do Desconto Antecipação</th>
-                        <th>Valor Líquido Antecipado</th>
-                        <th>Data de Pagamento</th>
-                        <th>Domicilio Bancário </th>
-                    </thead>
-                    <tbody>
-                        <ng-container *ngFor="let antecipacao of table">
-                            <tr [class.debito]="isDebit(antecipacao)">
-                                <td>{{ antecipacao.dataAntecipacaoIso }}</td>
-                                <td>{{ antecipacao.codigo }}</td>
-                                <td>{{ antecipacao.valorSolicitado | currency:'BRL':'symbol':'1.2-2' }}</td>
-                                <td>{{ antecipacao.bandeiraId ?  antecipacao.bandeira.nome : '-'}} </td>
-                                <td>{{ antecipacao.eventoId && !isDebit(antecipacao) ? antecipacao.evento.nome : '-'}}
-                                </td>
-                                <td>{{ antecipacao.taxaAntecipacao}} {{isDebit(antecipacao) ? '' : '%'}}</td>
-                                <td>{{ isDebit(antecipacao) ? '-' : antecipacao.descontoAntecipacao | currency:'BRL' }}
-                                </td>
-                                <td>{{ antecipacao.valorAntecipado | currency:'BRL':'symbol':'1.2-2' }}</td>
-                                <td>{{ antecipacao.dataPagamentoIso }}</td>
-                                <td>{{ antecipacao.domicilioBancario }}</td>
-                            </tr>
-                        </ng-container>
-                    </tbody>
-                </table>
-            </div>
-            <div class="total-recebivel" *ngIf="!mobile">
-                <strong class="pull-right large">Total líquido antecipado:
-                    {{ total | currency:'BRL':'symbol':'1.2-2'}}</strong>
-            </div>
-
-            <p class="no-records-found" [hidden]="table.length">
-                Nenhum registro encontrado
-            </p>
+        <div class="col-md-3">
+          <date-picker
+            label="Data da Solicitação (fim)"
+            [formControl]="controls.dataSolicitacaoFim"
+            id="inputDataSolicitacaoFim"
+            [hasError]="hasError.dataSolicitacaoFim()"
+          >
+          </date-picker>
         </div>
+        <div class="col-md-3">
+          <div class="form-group" [class.has-error]="controls.bandeirasIds | hasError">
+            <label for="selectBandeira">Bandeira</label>
+            <select
+              class="form-control"
+              id="selectBandeira"
+              [alpeSelect2]="controls.bandeirasIds"
+              multiple
+            >
+              <option *ngFor="let item of combos.bandeiras" [value]="item.id">
+                {{ item.text }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group" [class.has-error]="controls.produtoId | hasError">
+            <label for="selectProduto">Produto</label>
+            <select
+              class="form-control"
+              id="selectProduto"
+              [alpeSelect2]="controls.produtoId"
+              multiple
+            >
+              <option *ngFor="let item of combos.produtos" [value]="item.id">
+                {{ item.nome }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary pull-right mr-15" (click)="filter()">
+        Pesquisar
+      </button>
+      <button type="button" class="btn btn-default pull-right mr-15" (click)="clearFilter()">
+        Limpar
+      </button>
     </div>
+  </div>
 
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Resultado</h3>
+    </div>
+    <div class="box-body no-padding">
+      <div class="cards" *ngIf="mobile">
+        <ng-container *ngFor="let antecipacao of table">
+          <div class="card" [class.debito-card]="isDebit(antecipacao)">
+            <div class="card-row" *ngIf="antecipacao.dataVenda">
+              <span class="small">Data da Solicitação</span>
+              <label>{{ antecipacao.dataAntecipacaoIso }}</label>
+            </div>
+            <div class="card-row" *ngIf="antecipacao.codigo">
+              <span class="small">Código da Antecipação</span>
+              <label>{{ antecipacao.codigo }}</label>
+            </div>
+            <div class="card-row" *ngIf="antecipacao.valorSolicitado">
+              <span class="small">Valor Solicitado</span>
+              <label [class.debito]="isDebit(antecipacao)">{{
+                antecipacao.valorSolicitado | currency: 'BRL':'symbol':'1.2-2'
+              }}</label>
+            </div>
+            <div class="card-row" *ngIf="antecipacao.bandeiraId">
+              <span class="small">Bandeira</span>
+              <label>{{ antecipacao.bandeira.nome }}</label>
+            </div>
+            <div class="card-row" *ngIf="antecipacao.eventoId">
+              <span class="small">Produto</span>
+              <label>{{ antecipacao.evento.nome }}</label>
+            </div>
+            <div class="card-row" *ngIf="antecipacao.taxaAntecipacao">
+              <span class="small">% Taxa e Antecipação</span>
+              <label>{{ antecipacao.taxaAntecipacao }} {{ isDebit(antecipacao) ? '' : '%' }}</label>
+            </div>
+            <div class="card-row" *ngIf="antecipacao.descontoAntecipacao">
+              <span class="small">Valor do Desconto Antecipação</span>
+              <label>{{ antecipacao.descontoAntecipacao | currency: 'BRL' }}</label>
+            </div>
+            <div class="card-row" *ngIf="antecipacao.valorAntecipado">
+              <span class="small">Valor Líquido Antecipado</span>
+              <label>{{ antecipacao.valorAntecipado | currency: 'BRL':'symbol':'1.2-2' }}</label>
+            </div>
+            <div class="card-row" *ngIf="antecipacao.dataPagamento">
+              <span class="small">Data de Pagamento</span>
+              <label>{{ antecipacao.dataPagamentoIso }}</label>
+            </div>
+            <div class="card-row" *ngIf="antecipacao.domicilioBancario">
+              <span class="small">Domicilio Bancário</span>
+              <label>{{ antecipacao.domicilioBancario }}</label>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container>
+          <div class="card">
+            <div class="card-row">
+              <span class="small">Total Líquido Antecipado:</span>
+              <label>{{ total | currency: 'BRL':'symbol':'1.2-2' }}</label>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="table-responsive" *ngIf="!mobile">
+        <table
+          class="table table-primary table-striped table-hover text-center table-nowrap table-primary"
+          [hidden]="!table.length"
+        >
+          <thead>
+            <th>Data da Solicitação</th>
+            <th>Código da Antecipação</th>
+            <th>Valor Solicitado</th>
+            <th>Bandeira</th>
+            <th>Produto</th>
+            <th>% Taxa de Antecipação</th>
+            <th>Valor do Desconto Antecipação</th>
+            <th>Valor Líquido Antecipado</th>
+            <th>Data de Pagamento</th>
+            <th>Domicilio Bancário</th>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let antecipacao of table">
+              <tr [class.debito]="isDebit(antecipacao)">
+                <td>{{ antecipacao.dataAntecipacaoIso }}</td>
+                <td>{{ antecipacao.codigo }}</td>
+                <td>{{ antecipacao.valorSolicitado | currency: 'BRL':'symbol':'1.2-2' }}</td>
+                <td>{{ antecipacao.bandeiraId ? antecipacao.bandeira.nome : '-' }}</td>
+                <td>
+                  {{
+                    antecipacao.eventoId && !isDebit(antecipacao) ? antecipacao.evento.nome : '-'
+                  }}
+                </td>
+                <td>{{ antecipacao.taxaAntecipacao }} {{ isDebit(antecipacao) ? '' : '%' }}</td>
+                <td>
+                  {{
+                    isDebit(antecipacao) ? '-' : (antecipacao.descontoAntecipacao | currency: 'BRL')
+                  }}
+                </td>
+                <td>{{ antecipacao.valorAntecipado | currency: 'BRL':'symbol':'1.2-2' }}</td>
+                <td>{{ antecipacao.dataPagamentoIso }}</td>
+                <td>{{ antecipacao.domicilioBancario }}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <div class="total-recebivel" *ngIf="!mobile">
+        <strong class="pull-right large"
+          >Total líquido antecipado: {{ total | currency: 'BRL':'symbol':'1.2-2' }}</strong
+        >
+      </div>
+
+      <p class="no-records-found" [hidden]="table.length">
+        Nenhum registro encontrado
+      </p>
+    </div>
+  </div>
 </section>

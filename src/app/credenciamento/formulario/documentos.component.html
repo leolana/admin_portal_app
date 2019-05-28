@@ -1,117 +1,175 @@
-<app-content-header title="Credenciamento Pessoa {{ tiposPessoa.descricoes[tipoPessoa] }}"></app-content-header>
+<app-content-header
+  title="Credenciamento Pessoa {{ tiposPessoa.descricoes[tipoPessoa] }}"
+></app-content-header>
 <app-wizard [steps]="steps" [tipoPessoa]="tipoPessoa" [config]="wizardConfig"></app-wizard>
 <section class="content">
-	<div class="box box-primary">
-		<div class="box-header with-border">
-			<h3 class="box-title">Documentos</h3>
-		</div>
-		<div class="box-body">
-			<form class="form-horizontal" [formGroup]="formDocumentos" url="true" [waitFor]="loaded">
-				<div class="form-group" *ngIf="tipoPessoa == tiposPessoa.fisica"
-					[class.has-error]="identidade.invalid && identidade.dirty">
-					<label for="inputIdentidade" class="col-sm-4 control-label">Documento de Identidade</label>
-					<div class="col-sm-8">
-						<div class="input-group">
-							<span class="input-group-btn">
-								<label class="btn btn-primary input-file" for="inputIdentidade">
-									<i class="fa fa-folder-open"></i>
-								</label>
-									<input id="inputIdentidade" type="file" hidden
-										(change)="bindFile('identidade', $event)">
-								<label *ngIf="(identidade.value || {}).edicao" class="btn btn-success"
-									(click)="download(identidade)">
-									<i class="fa fa-download"></i>
-								</label>
-							</span>
-							<input type="text" class="form-control" readonly [value]="identidadeFileName">
-						</div>
-					</div>
-				</div>
-				<div class="form-group" *ngIf="tipoPessoa == tiposPessoa.fisica"
-					[class.has-error]="comprovanteDeResidencia.invalid && comprovanteDeResidencia.dirty">
-					<label for="inputComprovanteDeResidencia" class="col-sm-4 control-label">Comprovante de
-						Residência</label>
-					<div class="col-sm-8">
-						<div class="input-group">
-							<span class="input-group-btn">
-								<label class="btn btn-primary input-file" for="inputComprovanteDeResidencia">
-									<i class="fa fa-folder-open"></i>
-								</label>
-									<input id="inputComprovanteDeResidencia" type="file" hidden
-										(change)="bindFile('comprovanteDeResidencia', $event)">
-								<label *ngIf="(comprovanteDeResidencia.value || {}).edicao" class="btn btn-success"
-									(click)="download(comprovanteDeResidencia)">
-									<i class="fa fa-download"></i>
-								</label>
-							</span>
-							<input type="text" class="form-control" readonly [value]="comprovanteDeResidenciaFileName">
-						</div>
-					</div>
-				</div>
-				<div class="form-group" *ngIf="tipoPessoa == tiposPessoa.juridica"
-					[class.has-error]="contratoSocial.invalid && contratoSocial.dirty">
-					<label for="inputContratoSocial" class="col-sm-4 control-label">Contrato Social</label>
-					<div class="col-sm-8">
-						<div class="input-group">
-							<span class="input-group-btn">
-								<label class="btn btn-primary input-file" for="inputContratoSocial">
-									<i class="fa fa-folder-open"></i>
-								</label>
-								<input id="inputContratoSocial" type="file" hidden
-									(change)="bindFile('contratoSocial', $event)">
-								<label *ngIf="(contratoSocial.value || {}).edicao" class="btn btn-success"
-									(click)="download(contratoSocial)">
-									<i class="fa fa-download"></i>
-								</label>
-							</span>
-							<input type="text" class="form-control" readonly [value]="contratoSocialFileName">
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Documentos</h3>
+    </div>
+    <div class="box-body">
+      <form class="form-horizontal" [formGroup]="formDocumentos" url="true" [waitFor]="loaded">
+        <div
+          class="form-group"
+          *ngIf="tipoPessoa == tiposPessoa.fisica"
+          [class.has-error]="identidade.invalid && identidade.dirty"
+        >
+          <label for="inputIdentidade" class="col-sm-4 control-label"
+            >Documento de Identidade</label
+          >
+          <div class="col-sm-8">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label class="btn btn-primary input-file" for="inputIdentidade">
+                  <i class="fa fa-folder-open"></i>
+                </label>
+                <input
+                  id="inputIdentidade"
+                  type="file"
+                  hidden
+                  (change)="bindFile('identidade', $event)"
+                />
+                <label
+                  *ngIf="(identidade.value || {}).edicao"
+                  class="btn btn-success"
+                  (click)="download(identidade)"
+                >
+                  <i class="fa fa-download"></i>
+                </label>
+              </span>
+              <input type="text" class="form-control" readonly [value]="identidadeFileName" />
+            </div>
+          </div>
+        </div>
+        <div
+          class="form-group"
+          *ngIf="tipoPessoa == tiposPessoa.fisica"
+          [class.has-error]="comprovanteDeResidencia.invalid && comprovanteDeResidencia.dirty"
+        >
+          <label for="inputComprovanteDeResidencia" class="col-sm-4 control-label"
+            >Comprovante de Residência</label
+          >
+          <div class="col-sm-8">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label class="btn btn-primary input-file" for="inputComprovanteDeResidencia">
+                  <i class="fa fa-folder-open"></i>
+                </label>
+                <input
+                  id="inputComprovanteDeResidencia"
+                  type="file"
+                  hidden
+                  (change)="bindFile('comprovanteDeResidencia', $event)"
+                />
+                <label
+                  *ngIf="(comprovanteDeResidencia.value || {}).edicao"
+                  class="btn btn-success"
+                  (click)="download(comprovanteDeResidencia)"
+                >
+                  <i class="fa fa-download"></i>
+                </label>
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                readonly
+                [value]="comprovanteDeResidenciaFileName"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="form-group"
+          *ngIf="tipoPessoa == tiposPessoa.juridica"
+          [class.has-error]="contratoSocial.invalid && contratoSocial.dirty"
+        >
+          <label for="inputContratoSocial" class="col-sm-4 control-label">Contrato Social</label>
+          <div class="col-sm-8">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label class="btn btn-primary input-file" for="inputContratoSocial">
+                  <i class="fa fa-folder-open"></i>
+                </label>
+                <input
+                  id="inputContratoSocial"
+                  type="file"
+                  hidden
+                  (change)="bindFile('contratoSocial', $event)"
+                />
+                <label
+                  *ngIf="(contratoSocial.value || {}).edicao"
+                  class="btn btn-success"
+                  (click)="download(contratoSocial)"
+                >
+                  <i class="fa fa-download"></i>
+                </label>
+              </span>
+              <input type="text" class="form-control" readonly [value]="contratoSocialFileName" />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
-	<div class="box box-primary">
-		<div class="box-header with-border">
-			<h3 class="box-title">Extratos Bancários</h3>
-		</div>
-		<div class="box-body">
-			<form class="form-horizontal" [formGroup]="formDocumentos">
-				<div class="form-group" *ngFor="let conta of domicilioBancario; let i = index"
-					[class.has-error]="conta.control.invalid && conta.control.dirty">
-					<label for="inputExtrato_{{i}}" class="col-sm-4 control-label">{{ conta.descricao }}</label>
-					<div class="col-sm-8">
-						<div class="input-group">
-							<span class="input-group-btn">
-								<label class="btn btn-primary input-file" for="inputExtrato_{{i}}">
-									<i class="fa fa-folder-open"></i>
-								</label>
-								<input id="inputExtrato_{{i}}" type="file" hidden
-									(change)="bindFile('extratosBancarios', $event, i)">
-								<label *ngIf="(conta.control.value || {}).edicao" class="btn btn-success"
-									(click)="downloadExtrato(conta.control, i)">
-									<i class="fa fa-download"></i>
-								</label>
-							</span>
-							<input type="text" class="form-control" readonly
-								[value]="conta.control.value ? conta.control.value.nomeArquivo : ''">
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-		<div class="box-body size-reminder">
-			O tamanho total dos arquivos selecionados não deve ultrapassar 20MB.
-		</div>
-	</div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Extratos Bancários</h3>
+    </div>
+    <div class="box-body">
+      <form class="form-horizontal" [formGroup]="formDocumentos">
+        <div
+          class="form-group"
+          *ngFor="let conta of domicilioBancario; let i = index"
+          [class.has-error]="conta.control.invalid && conta.control.dirty"
+        >
+          <label for="inputExtrato_{{ i }}" class="col-sm-4 control-label">{{
+            conta.descricao
+          }}</label>
+          <div class="col-sm-8">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label class="btn btn-primary input-file" for="inputExtrato_{{ i }}">
+                  <i class="fa fa-folder-open"></i>
+                </label>
+                <input
+                  id="inputExtrato_{{ i }}"
+                  type="file"
+                  hidden
+                  (change)="bindFile('extratosBancarios', $event, i)"
+                />
+                <label
+                  *ngIf="(conta.control.value || {}).edicao"
+                  class="btn btn-success"
+                  (click)="downloadExtrato(conta.control, i)"
+                >
+                  <i class="fa fa-download"></i>
+                </label>
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                readonly
+                [value]="conta.control.value ? conta.control.value.nomeArquivo : ''"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="box-body size-reminder">
+      O tamanho total dos arquivos selecionados não deve ultrapassar 20MB.
+    </div>
+  </div>
 
-	<div class="row">
-		<div class="col-xs-6 text-right">
-			<button type="button" class="btn btn-default btn-wlg" (click)="goBack()">Voltar</button>
-		</div>
-		<div class="col-xs-6 text-left">
-			<button type="button" class="btn btn-primary btn-wlg" (click)="submitForm()">Prosseguir</button>
-		</div>
-	</div>
+  <div class="row">
+    <div class="col-xs-6 text-right">
+      <button type="button" class="btn btn-default btn-wlg" (click)="goBack()">Voltar</button>
+    </div>
+    <div class="col-xs-6 text-left">
+      <button type="button" class="btn btn-primary btn-wlg" (click)="submitForm()">
+        Prosseguir
+      </button>
+    </div>
+  </div>
 </section>

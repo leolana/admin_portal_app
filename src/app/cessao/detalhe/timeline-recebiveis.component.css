@@ -1,64 +1,64 @@
-.timeline-wrapper>div {
-    margin-bottom: 15px;
-    padding: 5px 10px;
-    cursor: pointer;
+.timeline-wrapper > div {
+  margin-bottom: 15px;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
 .timeline {
-    display: none;
-    overflow: hidden;
-    margin: 0;
+  display: none;
+  overflow: hidden;
+  margin: 0;
 }
 
 .timeline:before {
-    margin-bottom: 30px;
-    background: #f0f1f3;
+  margin-bottom: 30px;
+  background: #f0f1f3;
 }
 
-.timeline>li>.timeline-item>.timeline-header:hover {
-    background-color: #f7f7f7;
-    border-radius: 5px;
+.timeline > li > .timeline-item > .timeline-header:hover {
+  background-color: #f7f7f7;
+  border-radius: 5px;
 }
 
-.timeline>li>.fa {
-    background: #f0f1f3;
-    color: #a0a0a0;
+.timeline > li > .fa {
+  background: #f0f1f3;
+  color: #a0a0a0;
 }
 
-.timeline>li>.timeline-item>.timeline-header {
-    border-bottom: 0;
+.timeline > li > .timeline-item > .timeline-header {
+  border-bottom: 0;
 }
 
-.timeline>li>.timeline-item {
-    box-shadow: none;
+.timeline > li > .timeline-item {
+  box-shadow: none;
 }
 
 .margin-l-10 {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .small {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .block {
-    display: block;
+  display: block;
 }
 
 @media (max-width: 992px) {
-    .cession-flag {
-        display: none;
-    }
+  .cession-flag {
+    display: none;
+  }
 }
 
 .timeline-head {
-    display: flex;
+  display: flex;
 }
 
 .timeline-head > div {
-    flex: 1;
+  flex: 1;
 }
 
 .timeline-head > div:nth-child(2) {
-    text-align: right;
+  text-align: right;
 }

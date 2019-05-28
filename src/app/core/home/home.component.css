@@ -1,66 +1,65 @@
 body > app-root > router-outlet + ng-component {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: #f9fafc;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #f9fafc;
 }
 
 .app-content {
-    display: flex;
-    position: relative;
-    min-height: calc(100% - 51px);
+  display: flex;
+  position: relative;
+  min-height: calc(100% - 51px);
 }
 
 aside.main-sidebar {
-    position: relative;
-    padding-top: 0;
+  position: relative;
+  padding-top: 0;
 }
 
-.content-wrapper, .right-side {
-    min-height: unset;
+.content-wrapper,
+.right-side {
+  min-height: unset;
 }
-
-
 
 app-menu {
-    width: auto;
-    height: 100%;
+  width: auto;
+  height: 100%;
 }
 
-@media (max-width : 768px) { 
-    app-menu {
-        width: 0;
-    }
+@media (max-width: 768px) {
+  app-menu {
+    width: 0;
+  }
 }
 
 .content-main {
-    width: 0;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
+  width: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .content-wrapper {
-    flex-grow: 1;
-    margin-left: 0;
+  flex-grow: 1;
+  margin-left: 0;
 }
 
 .main-footer {
-    margin-left: 0;
+  margin-left: 0;
 }
 
 .sidebar-mini.sidebar-collapse .content-wrapper,
 .sidebar-mini.sidebar-collapse .main-footer {
-    margin-left: 0 !important;
+  margin-left: 0 !important;
 }
 
 footer {
-    word-break: break-all;
+  word-break: break-all;
 }
 
 .content-wrapper,
 .modal,
 .content,
 .content-header {
-    max-width: 100vw;
+  max-width: 100vw;
 }

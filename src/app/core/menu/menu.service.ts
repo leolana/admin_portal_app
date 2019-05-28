@@ -4,20 +4,18 @@ import { ExportProfile, MenuViewModel } from './menu.component';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class MenuService {
-    constructor(
-        private http: HttpClient
-    ) { }
+  constructor(private http: HttpClient) {}
 
-    getMenuViewModel() {
-        const url = `${environment.apiUrl}/menu`;
-        return this.http.get<MenuViewModel>(url);
-    }
+  getMenuViewModel() {
+    const url = `${environment.apiUrl}/menu`;
+    return this.http.get<MenuViewModel>(url);
+  }
 
-    getExportPermission() {
-        const url = `${environment.apiUrl}/exportacao/verificacao`;
-        return this.http.get<ExportProfile>(url);
-    }
+  getExportPermission() {
+    const url = `${environment.apiUrl}/exportacao/verificacao`;
+    return this.http.get<ExportProfile>(url);
+  }
 }

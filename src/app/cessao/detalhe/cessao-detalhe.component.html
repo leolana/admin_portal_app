@@ -1,188 +1,223 @@
 <app-content-header></app-content-header>
 
 <section class="content" *ngIf="cessao">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        {{ user.participanteFornecedor ? 'Solicitação de Cessão' : 'Aceite da Cessão' }}
+      </h3>
+    </div>
+    <div class="box-body">
+      <cessao-status-step [cessao]="cessao"></cessao-status-step>
+    </div>
+  </div>
 
-	<div class="box box-primary">
-		<div class="box-header with-border">
-			<h3 class="box-title">
-				{{ user.participanteFornecedor ? 'Solicitação de Cessão' : 'Aceite da Cessão' }}
-			</h3>
-		</div>
-		<div class="box-body">
-			<cessao-status-step [cessao]="cessao"></cessao-status-step>
-		</div>
-	</div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        Operação
+      </h3>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <span class="small">Tipo de Operação:</span>
+            <label *ngIf="this.user.participanteFornecedor">{{
+              cessao.tipoCessao | tipoCessao
+            }}</label>
+            <label *ngIf="this.user.participanteEstabelecimento">{{
+              cessao.tipoCessao | tipoCessaoEC
+            }}</label>
+          </div>
+          <div class="form-group" *ngIf="cessao.tipoCessao == operacoes.cessaoParcelada">
+            <span class="small">Parcelas:</span>
+            <label>
+              {{ cessao.numeroParcelas }}x de
+              {{
+                cessao.valorSolicitado / cessao.numeroParcelas | currency: 'BRL':'symbol':'1.2-2'
+              }}
+            </label>
+          </div>
+          <div class="form-group">
+            <span class="small"
+              >Plano de {{ this.user.participanteFornecedor ? 'Recebimento' : 'Pagamento' }} a
+              partir do vencimento:</span
+            >
+            <label>{{ cessao.tipoDiluicaoPagamento | diluicaoPagamento }}</label>
+          </div>
+          <div class="form-group">
+            <span class="small">Código da Cessão:</span>
+            <label>{{ cessao.codigoCessao }}</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div
+            class="form-group"
+            *ngIf="cessao.tipoCessao == operacoes.cessaoRecorrente && cessao.recorrencia"
+          >
+            <span class="small">Valor Máximo Mensal:</span>
+            <label>{{
+              cessao.recorrencia.valorMaximoRecorrente | currency: 'BRL':'symbol':'1.2-2'
+            }}</label>
+          </div>
+          <div
+            class="form-group"
+            *ngIf="cessao.tipoCessao == operacoes.cessaoRecorrente && cessao.recorrencia"
+          >
+            <span class="small">Válido Para Cessões Mensais Até:</span>
+            <label>{{ cessao.recorrencia.dataExpiracaoRecorrente | date }}</label>
+          </div>
+          <div class="form-group">
+            <span class="small">Data Solicitação:</span>
+            <label>{{ cessao.dataSolicitacao | dateTime }}</label>
+          </div>
+          <div class="form-group">
+            <span class="small">Solicitante:</span>
+            <label>{{ cessao.solicitante }}</label>
+          </div>
+          <div class="form-group">
+            <span class="small" *ngIf="cessao.tipoCessao === operacoes.cessaoParcelada">
+              Data de Vencimento da Primeira Parcela:
+            </span>
+            <span class="small" *ngIf="cessao.tipoCessao !== operacoes.cessaoParcelada">
+              Data de Vencimento:
+            </span>
+            <label>{{ cessao.dataVencimento | date }}</label>
+          </div>
+        </div>
+      </div>
 
-	<div class="box box-primary">
-		<div class="box-header with-border">
-			<h3 class="box-title">
-				Operação
-			</h3>
-		</div>
-		<div class="box-body">
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<span class="small">Tipo de Operação:</span>
-						<label *ngIf="this.user.participanteFornecedor">{{ cessao.tipoCessao | tipoCessao}}</label>
-						<label *ngIf="this.user.participanteEstabelecimento">{{ cessao.tipoCessao | tipoCessaoEC}}</label>
-					</div>
-					<div class="form-group" *ngIf="cessao.tipoCessao == operacoes.cessaoParcelada">
-						<span class="small">Parcelas:</span>
-						<label>
-							{{ cessao.numeroParcelas }}x de
-							{{ (cessao.valorSolicitado / cessao.numeroParcelas) | currency:'BRL':'symbol':'1.2-2' }}
-						</label>
-					</div>
-					<div class="form-group">
-						<span class="small">Plano de {{ this.user.participanteFornecedor ? "Recebimento" : "Pagamento"}} a partir do vencimento:</span>
-						<label>{{ cessao.tipoDiluicaoPagamento | diluicaoPagamento }}</label>
-					</div>
-					<div class="form-group">
-						<span class="small">Código da Cessão:</span>
-						<label>{{ cessao.codigoCessao }}</label>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="form-group" *ngIf="cessao.tipoCessao == operacoes.cessaoRecorrente && cessao.recorrencia">
-						<span class="small">Valor Máximo Mensal:</span>
-						<label>{{ cessao.recorrencia.valorMaximoRecorrente | currency:'BRL':'symbol':'1.2-2' }}</label>
-					</div>
-					<div class="form-group" *ngIf="cessao.tipoCessao == operacoes.cessaoRecorrente && cessao.recorrencia">
-						<span class="small">Válido Para Cessões Mensais Até:</span>
-						<label>{{ cessao.recorrencia.dataExpiracaoRecorrente | date }}</label>
-					</div>
-					<div class="form-group">
-						<span class="small">Data Solicitação:</span>
-						<label>{{ cessao.dataSolicitacao | dateTime }}</label>
-					</div>
-					<div class="form-group">
-						<span class="small">Solicitante:</span>
-						<label>{{ cessao.solicitante }}</label>
-					</div>
-					<div class="form-group">
-						<span class="small" *ngIf="cessao.tipoCessao === operacoes.cessaoParcelada">
-							Data de Vencimento da Primeira Parcela:
-						</span>
-						<span class="small" *ngIf="cessao.tipoCessao !== operacoes.cessaoParcelada">
-							Data de Vencimento:
-						</span>
-						<label>{{ cessao.dataVencimento | date }}</label>
-					</div>
-				</div>
-			</div>
+      <form
+        [formGroup]="formDadosCessao"
+        (submit)="changeCessao()"
+        *ngIf="pendente() && this.user.participanteFornecedor"
+      >
+        <div class="row">
+          <div class="col-md-6">
+            <date-picker
+              label="Prazo de Aprovação:"
+              labelClass="small"
+              [formControl]="dataExpiracao"
+              id="dataExpiracao"
+              [hasError]="!dataExpiracao.value"
+            >
+            </date-picker>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <span class="small">Referência:</span>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="referencia"
+                maxlength="255"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <button class="btn btn-primary">Salvar</button>
+          </div>
+        </div>
+      </form>
 
-			<form [formGroup]="formDadosCessao" (submit)="changeCessao()" *ngIf="pendente() && this.user.participanteFornecedor">
-				<div class="row">
-					<div class="col-md-6">
-						<date-picker label="Prazo de Aprovação:" labelClass="small" [formControl]="dataExpiracao"
-							id="dataExpiracao" [hasError]="!dataExpiracao.value">
-						</date-picker>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<span class="small">Referência:</span>
-							<input type="text" class="form-control" formControlName="referencia" maxlength="255">
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 text-right">
-						<button class="btn btn-primary">Salvar</button>
-					</div>
-				</div>
-			</form>
+      <div class="row" *ngIf="!(pendente() && this.user.participanteFornecedor)">
+        <div class="col-md-6">
+          <div class="form-group">
+            <span class="small">Prazo de Aprovação</span>
+            <label>{{ cessao.dataExpiracao | date }}</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <span class="small">Referência:</span>
+            <label>{{ cessao.referencia }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-			<div class="row" *ngIf="!(pendente() && this.user.participanteFornecedor)">
-				<div class="col-md-6">
-					<div class="form-group">
-						<span class="small">Prazo de Aprovação</span>
-						<label>{{ cessao.dataExpiracao | date }}</label>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="form-group">
-						<span class="small">Referência:</span>
-						<label>{{ cessao.referencia }}</label>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        Detalhe
+      </h3>
+    </div>
+    <div class="box-body" *ngIf="showReceivables()">
+      <div *ngFor="let parcela of cessao.parcelas">
+        <div class="division">
+          {{ getTituloItens(parcela) }}
+        </div>
+        <timeline-recebiveis [recebiveis]="parcela.itens"></timeline-recebiveis>
 
-	<div class="box box-primary">
-		<div class="box-header with-border">
-			<h3 class="box-title">
-				Detalhe
-			</h3>
-		</div>
-		<div class="box-body" *ngIf="showReceivables()">
-			<div *ngFor="let parcela of cessao.parcelas">
-				<div class="division">
-					{{ getTituloItens(parcela) }}
-				</div>
-				<timeline-recebiveis [recebiveis]="parcela.itens"></timeline-recebiveis>
+        <timeline-recebiveis [recebiveis]="parcela.ajustes"></timeline-recebiveis>
+      </div>
+      <div class="division">
+        Total
+      </div>
+      <span class="{{ colorTextMoney(cessao.totalRecebiveis) }} ml-10">
+        {{ cessao.totalRecebiveis | currency: 'BRL' }}
+      </span>
+    </div>
+  </div>
 
-				<timeline-recebiveis [recebiveis]="parcela.ajustes"></timeline-recebiveis>
-			</div>
-			<div class="division">
-				Total
-			</div>
-			<span class="{{colorTextMoney(cessao.totalRecebiveis)}} ml-10">
-				{{ cessao.totalRecebiveis | currency:'BRL' }}
-			</span>
-		</div>
-	</div>
+  <div class="box box-primary" *ngIf="aprovado() || recusado() || (pendente() && canApprove)">
+    <div class="box-body box-aprovador">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <span>{{ recusado() ? 'Reprovador' : 'Aprovador' }}</span>
+            <label>{{ this.user.name }}</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <span>Data</span>
+            <label>{{ currentDate | dateTime }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-	<div class="box box-primary" *ngIf="aprovado() || recusado() || (pendente() && canApprove)">
-		<div class="box-body box-aprovador">
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<span>{{ recusado() ? 'Reprovador' : 'Aprovador' }}</span>
-						<label>{{ this.user.name }}</label>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="form-group">
-						<span>Data</span>
-						<label>{{ currentDate | dateTime }}</label>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="box box-primary" *ngIf="pendente() && canApprove && termo">
+    <div class="box-header with-border">
+      <h3 class="box-title">Termo de Aceite</h3>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-xs-12">
+          {{ termo.texto }}
+        </div>
+      </div>
+      <div class="row" *ngIf="pendente()">
+        <div class="col-md-4">
+          <div class="checkbox">
+            <label>
+              <input
+                type="checkbox"
+                [checked]="acceptedTerms"
+                (change)="acceptedTerms = !acceptedTerms"
+              />
+              Li e concordo com os termos descritos acima
+            </label>
+          </div>
+        </div>
+        <div class="col-md-8 div-buttons">
+          <button class="btn btn-danger btn-wg" (click)="reject()">Recusar</button>
+          <button class="btn btn-success btn-wg" [disabled]="!acceptedTerms" (click)="approve()">
+            Aprovar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-	<div class="box box-primary" *ngIf="(pendente() && canApprove && termo)">
-		<div class="box-header with-border">
-			<h3 class="box-title">Termo de Aceite</h3>
-		</div>
-		<div class="box-body">
-			<div class="row">
-				<div class="col-xs-12">
-					{{ termo.texto }}
-				</div>
-			</div>
-			<div class="row" *ngIf="pendente()">
-				<div class="col-md-4">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" [checked]="acceptedTerms" (change)="acceptedTerms = !acceptedTerms">
-							Li e concordo com os termos descritos acima
-						</label>
-					</div>
-				</div>
-				<div class="col-md-8 div-buttons">
-					<button class="btn btn-danger btn-wg" (click)="reject()">Recusar</button>
-					<button class="btn btn-success btn-wg" [disabled]="!acceptedTerms" (click)="approve()">Aprovar</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="btn btn-primary" (click)="voltar()">
-		<i class="fa fa-arrow-left"></i>
-		Voltar
-	</div>
-
+  <div class="btn btn-primary" (click)="voltar()">
+    <i class="fa fa-arrow-left"></i>
+    Voltar
+  </div>
 </section>

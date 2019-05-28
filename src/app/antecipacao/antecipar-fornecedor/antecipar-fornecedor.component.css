@@ -1,77 +1,77 @@
 .antecipar-fornecedor .card {
-    margin: 16px;
-    padding: 5px;
-    border: 1px solid #ddd;
-    background-color: #e0e2e4;
+  margin: 16px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  background-color: #e0e2e4;
 }
 
 .antecipar-fornecedor .card-selected {
-    background-color: #fff;
-    border-color: #000;
+  background-color: #fff;
+  border-color: #000;
 }
 
 .antecipar-fornecedor .card-row {
-    margin-bottom: 10px;
-    display: inline-block;
-    margin-right: 25px;
+  margin-bottom: 10px;
+  display: inline-block;
+  margin-right: 25px;
 }
 
 .antecipar-fornecedor .card-row label {
-    display: block;
+  display: block;
 }
 
-.antecipar-fornecedor .card-row>* {
-    word-break: break-all;
+.antecipar-fornecedor .card-row > * {
+  word-break: break-all;
 }
 
 .antecipar-fornecedor .valor-disponivel {
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #008000;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #008000;
 }
 
 .antecipar-fornecedor .mt-15 {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 .antecipar-fornecedor .mr-15 {
-    margin-right: 15px;
+  margin-right: 15px;
 }
 
 .antecipar-fornecedor .ml-15 {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
 .antecipar-fornecedor .mb-15 {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .antecipar-fornecedor .table-nowrap td,
 .antecipar-fornecedor .table-nowrap th {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .antecipar-fornecedor .table th {
-    padding: 8px;
+  padding: 8px;
 }
 
 .antecipar-fornecedor .table td {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 .antecipar-fornecedor .block {
-    display: block;
+  display: block;
 }
 
 .antecipar-fornecedor .debito {
-    color: red;
-    font-weight: bold;
+  color: red;
+  font-weight: bold;
 }
 
 .antecipar-fornecedor .debito-card {
-    border: 1px solid red;
+  border: 1px solid red;
 }
 
 .antecipar-fornecedor .bold {
-    font-weight: bold;
+  font-weight: bold;
 }

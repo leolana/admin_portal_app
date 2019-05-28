@@ -15,29 +15,29 @@ import { PesquisarAntecipacaoEstabelecimentoComponent } from './pesquisar-estabe
 import { PesquisarAntecipacaoFornecedorComponent } from './pesquisar-fornecedor/pesquisar-antecipacao-fornecedor.component';
 
 @NgModule({
-    imports: [
-        CoreModule,
-        ThemeModule,
-        PipesModule,
-        ReactiveFormsModule,
-        BrowserModule,
-        FormsModule,
-        AlpeSelect2Module,
-        NgxMaskModule,
-        DatePickerModule,
-        DatatableModule
-    ],
-    declarations: [
-        AnteciparEstabelecimentoComponent,
-        AnteciparFornecedorComponent,
-        PesquisarAntecipacaoEstabelecimentoComponent,
-        PesquisarAntecipacaoFornecedorComponent,
-    ],
-    exports: [
-        AnteciparEstabelecimentoComponent,
-        AnteciparFornecedorComponent,
-        PesquisarAntecipacaoEstabelecimentoComponent,
-        PesquisarAntecipacaoFornecedorComponent,
-    ],
+  imports: [
+    CoreModule,
+    ThemeModule,
+    PipesModule,
+    ReactiveFormsModule,
+    BrowserModule,
+    FormsModule,
+    AlpeSelect2Module,
+    NgxMaskModule,
+    DatePickerModule,
+    DatatableModule,
+  ],
+  declarations: [
+    AnteciparEstabelecimentoComponent,
+    AnteciparFornecedorComponent,
+    PesquisarAntecipacaoEstabelecimentoComponent,
+    PesquisarAntecipacaoFornecedorComponent,
+  ],
+  exports: [
+    AnteciparEstabelecimentoComponent,
+    AnteciparFornecedorComponent,
+    PesquisarAntecipacaoEstabelecimentoComponent,
+    PesquisarAntecipacaoFornecedorComponent,
+  ],
 })
-export class AntecipacaoModule { }
+export class AntecipacaoModule {}

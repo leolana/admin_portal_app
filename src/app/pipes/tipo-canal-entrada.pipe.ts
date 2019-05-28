@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { tipoCanalEntrada } from '../interfaces/participante';
 
 @Pipe({
-  name: 'tipoCanalEntrada'
+  name: 'tipoCanalEntrada',
 })
 export class TipoCanalEntradaPipe implements PipeTransform {
   transform(value: number): string {

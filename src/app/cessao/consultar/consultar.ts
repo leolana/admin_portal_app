@@ -7,62 +7,55 @@ import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
-    templateUrl: './consultar.html',
-    styleUrls: ['./consultar.css']
+  templateUrl: './consultar.html',
+  styleUrls: ['./consultar.css'],
 })
 export class CessaoConsultarComponent implements OnInit {
-    constructor(
-        private service: CessaoService,
-        private auth: AuthService,
-        private router: Router,
-    ) { }
+  constructor(private service: CessaoService, private auth: AuthService, private router: Router) {}
 
-    // PROPERTIES
-    mobile: boolean;
-    statuses: IdText[] = [
-        { id: CessaoStatus.aguardandoAprovacao, text: 'Pendentes' },
-        { id: CessaoStatus.aprovado, text: 'Aprovadas' },
-        { id: CessaoStatus.recusado, text: 'Recusadas' },
-        { id: CessaoStatus.expirada, text: 'Expiradas' }
-    ];
-    cessoes: any;
-    statusSelecionado = this.statuses[0];
+  // PROPERTIES
+  mobile: boolean;
+  statuses: IdText[] = [
+    { id: CessaoStatus.aguardandoAprovacao, text: 'Pendentes' },
+    { id: CessaoStatus.aprovado, text: 'Aprovadas' },
+    { id: CessaoStatus.recusado, text: 'Recusadas' },
+    { id: CessaoStatus.expirada, text: 'Expiradas' },
+  ];
+  cessoes: any;
+  statusSelecionado = this.statuses[0];
 
-    // METHODS
-    ngOnInit() {
-        this.solveLayout();
-        this.listar().subscribe();
-    }
+  // METHODS
+  ngOnInit() {
+    this.solveLayout();
+    this.listar().subscribe();
+  }
 
-    temDataResposta(id): boolean {
-        return id === CessaoStatus.aprovado || id === CessaoStatus.recusado;
-    }
+  temDataResposta(id): boolean {
+    return id === CessaoStatus.aprovado || id === CessaoStatus.recusado;
+  }
 
-    listar() {
-        return this.service.listar().pipe(
-            tap(cessoes => this.cessoes = cessoes)
-        );
-    }
+  listar() {
+    return this.service.listar().pipe(tap(cessoes => (this.cessoes = cessoes)));
+  }
 
-    solveLayout(): void {
-        const checkScreenSize = () => {
-            this.mobile = document.body.offsetWidth < 992;
-        };
+  solveLayout(): void {
+    const checkScreenSize = () => {
+      this.mobile = document.body.offsetWidth < 992;
+    };
 
-        window.onresize = checkScreenSize;
-        checkScreenSize();
-    }
+    window.onresize = checkScreenSize;
+    checkScreenSize();
+  }
 
-    abrirDetalhe(cessao) {
-        this.router.navigateByUrl('/cessao/detalhe/' + cessao.codigo);
-    }
+  abrirDetalhe(cessao) {
+    this.router.navigateByUrl('/cessao/detalhe/' + cessao.codigo);
+  }
 
-    temCessoes(id) {
-        return this.cessoes && this.cessoes[id];
-    }
+  temCessoes(id) {
+    return this.cessoes && this.cessoes[id];
+  }
 
-    isEstablishment() {
-        return this.auth.user.participanteEstabelecimento;
-    }
-
+  isEstablishment() {
+    return this.auth.user.participanteEstabelecimento;
+  }
 }

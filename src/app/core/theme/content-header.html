@@ -1,13 +1,11 @@
 <section class="content-header">
+  <app-breadcrumb *ngIf="!hideBreadCrumb"></app-breadcrumb>
 
-	<app-breadcrumb *ngIf="!hideBreadCrumb"></app-breadcrumb>
-
-	<h1 [style.font-size]="size || '24px'">
-		<i *ngIf="fa" class="fa fa-{{fa}}"></i>
-		{{ title }}
-		<small *ngIf="subtitle">
-			{{ subtitle }}
-		</small>
-	</h1>
-
+  <h1 [style.font-size]="size || '24px'">
+    <i *ngIf="fa" class="fa fa-{{fa}}"></i>
+    {{ title }}
+    <small *ngIf="subtitle">
+      {{ subtitle }}
+    </small>
+  </h1>
 </section>

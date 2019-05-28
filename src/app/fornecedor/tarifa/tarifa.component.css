@@ -1,15 +1,16 @@
-.BoxBlue, .BoxGreen{
-    width: 100%;
-    text-align: center;
-    color: #fff;
-    padding: 10px;
-    margin: 7.5px 0px 7.5px 0px;
+.BoxBlue,
+.BoxGreen {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  padding: 10px;
+  margin: 7.5px 0px 7.5px 0px;
 }
 
-.BoxBlue{
-    background-color: #337ab7;
+.BoxBlue {
+  background-color: #337ab7;
 }
 
-.BoxGreen{
-    background-color: #2FCF4B;
+.BoxGreen {
+  background-color: #2fcf4b;
 }

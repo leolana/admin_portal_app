@@ -1,10 +1,18 @@
 <div class="form-group" [class.has-error]="hasError && (control.touched || control.dirty)">
-    <label [for]="id">{{ label }}</label>
-    <div class="input-group">
-        <input #telefone type="text" (input)="updateMask()" (focus)="updateMask()" (change)="updateMask()" class="form-control" [id]="id"
-            [required]="required" />
-        <span class="input-group-addon">
-            <em class="fa fa-phone"></em>
-        </span>
-    </div>
+  <label [for]="id">{{ label }}</label>
+  <div class="input-group">
+    <input
+      #telefone
+      type="text"
+      (input)="updateMask()"
+      (focus)="updateMask()"
+      (change)="updateMask()"
+      class="form-control"
+      [id]="id"
+      [required]="required"
+    />
+    <span class="input-group-addon">
+      <em class="fa fa-phone"></em>
+    </span>
+  </div>
 </div>

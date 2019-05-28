@@ -1,109 +1,166 @@
 <app-content-header title="Cadastro de Fornecedor" hideBreadCrumb="true"></app-content-header>
 
-<app-wizard [steps]="steps" fornecedor=true [config]="wizardConfig"></app-wizard>
+<app-wizard [steps]="steps" fornecedor="true" [config]="wizardConfig"></app-wizard>
 <section class="content">
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Dados Bancários</h3>
-        </div>
-        <div class="box-body">
-            <div class="table-responsive">
-                <table class="table mat-table" cloneRowValues url="true" url="true">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Banco</th>
-                            <th>Agência</th>
-                            <th>Conta</th>
-                            <th>Dígito</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let configuracao of domicilio.controls" [formGroup]="configuracao">
-                            <th>
-                                {{ configuracao['controls'].bandeira.value.text }}
-                            </th>
-                            <td
-                                [class.has-error]="configuracao['controls'].banco.invalid && configuracao['controls'].banco.dirty">
-                                <select class="form-control" formControlName="banco" select2
-                                    [select2-placeholder]="getNomeBancoPorId(configuracao['controls'].banco)"
-                                    [attr.disabled]="domicilioConfirmado ? true : null">
-                                    <option value="">Selecione uma opção</option>
-                                    <option *ngFor="let banco of bancos" [value]="banco.id">{{ banco.id }} -
-                                        {{ banco.text }}</option>
-                                </select>
-                            </td>
-                            <td
-                                [class.has-error]="configuracao['controls'].agencia.invalid && configuracao['controls'].agencia.dirty">
-                                <input class="form-control" formControlName="agencia" mask="0*" maxlength="5"
-                                    [readOnly]="domicilioConfirmado">
-                            </td>
-                            <td
-                                [class.has-error]="configuracao['controls'].conta.invalid && configuracao['controls'].conta.dirty">
-                                <input class="form-control" formControlName="conta" mask="0*" maxlength="10"
-                                    [readOnly]="domicilioConfirmado">
-                            </td>
-                            <td
-                                [class.has-error]="configuracao['controls'].digito.invalid && configuracao['controls'].digito.dirty">
-                                <input class="form-control" formControlName="digito" mask="0"
-                                    [readOnly]="domicilioConfirmado">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Dados Bancários</h3>
+    </div>
+    <div class="box-body">
+      <div class="table-responsive">
+        <table class="table mat-table" cloneRowValues url="true" url="true">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Banco</th>
+              <th>Agência</th>
+              <th>Conta</th>
+              <th>Dígito</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let configuracao of domicilio.controls" [formGroup]="configuracao">
+              <th>
+                {{ configuracao['controls'].bandeira.value.text }}
+              </th>
+              <td
+                [class.has-error]="
+                  configuracao['controls'].banco.invalid && configuracao['controls'].banco.dirty
+                "
+              >
+                <select
+                  class="form-control"
+                  formControlName="banco"
+                  select2
+                  [select2-placeholder]="getNomeBancoPorId(configuracao['controls'].banco)"
+                  [attr.disabled]="domicilioConfirmado ? true : null"
+                >
+                  <option value="">Selecione uma opção</option>
+                  <option *ngFor="let banco of bancos" [value]="banco.id"
+                    >{{ banco.id }} - {{ banco.text }}</option
+                  >
+                </select>
+              </td>
+              <td
+                [class.has-error]="
+                  configuracao['controls'].agencia.invalid && configuracao['controls'].agencia.dirty
+                "
+              >
+                <input
+                  class="form-control"
+                  formControlName="agencia"
+                  mask="0*"
+                  maxlength="5"
+                  [readOnly]="domicilioConfirmado"
+                />
+              </td>
+              <td
+                [class.has-error]="
+                  configuracao['controls'].conta.invalid && configuracao['controls'].conta.dirty
+                "
+              >
+                <input
+                  class="form-control"
+                  formControlName="conta"
+                  mask="0*"
+                  maxlength="10"
+                  [readOnly]="domicilioConfirmado"
+                />
+              </td>
+              <td
+                [class.has-error]="
+                  configuracao['controls'].digito.invalid && configuracao['controls'].digito.dirty
+                "
+              >
+                <input
+                  class="form-control"
+                  formControlName="digito"
+                  mask="0"
+                  [readOnly]="domicilioConfirmado"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="box-footer text-right">
+      <button
+        *ngIf="!domicilioConfirmado"
+        type="button"
+        class="btn btn-primary btn-wlg"
+        (click)="confirmarDomicilio()"
+      >
+        Confirmar Dados
+      </button>
+      <button
+        *ngIf="domicilioConfirmado"
+        type="button"
+        class="btn btn-primary btn-wlg"
+        (click)="alterarDomicilio()"
+      >
+        Alterar Dados
+      </button>
+    </div>
+  </div>
+
+  <div class="box box-primary" [hidden]="!domicilioConfirmado">
+    <div class="box-header with-border">
+      <h3 class="box-title">Extratos Bancários</h3>
+    </div>
+    <div class="box-body">
+      <form class="form-horizontal" [formGroup]="formDocumentos">
+        <div
+          class="form-group"
+          *ngFor="let conta of domicilioArquivos; let i = index"
+          [class.has-error]="conta.control.invalid && conta.control.dirty"
+        >
+          <label for="inputExtrato_{{ i }}" class="col-sm-4 control-label">{{
+            conta.descricao
+          }}</label>
+          <div class="col-sm-8">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label class="btn btn-primary input-file">
+                  <i class="fa fa-folder-open"></i>
+                  <input
+                    id="inputExtrato_{{ i }}"
+                    type="file"
+                    hidden
+                    (change)="bindFile($event, i)"
+                  />
+                </label>
+                <label
+                  *ngIf="(conta.control.value || {}).edicao"
+                  class="btn btn-success"
+                  (click)="download(conta.control.value.nomeArquivo, i)"
+                >
+                  <i class="fa fa-download"></i>
+                </label>
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                readonly
+                [value]="conta.control.value ? conta.control.value.nomeArquivo : ''"
+              />
             </div>
+          </div>
         </div>
-        <div class="box-footer text-right">
-            <button *ngIf="!domicilioConfirmado" type="button" class="btn btn-primary btn-wlg"
-                (click)="confirmarDomicilio()">
-                Confirmar Dados
-            </button>
-            <button *ngIf="domicilioConfirmado" type="button" class="btn btn-primary btn-wlg"
-                (click)="alterarDomicilio()">
-                Alterar Dados
-            </button>
-        </div>
+      </form>
     </div>
-
-    <div class="box box-primary" [hidden]="!domicilioConfirmado">
-        <div class="box-header with-border">
-            <h3 class="box-title">Extratos Bancários</h3>
-        </div>
-        <div class="box-body">
-            <form class="form-horizontal" [formGroup]="formDocumentos">
-                <div class="form-group" *ngFor="let conta of domicilioArquivos; let i = index"
-                    [class.has-error]="conta.control.invalid && conta.control.dirty">
-                    <label for="inputExtrato_{{i}}" class="col-sm-4 control-label">{{ conta.descricao }}</label>
-                    <div class="col-sm-8">
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <label class="btn btn-primary input-file">
-                                    <i class="fa fa-folder-open"></i>
-                                    <input id="inputExtrato_{{i}}" type="file" hidden (change)="bindFile($event, i)">
-                                </label>
-                                <label *ngIf="(conta.control.value || {}).edicao" class="btn btn-success"
-                                    (click)="download(conta.control.value.nomeArquivo, i)">
-                                    <i class="fa fa-download"></i>
-                                </label>
-                            </span>
-                            <input type="text" class="form-control" readonly
-                                [value]="conta.control.value ? conta.control.value.nomeArquivo : ''">
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="box-body size-reminder">
-            O tamanho total dos arquivos selecionados não deve ultrapassar 20MB.
-        </div>
+    <div class="box-body size-reminder">
+      O tamanho total dos arquivos selecionados não deve ultrapassar 20MB.
     </div>
-    <div class="row">
-        <div class="col-xs-6 text-right">
-            <button type="button" class="btn btn-default btn-wlg" (click)="goBack()">Voltar</button>
-        </div>
-        <div class="col-xs-6 text-left">
-            <button type="button" class="btn btn-primary btn-wlg" (click)="submitForm()">Prosseguir</button>
-        </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 text-right">
+      <button type="button" class="btn btn-default btn-wlg" (click)="goBack()">Voltar</button>
     </div>
-
+    <div class="col-xs-6 text-left">
+      <button type="button" class="btn btn-primary btn-wlg" (click)="submitForm()">
+        Prosseguir
+      </button>
+    </div>
+  </div>
 </section>

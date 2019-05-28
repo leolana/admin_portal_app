@@ -1,123 +1,171 @@
-<app-content-header title="Consultar credenciamento" subtitle="Listagem de credenciamentos realizados">
+<app-content-header
+  title="Consultar credenciamento"
+  subtitle="Listagem de credenciamentos realizados"
+>
 </app-content-header>
 
 <section class="content">
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Filtros</h3>
-        </div>
-        <form [formGroup]="formPesquisa">
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <label for="inputCodigoEc">Código EC</label>
-                        <input type="text" class="form-control" id="inputCodigoEc" [formControl]="codigoEc" mask="999999999">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="inputDocumento">CPF/CNPJ</label>
-                        <input type="text" class="form-control" id="inputDocumento" [formControl]="documento" appMaskDocumento maxlength="18">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputNome">Nome</label>
-                        <input type="text" class="form-control" id="inputNome" [formControl]="nome" maxlength="100">
-                    </div>
-                </div>
-                <div class="row mt-15">
-                    <div class="col-md-3">
-                        <date-picker label="De" [formControl]="de" id="inputDe" [hasError]="hasError.de()">
-                        </date-picker>
-                    </div>
-                    <div class="col-md-3">
-                        <date-picker label="Até" [formControl]="ate" id="inputAte" [hasError]="hasError.ate()">
-                        </date-picker>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="selectStatus">Status</label>
-                        <select class="form-control" id="selectStatus" [formControl]="status">
-                            <option value="">Todos</option>
-                            <option value="-1">Pré-Cadastro</option>
-                            <option [value]="credenciamentoStatus.pendente">Pendente</option>
-                            <option [value]="credenciamentoStatus.emAnalise">Em análise</option>
-                            <option [value]="credenciamentoStatus.aprovado">Aprovado</option>
-                            <option [value]="credenciamentoStatus.reprovado">Reprovado</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <button type="button" class="btn btn-default btn-block btn-search-unlabeled" (click)="clear()">
-                            Limpar
-                        </button>
-                    </div>
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary btn-block btn-search-unlabeled" (click)="filter()">
-                            Pesquisar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </form>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Filtros</h3>
     </div>
+    <form [formGroup]="formPesquisa">
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-3">
+            <label for="inputCodigoEc">Código EC</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputCodigoEc"
+              [formControl]="codigoEc"
+              mask="999999999"
+            />
+          </div>
+          <div class="col-md-3">
+            <label for="inputDocumento">CPF/CNPJ</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputDocumento"
+              [formControl]="documento"
+              appMaskDocumento
+              maxlength="18"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="inputNome">Nome</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputNome"
+              [formControl]="nome"
+              maxlength="100"
+            />
+          </div>
+        </div>
+        <div class="row mt-15">
+          <div class="col-md-3">
+            <date-picker label="De" [formControl]="de" id="inputDe" [hasError]="hasError.de()">
+            </date-picker>
+          </div>
+          <div class="col-md-3">
+            <date-picker label="Até" [formControl]="ate" id="inputAte" [hasError]="hasError.ate()">
+            </date-picker>
+          </div>
+          <div class="col-md-2">
+            <label for="selectStatus">Status</label>
+            <select class="form-control" id="selectStatus" [formControl]="status">
+              <option value="">Todos</option>
+              <option value="-1">Pré-Cadastro</option>
+              <option [value]="credenciamentoStatus.pendente">Pendente</option>
+              <option [value]="credenciamentoStatus.emAnalise">Em análise</option>
+              <option [value]="credenciamentoStatus.aprovado">Aprovado</option>
+              <option [value]="credenciamentoStatus.reprovado">Reprovado</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <button
+              type="button"
+              class="btn btn-default btn-block btn-search-unlabeled"
+              (click)="clear()"
+            >
+              Limpar
+            </button>
+          </div>
+          <div class="col-md-2">
+            <button
+              type="submit"
+              class="btn btn-primary btn-block btn-search-unlabeled"
+              (click)="filter()"
+            >
+              Pesquisar
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 
-    <div class="box box-primary">
-        <div class="box-header with-border download-title">
-            <h3 class="box-title title">Resultado</h3>
-            <div class="download" [hidden]="!statusAprovado">
-                <label class="btn btn-success" tooltip title="Exportar aprovados" (click)="export()">
-                    <em class="fa fa-download"></em>
-                </label>
-            </div>
-        </div>
-        <div class="box-body no-padding">
-            <div class="table-responsive">
-                <table class="table table-striped" [hidden]="!results.length">
-                    <thead>
-                        <tr>
-                            <th *ngIf="statusAprovado">Código do EC</th>
-                            <th>Data de Envio</th>
-                            <th>Data de Aprovação</th>
-                            <th>Status</th>
-                            <th>Tipo Pessoa</th>
-                            <th>CPF / CNPJ</th>
-                            <th>Nome Fantasia / Nome</th>
-                            <th style="width: 1px"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let row of results">
-                            <td *ngIf="statusAprovado">{{ row.participanteId }}</td>
-                            <td>
-                                <span class="nowrap">{{ row.dataEnvio | date }}</span>
-                            </td>
-                            <td>
-                                <span class="nowrap">{{ row.dataAprovado }}</span>
-                            </td>
-                            <td>
-                                <span class="nowrap">{{ row.statusDescricao }}</span>
-                            </td>
-                            <td>
-                                {{ row.tipoPessoaDescricao }}
-                            </td>
-                            <td>
-                                {{ row.documento | documento }}
-                            </td>
-                            <td>
-                                {{ row.nome }}
-                            </td>
-                            <td class="no-wrap td-div-buttons">
-                                <button class="btn btn-xs btn-success" [hidden]="row.statusCode" (click)="exibirArquivos(row.documento, row.arquivos)" tooltip title="Arquivos">
-                                    <em class="fa fa-files-o"></em>
-                                </button>
-                                <button class="btn btn-xs btn-primary" [hidden]="!row.statusCode" (click)="exibirCredenciamento(row.id)" tooltip title="Visualizar">
-                                    <em class="fa fa-search"></em>
-                                </button>
-                                <button class="btn btn-xs btn-warning" [hidden]="naoPodeEditar(row)" (click)="editarCredenciamento(row.id, row.statusCode)" tooltip title="Editar">
-                                    <em class="fa fa-edit white"></em>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <p class="no-records-found" [hidden]="results.length">Nenhum registro encontrado!</p>
-        </div>
+  <div class="box box-primary">
+    <div class="box-header with-border download-title">
+      <h3 class="box-title title">Resultado</h3>
+      <div class="download" [hidden]="!statusAprovado">
+        <label class="btn btn-success" tooltip title="Exportar aprovados" (click)="export()">
+          <em class="fa fa-download"></em>
+        </label>
+      </div>
     </div>
+    <div class="box-body no-padding">
+      <div class="table-responsive">
+        <table class="table table-striped" [hidden]="!results.length">
+          <thead>
+            <tr>
+              <th *ngIf="statusAprovado">Código do EC</th>
+              <th>Data de Envio</th>
+              <th>Data de Aprovação</th>
+              <th>Status</th>
+              <th>Tipo Pessoa</th>
+              <th>CPF / CNPJ</th>
+              <th>Nome Fantasia / Nome</th>
+              <th style="width: 1px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of results">
+              <td *ngIf="statusAprovado">{{ row.participanteId }}</td>
+              <td>
+                <span class="nowrap">{{ row.dataEnvio | date }}</span>
+              </td>
+              <td>
+                <span class="nowrap">{{ row.dataAprovado }}</span>
+              </td>
+              <td>
+                <span class="nowrap">{{ row.statusDescricao }}</span>
+              </td>
+              <td>
+                {{ row.tipoPessoaDescricao }}
+              </td>
+              <td>
+                {{ row.documento | documento }}
+              </td>
+              <td>
+                {{ row.nome }}
+              </td>
+              <td class="no-wrap td-div-buttons">
+                <button
+                  class="btn btn-xs btn-success"
+                  [hidden]="row.statusCode"
+                  (click)="exibirArquivos(row.documento, row.arquivos)"
+                  tooltip
+                  title="Arquivos"
+                >
+                  <em class="fa fa-files-o"></em>
+                </button>
+                <button
+                  class="btn btn-xs btn-primary"
+                  [hidden]="!row.statusCode"
+                  (click)="exibirCredenciamento(row.id)"
+                  tooltip
+                  title="Visualizar"
+                >
+                  <em class="fa fa-search"></em>
+                </button>
+                <button
+                  class="btn btn-xs btn-warning"
+                  [hidden]="naoPodeEditar(row)"
+                  (click)="editarCredenciamento(row.id, row.statusCode)"
+                  tooltip
+                  title="Editar"
+                >
+                  <em class="fa fa-edit white"></em>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="no-records-found" [hidden]="results.length">Nenhum registro encontrado!</p>
+    </div>
+  </div>
 </section>

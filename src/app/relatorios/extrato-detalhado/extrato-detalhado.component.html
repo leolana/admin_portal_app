@@ -1,172 +1,199 @@
 <app-content-header title="Extrato Detalhado"></app-content-header>
 
 <section class="content">
+  <div class="box box-primary collapsed-box">
+    <div class="box-header with-border">
+      <h3 class="box-title">Pesquisar</h3>
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+    <div class="box-body">
+      <form [formGroup]="formExtratoDetalhado">
+        <div class="row">
+          <div class="col-md-3">
+            <date-picker
+              label="Data Venda Inicial"
+              [formControl]="form.dataVendaInicial"
+              id="dataVendaInicial"
+            >
+            </date-picker>
+          </div>
+          <div class="col-md-3">
+            <date-picker
+              label="Data Venda Final"
+              [formControl]="form.dataVendaFinal"
+              id="dataVendaFinal"
+            >
+            </date-picker>
+          </div>
+          <div class="col-md-3">
+            <date-picker
+              label="Data Pagamento Inicial"
+              [formControl]="form.dataPagamentoInicial"
+              id="dataPagamentoInicial"
+            >
+            </date-picker>
+          </div>
+          <div class="col-md-3">
+            <date-picker
+              label="Data Pagamento Final"
+              [formControl]="form.dataPagamentoFinal"
+              id="dataPagamentoFinal"
+            >
+            </date-picker>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="bandeira">Bandeiras</label>
+              <select class="form-control" id="bandeira" formControlName="bandeira" select2="">
+                <option *ngFor="let item of bandeiras | keyvalue" [value]="item.key"
+                  >{{ item.value }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="statusPagamento">Status Pagamento</label>
+              <select
+                class="form-control"
+                id="statusPagamento"
+                formControlName="statusPagamento"
+                select2=""
+              >
+                <option *ngFor="let item of statusPagamento | keyvalue" [value]="item.key">
+                  {{ item.value }}</option
+                >
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="modalidade">Modalidade</label>
+              <select class="form-control" id="modalidade" formControlName="modalidade" select2="">
+                <option *ngFor="let item of modalidade | keyvalue" [value]="item.key"
+                  >{{ item.value }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="terminal">Terminal</label>
+              <input type="text" class="form-control" id="terminal" formControlName="terminal" />
+            </div>
+          </div>
+          <div class="col-md-12 container-button">
+            <button type="button" class="btn btn-default btn-wlg " (click)="limparFiltros()">
+              Limpar
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-wlg"
+              (click)="ConsultarExtratoDetalhado()"
+            >
+              Pesquisar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
-	<div class="box box-primary collapsed-box">
-		<div class="box-header with-border">
-			<h3 class="box-title">Pesquisar</h3>
-			<div class="box-tools pull-right">
-				<button type="button" class="btn btn-box-tool" data-widget="collapse">
-					<i class="fa fa-plus"></i>
-				</button>
-			</div>
-		</div>
-		<div class="box-body">
-			<form [formGroup]="formExtratoDetalhado">
+  <div class="box box-primary">
+    <div class="header-report">
+      <div>
+        <h2 class="box-title">{{ nomeFantasia }}</h2>
+        <strong>{{ formatarDocumento(documento) }}</strong>
+      </div>
+      <div>
+        <small class="text-right"
+          >Código do {{ ehEstabelecimento ? 'EC' : 'Fornecedor' }}: {{ codigoParticipante }}
+        </small>
+        <br />
+        <small>{{ currentDate | dateTime }}</small>
+        <div class="download" [hidden]="!data.length">
+          <label
+            class="btn btn-success pull-right"
+            tooltip
+            title="Exportar relatório"
+            (click)="export()"
+          >
+            <em class="fa fa-download"></em>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="box-body no-padding">
+      <div class="cards" *ngIf="mobile">
+        <div class="card" *ngFor="let item of data">
+          <div class="card-main">
+            <div class="show-data">
+              <strong>Data Venda:</strong>
+              <div>{{ item.dataVenda | date }}</div>
+            </div>
+            <div class="show-data">
+              <strong>Data Pagamento:</strong>
+              <div>{{ item.dataPagamento | date }}</div>
+            </div>
+            <div class="show-data">
+              <strong>Status pagamento:</strong>
+              <div>{{ item.statusPagamento }}</div>
+            </div>
+            <div class="show-data">
+              <strong>Bandeira:</strong>
+              <div>{{ item.bandeira }}</div>
+            </div>
+            <div class="show-data">
+              <strong>Modalidade:</strong>
+              <div>{{ item.operacao }}</div>
+            </div>
+            <div class="show-data">
+              <strong>Valor parcela:</strong>
+              <div>{{ item.valorVenda | currency: 'BRL':'symbol':'1.2-2' }}</div>
+            </div>
+            <div class="show-data">
+              <strong>Valor desconto:</strong>
+              <div>{{ item.valorDesconto | currency: 'BRL':'symbol':'1.2-2' }}</div>
+            </div>
+            <div class="show-data">
+              <strong>Valor a receber:</strong>
+              <div>{{ item.valorReceber | currency: 'BRL':'symbol':'1.2-2' }}</div>
+            </div>
+            <div class="show-data">
+              <strong>Terminal:</strong>
+              <div>{{ item.idPos }}</div>
+            </div>
+            <div class="show-data">
+              <strong>Autorização:</strong>
+              <div>{{ item.idAutorizacao }}</div>
+            </div>
+            <div class="show-data">
+              <strong>NSU:</strong>
+              <div>{{ item.nsu }}</div>
+            </div>
+            <div class="show-data">
+              <strong>NSU original:</strong>
+              <div>{{ item.nsuOriginal }}</div>
+            </div>
+            <div class="show-data">
+              <strong>Cartão:</strong>
+              <div>{{ item.cartao }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-				<div class="row">
-					<div class="col-md-3">
-						<date-picker label="Data Venda Inicial" [formControl]="form.dataVendaInicial"
-							id="dataVendaInicial">
-						</date-picker>
-					</div>
-					<div class="col-md-3">
-						<date-picker label="Data Venda Final" [formControl]="form.dataVendaFinal" id="dataVendaFinal">
-						</date-picker>
-					</div>
-					<div class="col-md-3">
-						<date-picker label="Data Pagamento Inicial" [formControl]="form.dataPagamentoInicial"
-							id="dataPagamentoInicial">
-						</date-picker>
-					</div>
-					<div class="col-md-3">
-						<date-picker label="Data Pagamento Final" [formControl]="form.dataPagamentoFinal"
-							id="dataPagamentoFinal">
-						</date-picker>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<label for="bandeira">Bandeiras</label>
-							<select class="form-control" id="bandeira" formControlName="bandeira" select2="">
-								<option *ngFor="let item of bandeiras | keyvalue" [value]="item.key">{{ item.value }}
-								</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<label for="statusPagamento">Status Pagamento</label>
-							<select class="form-control" id="statusPagamento" formControlName="statusPagamento"
-								select2="">
-								<option *ngFor="let item of statusPagamento | keyvalue" [value]="item.key">
-									{{ item.value }}</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<label for="modalidade">Modalidade</label>
-							<select class="form-control" id="modalidade" formControlName="modalidade" select2="">
-								<option *ngFor="let item of modalidade | keyvalue" [value]="item.key">{{ item.value }}
-								</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<label for="terminal">Terminal</label>
-							<input type="text" class="form-control" id="terminal" formControlName="terminal" />
-						</div>
-					</div>
-					<div class="col-md-12 container-button">
-						<button type="button" class="btn btn-default btn-wlg " (click)="limparFiltros()">Limpar</button>
-						<button type="button" class="btn btn-primary btn-wlg"
-							(click)="ConsultarExtratoDetalhado()">Pesquisar</button>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+      <div class="table-primary table-nowrap" *ngIf="!mobile">
+        <alpe-datatable [datatable]="detalheDatatable"></alpe-datatable>
+      </div>
 
-
-	<div class="box box-primary">
-		<div class="header-report">
-			<div>
-				<h2 class="box-title">{{ nomeFantasia }}</h2>
-				<strong>{{ formatarDocumento(documento) }}</strong>
-			</div>
-			<div>
-				<small class="text-right">Código do {{ehEstabelecimento ? "EC" : "Fornecedor"}}: {{codigoParticipante}}
-				</small>
-				<br>
-				<small>{{ currentDate | dateTime }}</small>
-				<div class="download" [hidden]="!data.length">
-					<label class="btn btn-success pull-right" tooltip title="Exportar relatório" (click)="export()">
-						<em class="fa fa-download"></em>
-					</label>
-				</div>
-			</div>
-		</div>
-		<div class="box-body no-padding">
-
-			<div class="cards" *ngIf="mobile">
-				<div class="card" *ngFor="let item of data">
-					<div class="card-main">
-						<div class="show-data">
-							<strong>Data Venda:</strong>
-							<div>{{ item.dataVenda | date }}</div>
-						</div>
-						<div class="show-data">
-							<strong>Data Pagamento:</strong>
-							<div>{{ item.dataPagamento | date }}</div>
-						</div>
-						<div class="show-data">
-							<strong>Status pagamento:</strong>
-							<div>{{ item.statusPagamento }}</div>
-						</div>
-						<div class="show-data">
-							<strong>Bandeira:</strong>
-							<div>{{ item.bandeira }}</div>
-						</div>
-						<div class="show-data">
-							<strong>Modalidade:</strong>
-							<div>{{ item.operacao }}</div>
-						</div>
-						<div class="show-data">
-							<strong>Valor parcela:</strong>
-							<div>{{ item.valorVenda | currency:'BRL':'symbol':'1.2-2' }}</div>
-						</div>
-						<div class="show-data">
-							<strong>Valor desconto:</strong>
-							<div>{{ item.valorDesconto | currency:'BRL':'symbol':'1.2-2' }}</div>
-						</div>
-						<div class="show-data">
-							<strong>Valor a receber:</strong>
-							<div>{{ item.valorReceber | currency:'BRL':'symbol':'1.2-2' }}</div>
-						</div>
-						<div class="show-data">
-							<strong>Terminal:</strong>
-							<div>{{ item.idPos }}</div>
-						</div>
-						<div class="show-data">
-							<strong>Autorização:</strong>
-							<div>{{ item.idAutorizacao }}</div>
-						</div>
-						<div class="show-data">
-							<strong>NSU:</strong>
-							<div>{{ item.nsu }}</div>
-						</div>
-						<div class="show-data">
-							<strong>NSU original:</strong>
-							<div>{{ item.nsuOriginal }}</div>
-						</div>
-						<div class="show-data">
-							<strong>Cartão:</strong>
-							<div>{{ item.cartao }}</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="table-primary table-nowrap" *ngIf="!mobile">
-				<alpe-datatable [datatable]="detalheDatatable"></alpe-datatable>
-			</div>
-
-			<p class="no-records-found" *ngIf="!data.length">
-				{{ 'Nenhum registro encontrado' }}
-			</p>
-
-		</div>
-	</div>
-
+      <p class="no-records-found" *ngIf="!data.length">
+        {{ 'Nenhum registro encontrado' }}
+      </p>
+    </div>
+  </div>
 </section>

@@ -1,68 +1,70 @@
 .cards {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .cards .card {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 5px 10px;
-    margin-top: 10px;
-    margin-right: 10px;
-    text-align: center;
-    font-size: 13px;
-    width: 180px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin-top: 10px;
+  margin-right: 10px;
+  text-align: center;
+  font-size: 13px;
+  width: 180px;
 }
 
 .card-item {
-    padding-left: 0px;
-    display: block;
+  padding-left: 0px;
+  display: block;
 }
 
-.btn.active, .btn:active {
-    background-image: none;
-    background-color: #510863;
-    color: #fff;
-    outline: 0;
-    -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
-    box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+.btn.active,
+.btn:active {
+  background-image: none;
+  background-color: #510863;
+  color: #fff;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 
-.btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary {
-    border-color: #510863;
+.btn-primary.active,
+.btn-primary:active,
+.open > .dropdown-toggle.btn-primary {
+  border-color: #510863;
 }
 
-input[type="radio"] {
-    display: none;
+input[type='radio'] {
+  display: none;
 }
-@media (max-width : 768px) { 
-    .cards {
-        flex-direction: column;
-        align-items: center;
-    }
+@media (max-width: 768px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .card {
-        margin-bottom: 10px;
-    }
-
-}
-
-.ml-15{
-    margin-left: 15px;
+  .card {
+    margin-bottom: 10px;
+  }
 }
 
-.mr-15{
-    margin-right: 15px;
+.ml-15 {
+  margin-left: 15px;
 }
 
-@media (max-width: 435px){
-    .mt-10 {
-        margin-top: 10px;
-    }
+.mr-15 {
+  margin-right: 15px;
 }
 
-@media (max-width: 320px){
-    .ml-15 {
-        margin-left: 0;
-    }
+@media (max-width: 435px) {
+  .mt-10 {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 320px) {
+  .ml-15 {
+    margin-left: 0;
+  }
 }

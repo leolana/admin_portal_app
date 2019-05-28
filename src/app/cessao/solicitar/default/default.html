@@ -1,54 +1,83 @@
 <div class="box box-primary">
-    <div class="box-header with-border">
-        <h3 class="box-title">Cessão</h3>
+  <div class="box-header with-border">
+    <h3 class="box-title">Cessão</h3>
+  </div>
+  <form [formGroup]="form" (submit)="submit()" class="box-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div
+          class="form-group"
+          [class.has-error]="hasError.pagamento() && (_form.pagamento.dirty || _form.pagamento.touched)"
+        >
+          <label for="pagamento">Plano de Recebimento a partir do vencimento</label>
+          <select class="form-control" id="pagamento" formControlName="pagamento">
+            <option *ngFor="let o of pagamentos" [value]="o.id">{{ o.text }}</option>
+          </select>
+        </div>
+      </div>
     </div>
-    <form [formGroup]="form" (submit)="submit()" class="box-body">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group" [class.has-error]="hasError.pagamento() && (_form.pagamento.dirty || _form.pagamento.touched)">
-                    <label for="pagamento">Plano de Recebimento a partir do vencimento</label>
-                    <select class="form-control" id="pagamento" formControlName="pagamento">
-                        <option *ngFor="let o of pagamentos" [value]="o.id">{{ o.text }}</option>
-                    </select>
-                </div>
-            </div>
+    <div class="row">
+      <div class="col-md-6">
+        <date-picker
+          label="Prazo de Aprovação"
+          [formControl]="_form.dataExpiracao"
+          id="dataExpiracao"
+          [dateChanged]="warnings.dataExpiracao"
+          [hasError]="hasError.dataExpiracao()"
+        >
+        </date-picker>
+      </div>
+      <div class="col-md-6">
+        <div
+          class="form-group"
+          [class.has-error]="hasError.valorCessao() && (_form.valorCessao.dirty || _form.valorCessao.touched)"
+        >
+          <label for="valorCessao">Valor da Cessão</label>
+          <div class="input-group">
+            <label for="valorCessao" class="input-group-addon">R$</label>
+            <input
+              type="numeric"
+              class="form-control"
+              id="valorCessao"
+              formControlName="valorCessao"
+              currencyMask
+              [options]="{ precision: 2, align: 'left' }"
+            />
+          </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <date-picker label="Prazo de Aprovação" [formControl]="_form.dataExpiracao" id="dataExpiracao"
-                    [dateChanged]="warnings.dataExpiracao" [hasError]="hasError.dataExpiracao()">
-                </date-picker>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group" [class.has-error]="hasError.valorCessao() && (_form.valorCessao.dirty || _form.valorCessao.touched)">
-                    <label for="valorCessao">Valor da Cessão</label>
-                    <div class="input-group">
-                        <label for="valorCessao" class="input-group-addon">R$</label>
-                        <input type="numeric" class="form-control" id="valorCessao" formControlName="valorCessao" currencyMask [options]="{ precision: 2, align: 'left' }">
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <date-picker
+          label="Data de Vencimento"
+          [formControl]="_form.dataVencimento"
+          id="dataVencimento"
+          [hasError]="hasError.dataVencimento()"
+        >
+        </date-picker>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="referencia">Referência</label>
+          <input
+            type="text"
+            class="form-control"
+            id="referencia"
+            formControlName="referencia"
+            placeholder="NF 123..."
+            maxlength="30"
+          />
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <date-picker label="Data de Vencimento" [formControl]="_form.dataVencimento" id="dataVencimento"
-                    [hasError]="hasError.dataVencimento()">
-                </date-picker>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="referencia">Referência</label>
-                    <input type="text" class="form-control" id="referencia" formControlName="referencia" placeholder="NF 123..." maxlength="30">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <button class="btn btn-primary">
-                    <i class="fa fa-check"></i>
-                    Confirmar
-                </button>
-            </div>
-        </div>
-    </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button class="btn btn-primary">
+          <i class="fa fa-check"></i>
+          Confirmar
+        </button>
+      </div>
+    </div>
+  </form>
 </div>

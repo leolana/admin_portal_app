@@ -24,34 +24,34 @@ import { TipoCanalEntradaPipe } from './tipo-canal-entrada.pipe';
 import { RoleUsuarioPipe } from './role-usuario.pipe';
 
 const pipes = [
-    DocumentoPipe,
-    CredenciamentoStatusPipe,
-    TipoDocumentoPipe,
-    AberturaNascimentoPipe,
-    TelefonePipe,
-    TaxaAdministrativaParcelasPipe,
-    TipoCapturaPipe,
-    DiasSemanaPipe,
-    UsuarioStatusPipe,
-    VinculoStatusPipe,
-    ParticipanteIndicacaoStatusPipe,
-    ControlPipe,
-    CessaoStatusPipe,
-    NumeroCartaoPipe,
-    TipoPessoaPipe,
-    HasErrorPipe,
-    TipoCessaoPipe,
-    DateTimePipe,
-    TipoCessaoECPipe,
-    DiluicaoPagamentoPipe,
-    DatePipe,
-    TipoCanalEntradaPipe,
-    RoleUsuarioPipe
+  DocumentoPipe,
+  CredenciamentoStatusPipe,
+  TipoDocumentoPipe,
+  AberturaNascimentoPipe,
+  TelefonePipe,
+  TaxaAdministrativaParcelasPipe,
+  TipoCapturaPipe,
+  DiasSemanaPipe,
+  UsuarioStatusPipe,
+  VinculoStatusPipe,
+  ParticipanteIndicacaoStatusPipe,
+  ControlPipe,
+  CessaoStatusPipe,
+  NumeroCartaoPipe,
+  TipoPessoaPipe,
+  HasErrorPipe,
+  TipoCessaoPipe,
+  DateTimePipe,
+  TipoCessaoECPipe,
+  DiluicaoPagamentoPipe,
+  DatePipe,
+  TipoCanalEntradaPipe,
+  RoleUsuarioPipe,
 ];
 
 @NgModule({
-    imports: [CommonModule],
-    declarations: pipes,
-    exports: pipes
+  imports: [CommonModule],
+  declarations: pipes,
+  exports: pipes,
 })
-export class PipesModule { }
+export class PipesModule {}

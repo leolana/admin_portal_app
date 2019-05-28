@@ -1,34 +1,45 @@
-<div class="form-group has-feedback" [class.has-error]="valuePassword.invalid && valuePassword.dirty">
-    <input type="password" class="form-control" placeholder="Nova Senha" (keyup)="emitirSenha($event.target.value)">
-    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+<div
+  class="form-group has-feedback"
+  [class.has-error]="valuePassword.invalid && valuePassword.dirty"
+>
+  <input
+    type="password"
+    class="form-control"
+    placeholder="Nova Senha"
+    (keyup)="emitirSenha($event.target.value)"
+  />
+  <span class="glyphicon glyphicon-lock form-control-feedback"></span>
 
-    <div class="help-block" *ngIf="valuePassword.hasError('minLength')">
-        A senha precisa ter no mínimo 8 caracteres.
+  <div class="help-block" *ngIf="valuePassword.hasError('minLength')">
+    A senha precisa ter no mínimo 8 caracteres.
+  </div>
+  <div class="help-block" *ngIf="valuePassword.hasError('lowerCase')">
+    Senha Fraca - obrigatório 1 letra minúscula
+  </div>
+  <div class="help-block" *ngIf="valuePassword.hasError('upperCase')">
+    Senha Fraca - obrigatório 1 letra maiúscula
+  </div>
+  <div class="help-block" *ngIf="valuePassword.hasError('hasNumber')">
+    Senha Fraca - obrigatório 1 número
+  </div>
+  <div class="help-block" *ngIf="valuePassword.hasError('symbols')">
+    Senha Fraca - obrigatório 1 caractere especial
+  </div>
+  <div class="help-block" *ngIf="valuePassword.invalid && valuePassword.dirty">
+    <div *ngIf="valuePassword.value" class="progress">
+      <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
     </div>
-    <div class="help-block" *ngIf="valuePassword.hasError('lowerCase')">
-        Senha Fraca - obrigatório 1 letra minúscula
+  </div>
+  <div class="help-block text-success" *ngIf="valuePassword.valid && valuePassword.dirty">
+    Senha Forte
+    <div class="progress">
+      <div class="progress-bar progress-bar-success" style="width: 100%"></div>
     </div>
-    <div class="help-block" *ngIf="valuePassword.hasError('upperCase')">
-        Senha Fraca - obrigatório 1 letra maiúscula
-    </div>
-    <div class="help-block" *ngIf="valuePassword.hasError('hasNumber')">
-        Senha Fraca - obrigatório 1 número
-    </div>
-    <div class="help-block" *ngIf="valuePassword.hasError('symbols')">
-        Senha Fraca - obrigatório 1 caractere especial
-    </div>
-    <div class="help-block" *ngIf="valuePassword.invalid && valuePassword.dirty">
-        <div *ngIf="valuePassword.value" class="progress">
-            <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
-        </div>
-    </div>
-    <div class="help-block text-success" *ngIf="valuePassword.valid && valuePassword.dirty">
-        Senha Forte
-        <div class="progress">
-            <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-        </div>
-    </div>
-    <div class="help-block" *ngIf="valuePassword.invalid && valuePassword.dirty && !valuePassword.value">
-        Senha Inválida
-    </div>
+  </div>
+  <div
+    class="help-block"
+    *ngIf="valuePassword.invalid && valuePassword.dirty && !valuePassword.value"
+  >
+    Senha Inválida
+  </div>
 </div>

@@ -1,337 +1,400 @@
 <aside class="main-sidebar">
-	<section class="sidebar">
-		<ul class="sidebar-menu">
-			<li class="header" *ngIf="authBackOffice()">
-				BACK OFFICE
-			</li>
-			<li class="active treeview" *ngIf="authBackOffice()">
-				<a href="#">
-					<i class="fa fa-clipboard"></i>
-					<span>Credenciamento</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<li routerLinkActive="active">
-						<a routerLink="/credenciamento/prospectar">
-							<i class="fa fa-share-alt"></i> Prospectar
-							<span class="pull-right-container" *ngIf="viewModel.bulletEcPendenteCadastro > 0">
-								<small class="label pull-right bg-red">
-									{{ viewModel.bulletEcPendenteCadastro }}
-								</small>
-							</span>
-						</a>
-					</li>
-					<li routerLinkActive="active">
-						<a routerLink="/credenciamento/pesquisa">
-							<i class="fa fa-search"></i>
-							Consultar
-							<span class="pull-right-container" *ngIf="viewModel.bulletCredenciamentoPendente > 0">
-								<small class="label pull-right bg-red">
-									{{ viewModel.bulletCredenciamentoPendente }}
-								</small>
-							</span>
-						</a>
-					</li>
-					<li routerLinkActive="active">
-						<a [routerLink]="['/credenciamento/pessoa-juridica']">
-							<i class="fa fa-building"></i> Cadastrar PJ</a>
-					</li>
-					<li routerLinkActive="active">
-						<a [routerLink]="['/credenciamento/pessoa-fisica']">
-							<i class="fa fa-users"></i> Cadastrar PF</a>
-					</li>
-					
-				</ul>
-			</li>
-			<li class="active treeview" *ngIf="authBackOffice()">
-				<a href="#">
-					<i class="fa fa-truck"></i>
-					<span>Fornecedor</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<li routerLinkActive="active">
-						<a routerLink="/fornecedor/gerenciamento/cadastrados">
-							<i class="fa fa-search"></i> Consultar
-							<span class="pull-right-container" *ngIf="viewModel.bulletFornecedorPendenteCadastro > 0">
-								<small class="label pull-right bg-red">
-									{{ viewModel.bulletFornecedorPendenteCadastro }}
-								</small>
-							</span>
-						</a>
-					</li>
-					<li routerLinkActive="active">
-						<a routerLink="/fornecedor/dados-cadastrais">
-							<i class="fa fa-user-plus"></i> Cadastrar</a>
-					</li>
-				</ul>
-			</li>
-			<li class="active treeview" *ngIf="authBackOffice()">
-				<a href="#">
-					<i class="fa fa-cogs"></i>
-					<span>Configuração</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<li routerLinkActive="active">
-						<a routerLink="/taxas">
-							<i class="fa fa-percent"></i>
-							<span>Taxas</span>
-						</a>
-					</li>
-				</ul>
-			</li>
-			<li class="header" *ngIf="(authBackOffice() || authEstabelecimento()) && userParticipanteEstabelecimento()">
-				ESTABELECIMENTO
-			</li>
-			<li class="active treeview"
-				*ngIf="(authBackOffice() || authEstabelecimento() )&& userParticipanteEstabelecimento()">
-				<a href="#">
-					<i class="fa fa-clipboard"></i>
-					<span>Relatórios</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<!-- <li routerLinkActive="active">
+  <section class="sidebar">
+    <ul class="sidebar-menu">
+      <li class="header" *ngIf="authBackOffice()">
+        BACK OFFICE
+      </li>
+      <li class="active treeview" *ngIf="authBackOffice()">
+        <a href="#">
+          <i class="fa fa-clipboard"></i>
+          <span>Credenciamento</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li routerLinkActive="active">
+            <a routerLink="/credenciamento/prospectar">
+              <i class="fa fa-share-alt"></i> Prospectar
+              <span class="pull-right-container" *ngIf="viewModel.bulletEcPendenteCadastro > 0">
+                <small class="label pull-right bg-red">
+                  {{ viewModel.bulletEcPendenteCadastro }}
+                </small>
+              </span>
+            </a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/credenciamento/pesquisa">
+              <i class="fa fa-search"></i>
+              Consultar
+              <span class="pull-right-container" *ngIf="viewModel.bulletCredenciamentoPendente > 0">
+                <small class="label pull-right bg-red">
+                  {{ viewModel.bulletCredenciamentoPendente }}
+                </small>
+              </span>
+            </a>
+          </li>
+          <li routerLinkActive="active">
+            <a [routerLink]="['/credenciamento/pessoa-juridica']">
+              <i class="fa fa-building"></i> Cadastrar PJ</a
+            >
+          </li>
+          <li routerLinkActive="active">
+            <a [routerLink]="['/credenciamento/pessoa-fisica']">
+              <i class="fa fa-users"></i> Cadastrar PF</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li class="active treeview" *ngIf="authBackOffice()">
+        <a href="#">
+          <i class="fa fa-truck"></i>
+          <span>Fornecedor</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li routerLinkActive="active">
+            <a routerLink="/fornecedor/gerenciamento/cadastrados">
+              <i class="fa fa-search"></i> Consultar
+              <span
+                class="pull-right-container"
+                *ngIf="viewModel.bulletFornecedorPendenteCadastro > 0"
+              >
+                <small class="label pull-right bg-red">
+                  {{ viewModel.bulletFornecedorPendenteCadastro }}
+                </small>
+              </span>
+            </a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/fornecedor/dados-cadastrais">
+              <i class="fa fa-user-plus"></i> Cadastrar</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li class="active treeview" *ngIf="authBackOffice()">
+        <a href="#">
+          <i class="fa fa-cogs"></i>
+          <span>Configuração</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li routerLinkActive="active">
+            <a routerLink="/taxas">
+              <i class="fa fa-percent"></i>
+              <span>Taxas</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li
+        class="header"
+        *ngIf="(authBackOffice() || authEstabelecimento()) && userParticipanteEstabelecimento()"
+      >
+        ESTABELECIMENTO
+      </li>
+      <li
+        class="active treeview"
+        *ngIf="(authBackOffice() || authEstabelecimento()) && userParticipanteEstabelecimento()"
+      >
+        <a href="#">
+          <i class="fa fa-clipboard"></i>
+          <span>Relatórios</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <!-- <li routerLinkActive="active">
 						<a routerLink="/estabelecimento/relatorio/extratoresumido">
 							<i class="fa fa-columns"></i>Resumo</a>
 					</li> -->
-					<li routerLinkActive="active">
-						<a routerLink="/estabelecimento/relatorio/extratodetalhado">
-							<i class="fa fa-indent"></i> Detalhado</a>
-					</li>
-					<li *ngIf="viewModel.podeVerExportacoes" routerLinkActive="active">
-						<a routerLink="/estabelecimento/relatorio/exportacoes">
-							<i class="fa fa-download"></i> Exportações</a>
-					</li>
-				</ul>
-			</li>
-			<li class="active treeview"
-				*ngIf="(authBackOffice() || authEstabelecimento()) && userParticipanteEstabelecimento()">
-				<a href="#">
-					<i class="fa fa-clipboard"></i>
-					<span>Antecipação</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<li routerLinkActive="active">
-						<a routerLink="/estabelecimento/antecipacao/solicitar">
-							<i class="fa fa-truck"></i> Solicitar</a>
-					</li>
-					<li routerLinkActive="active">
-						<a routerLink="/estabelecimento/antecipacao/realizadas">
-							<i class="fa fa-building"></i> Realizado
-						</a>
-					</li>
-				</ul>
-			</li>
-			<li class="active treeview"
-				*ngIf="(authBackOffice() || authEstabelecimento()) && userParticipanteEstabelecimento()">
-				<a href="#">
-					<i class="fa fa-clipboard"></i>
-					<span>Cessão</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<li routerLinkActive="active">
-						<a routerLink="/cessoes">
-							<i class="fa fa-building"></i> Consultar
-							<span class="pull-right-container" *ngIf="viewModel.bulletCessoesPendentes > 0">
-								<small class="label pull-right bg-red">
-									{{ viewModel.bulletCessoesPendentes }}
-								</small>
-							</span>
-						</a>
-					</li>
-					<li routerLinkActive="active">
-						<a routerLink="/indicacao-fornecedor">
-							<i class="fa fa-truck"></i> Indicar Fornecedor</a>
-					</li>
-					<li routerLinkActive="active">
-						<a routerLink="/estabelecimento/fornecedores/pendente">
-							<i class="fa fa-search"></i> Consultar Fornecedor
-							<span class="pull-right-container" *ngIf="viewModel.bulletVinculosPendentes > 0">
-								<small class="label pull-right bg-red">
-									{{ viewModel.bulletVinculosPendentes }}
-								</small>
-							</span>
-						</a>
-					</li>
-				</ul>
-			</li>
-			<li class="active treeview"
-				*ngIf="(authBackOffice() || authEstabelecimento()) && userParticipanteEstabelecimento()">
-				<a href="#">
-					<i class="fa fa-address-card"></i>
-					<span>Minha conta</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<li routerLinkActive="active">
-						<a routerLink="/estabelecimento/detalhe/dados-cadastrais">
-							<i class="fa fa-user"></i> Dados Cadastrais</a>
-					</li>
-					<li routerLinkActive="active">
-						<a routerLink="/estabelecimento/detalhe/condicoescomerciais">
-							<i class="fa fa-building"></i> Taxas e Tarifas</a>
-					</li>
-					<li routerLinkActive="active" *ngIf="isAdministrator()">
-						<a routerLink="/usuarios/ativos">
-							<i class="fa fa-users"></i> Usuários</a>
-					</li>
-				</ul>
-			</li>
-			<li class="header" *ngIf="(authBackOffice() || authFornecedor()) && userParticipanteFornecedor()">
-				FORNECEDOR
-			</li>
-			<li class="active treeview" *ngIf="(authBackOffice() || authFornecedor()) && userParticipanteFornecedor()">
-				<a href="#">
-					<i class="fa fa-clipboard"></i>
-					<span>Relatórios</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<li routerLinkActive="active">
-						<a routerLink="/fornecedor/relatorio/consolidado">
-							<i class="fa fa-file-text-o"></i> Consolidado</a>
-					</li>
-					<li routerLinkActive="active">
-						<a routerLink="/fornecedor/relatorio/extratodetalhado">
-							<i class="fa fa-indent"></i> Detalhado</a>
-					</li>
-					<li *ngIf="viewModel.podeVerExportacoes" routerLinkActive="active">
-						<a routerLink="/fornecedor/relatorio/exportacoes">
-							<i class="fa fa-download"></i> Exportações</a>
-					</li>
-				</ul>
-			</li>
-			<li class="active treeview" *ngIf="(authBackOffice() || authFornecedor()) && userParticipanteFornecedor()">
-				<a href="#">
-					<i class="fa fa-clipboard"></i>
-					<span>Antecipação</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<li routerLinkActive="active">
-						<a routerLink="/fornecedor/antecipacao/solicitar">
-							<i class="fa fa-truck"></i> Solicitar</a>
-					</li>
-					<li routerLinkActive="active">
-						<a routerLink="/fornecedor/antecipacao/realizadas">
-							<i class="fa fa-building"></i> Realizado
-						</a>
-					</li>
-				</ul>
-			</li>
-			<li class="active treeview" *ngIf="(authBackOffice() || authFornecedor()) && userParticipanteFornecedor()">
-				<a href="#">
-					<i class="fa fa-clipboard"></i>
-					<span>Cessão</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<li routerLinkActive="active">
-						<a routerLink="/cessoes">
-							<i class="fa fa-search"></i> Consultar por status
-							<span class="pull-right-container" *ngIf="viewModel.bulletCessoesPendentes > 0">
-								<small class="label pull-right bg-red">
-									{{ viewModel.bulletCessoesPendentes }}
-								</small>
-							</span>
-						</a>
-					</li>
-					<!-- <li routerLinkActive="active">
+          <li routerLinkActive="active">
+            <a routerLink="/estabelecimento/relatorio/extratodetalhado">
+              <i class="fa fa-indent"></i> Detalhado</a
+            >
+          </li>
+          <li *ngIf="viewModel.podeVerExportacoes" routerLinkActive="active">
+            <a routerLink="/estabelecimento/relatorio/exportacoes">
+              <i class="fa fa-download"></i> Exportações</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li
+        class="active treeview"
+        *ngIf="(authBackOffice() || authEstabelecimento()) && userParticipanteEstabelecimento()"
+      >
+        <a href="#">
+          <i class="fa fa-clipboard"></i>
+          <span>Antecipação</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li routerLinkActive="active">
+            <a routerLink="/estabelecimento/antecipacao/solicitar">
+              <i class="fa fa-truck"></i> Solicitar</a
+            >
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/estabelecimento/antecipacao/realizadas">
+              <i class="fa fa-building"></i> Realizado
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li
+        class="active treeview"
+        *ngIf="(authBackOffice() || authEstabelecimento()) && userParticipanteEstabelecimento()"
+      >
+        <a href="#">
+          <i class="fa fa-clipboard"></i>
+          <span>Cessão</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li routerLinkActive="active">
+            <a routerLink="/cessoes">
+              <i class="fa fa-building"></i> Consultar
+              <span class="pull-right-container" *ngIf="viewModel.bulletCessoesPendentes > 0">
+                <small class="label pull-right bg-red">
+                  {{ viewModel.bulletCessoesPendentes }}
+                </small>
+              </span>
+            </a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/indicacao-fornecedor">
+              <i class="fa fa-truck"></i> Indicar Fornecedor</a
+            >
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/estabelecimento/fornecedores/pendente">
+              <i class="fa fa-search"></i> Consultar Fornecedor
+              <span class="pull-right-container" *ngIf="viewModel.bulletVinculosPendentes > 0">
+                <small class="label pull-right bg-red">
+                  {{ viewModel.bulletVinculosPendentes }}
+                </small>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li
+        class="active treeview"
+        *ngIf="(authBackOffice() || authEstabelecimento()) && userParticipanteEstabelecimento()"
+      >
+        <a href="#">
+          <i class="fa fa-address-card"></i>
+          <span>Minha conta</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li routerLinkActive="active">
+            <a routerLink="/estabelecimento/detalhe/dados-cadastrais">
+              <i class="fa fa-user"></i> Dados Cadastrais</a
+            >
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/estabelecimento/detalhe/condicoescomerciais">
+              <i class="fa fa-building"></i> Taxas e Tarifas</a
+            >
+          </li>
+          <li routerLinkActive="active" *ngIf="isAdministrator()">
+            <a routerLink="/usuarios/ativos"> <i class="fa fa-users"></i> Usuários</a>
+          </li>
+        </ul>
+      </li>
+      <li
+        class="header"
+        *ngIf="(authBackOffice() || authFornecedor()) && userParticipanteFornecedor()"
+      >
+        FORNECEDOR
+      </li>
+      <li
+        class="active treeview"
+        *ngIf="(authBackOffice() || authFornecedor()) && userParticipanteFornecedor()"
+      >
+        <a href="#">
+          <i class="fa fa-clipboard"></i>
+          <span>Relatórios</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li routerLinkActive="active">
+            <a routerLink="/fornecedor/relatorio/consolidado">
+              <i class="fa fa-file-text-o"></i> Consolidado</a
+            >
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/fornecedor/relatorio/extratodetalhado">
+              <i class="fa fa-indent"></i> Detalhado</a
+            >
+          </li>
+          <li *ngIf="viewModel.podeVerExportacoes" routerLinkActive="active">
+            <a routerLink="/fornecedor/relatorio/exportacoes">
+              <i class="fa fa-download"></i> Exportações</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li
+        class="active treeview"
+        *ngIf="(authBackOffice() || authFornecedor()) && userParticipanteFornecedor()"
+      >
+        <a href="#">
+          <i class="fa fa-clipboard"></i>
+          <span>Antecipação</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li routerLinkActive="active">
+            <a routerLink="/fornecedor/antecipacao/solicitar">
+              <i class="fa fa-truck"></i> Solicitar</a
+            >
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/fornecedor/antecipacao/realizadas">
+              <i class="fa fa-building"></i> Realizado
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li
+        class="active treeview"
+        *ngIf="(authBackOffice() || authFornecedor()) && userParticipanteFornecedor()"
+      >
+        <a href="#">
+          <i class="fa fa-clipboard"></i>
+          <span>Cessão</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li routerLinkActive="active">
+            <a routerLink="/cessoes">
+              <i class="fa fa-search"></i> Consultar por status
+              <span class="pull-right-container" *ngIf="viewModel.bulletCessoesPendentes > 0">
+                <small class="label pull-right bg-red">
+                  {{ viewModel.bulletCessoesPendentes }}
+                </small>
+              </span>
+            </a>
+          </li>
+          <!-- <li routerLinkActive="active">
 						<a routerLink="/cessao">
 							<i class="fa fa-file"></i> Realizado</a>
 					</li> -->
-					<li routerLinkActive="active">
-						<a routerLink="/indicacao-estabelecimento">
-							<i class="fa fa-building"></i> Convidar Estabelecimento</a>
-					</li>
-					<li routerLinkActive="active">
-						<a routerLink="/fornecedor/estabelecimentos/aprovados">
-							<i class="fa fa-users"></i> Consultar Estabelecimento</a>
-					</li>
-				</ul>
-			</li>
-			<li class="active treeview" *ngIf="(authBackOffice() || authFornecedor()) && userParticipanteFornecedor()">
-				<a href="#">
-					<i class="fa fa-building"></i>
-					<span>Credenciamento</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<li routerLinkActive="active">
-						<a routerLink="/credenciamento/upload">
-							<i class="fa fa-cloud-upload"></i> Upload de Estabelecimento</a>
-					</li>
-				</ul>
-			</li>
-			<li class="active treeview" *ngIf="(authBackOffice() || authFornecedor()) && userParticipanteFornecedor() && isAdministrator()">
-				<a href="#">
-					<i class="fa fa-address-card"></i>
-					<span>Minha conta</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<li routerLinkActive="active" *ngIf="isAdministrator()">
-						<a routerLink="/usuarios/ativos">
-							<i class="fa fa-users"></i> Usuários</a>
-					</li>
-				</ul>
-			</li>
-			<li class="header"
-				*ngIf="authBackOffice() && isAdministrator() && !userParticipanteFornecedor() && !userParticipanteEstabelecimento()">
-				SEGURANÇA
-			</li>
-			<li routerLinkActive="active"
-				*ngIf="authBackOffice() && isAdministrator() && !userParticipanteFornecedor() && !userParticipanteEstabelecimento()">
-				<a routerLink="/usuarios/ativos">
-					<i class="fa fa-users"></i>
-					<span>Usuários</span>
-				</a>
-			</li>
-			<li class="header" *ngIf="auth.hasRole(roles.super)">
-				SISTEMA
-			</li>
-			<li routerLinkActive="active" *ngIf="auth.hasRole(roles.super)">
-				<a routerLink="/health-check">
-					<i class="fa fa-dashboard"></i>
-					<span>Health Check</span>
-				</a>
-			</li>
-			<li routerLinkActive="active">
-				<a href="mailto:meajuda@alpenet.com.br" class="small">
-					<i class="fa fa-envelope" aria-hidden="true"></i>
-					<span>
-						meajuda@alpenet.com.br
-					</span>
-				</a>
-			</li>
-		</ul>
-	</section>
+          <li routerLinkActive="active">
+            <a routerLink="/indicacao-estabelecimento">
+              <i class="fa fa-building"></i> Convidar Estabelecimento</a
+            >
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/fornecedor/estabelecimentos/aprovados">
+              <i class="fa fa-users"></i> Consultar Estabelecimento</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li
+        class="active treeview"
+        *ngIf="(authBackOffice() || authFornecedor()) && userParticipanteFornecedor()"
+      >
+        <a href="#">
+          <i class="fa fa-building"></i>
+          <span>Credenciamento</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li routerLinkActive="active">
+            <a routerLink="/credenciamento/upload">
+              <i class="fa fa-cloud-upload"></i> Upload de Estabelecimento</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li
+        class="active treeview"
+        *ngIf="
+          (authBackOffice() || authFornecedor()) &&
+          userParticipanteFornecedor() &&
+          isAdministrator()
+        "
+      >
+        <a href="#">
+          <i class="fa fa-address-card"></i>
+          <span>Minha conta</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li routerLinkActive="active" *ngIf="isAdministrator()">
+            <a routerLink="/usuarios/ativos"> <i class="fa fa-users"></i> Usuários</a>
+          </li>
+        </ul>
+      </li>
+      <li
+        class="header"
+        *ngIf="
+          authBackOffice() &&
+          isAdministrator() &&
+          !userParticipanteFornecedor() &&
+          !userParticipanteEstabelecimento()
+        "
+      >
+        SEGURANÇA
+      </li>
+      <li
+        routerLinkActive="active"
+        *ngIf="
+          authBackOffice() &&
+          isAdministrator() &&
+          !userParticipanteFornecedor() &&
+          !userParticipanteEstabelecimento()
+        "
+      >
+        <a routerLink="/usuarios/ativos">
+          <i class="fa fa-users"></i>
+          <span>Usuários</span>
+        </a>
+      </li>
+      <li class="header" *ngIf="auth.hasRole(roles.super)">
+        SISTEMA
+      </li>
+      <li routerLinkActive="active" *ngIf="auth.hasRole(roles.super)">
+        <a routerLink="/health-check">
+          <i class="fa fa-dashboard"></i>
+          <span>Health Check</span>
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a href="mailto:meajuda@alpenet.com.br" class="small">
+          <i class="fa fa-envelope" aria-hidden="true"></i>
+          <span>
+            meajuda@alpenet.com.br
+          </span>
+        </a>
+      </li>
+    </ul>
+  </section>
 </aside>

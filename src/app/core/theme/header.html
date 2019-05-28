@@ -1,90 +1,112 @@
 <header class="main-header">
-    <a routerLink="/" class="logo">
-        <div class="logo-mini"></div>
-        <div class="logo-lg"></div>
+  <a routerLink="/" class="logo">
+    <div class="logo-mini"></div>
+    <div class="logo-lg"></div>
+  </a>
+  <nav class="navbar navbar-static-top">
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <span class="sr-only">Toggle navigation</span>
     </a>
-    <nav class="navbar navbar-static-top">
-        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-        </a>
 
-        <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-                <li class="dropdown notifications-menu" *ngIf="auth.hasRole(roles.boAdministrador, roles.boOperacoes)"
-                    (click)="getNotifications()">
-                    <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                        <em class="fa fa-bell-o"></em>
-                        <span *ngIf="bulletsNotifications" class="label label-danger">{{bulletsNotifications}}</span>
-                    </a>
-                    <ul class="dropdown-menu" appPreserveBehavior="click" (click)="closeDropdown($event)">
-                        <li class="header">{{getSubTitle()}}</li>
-                        <li>
-                            <ul class="menu" *ngFor="let item of notifications">
-                                <li>
-                                    <a routerLink="/notificacoes"> <em class="{{item.icon}}"></em>{{item.mensagem}}</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer" *ngIf="notifications.length"><a routerLink="/notificacoes">Ver todas</a>
-                        </li>
-                    </ul>
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <li
+          class="dropdown notifications-menu"
+          *ngIf="auth.hasRole(roles.boAdministrador, roles.boOperacoes)"
+          (click)="getNotifications()"
+        >
+          <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">
+            <em class="fa fa-bell-o"></em>
+            <span *ngIf="bulletsNotifications" class="label label-danger"
+              >{{bulletsNotifications}}</span
+            >
+          </a>
+          <ul class="dropdown-menu" appPreserveBehavior="click" (click)="closeDropdown($event)">
+            <li class="header">{{getSubTitle()}}</li>
+            <li>
+              <ul class="menu" *ngFor="let item of notifications">
+                <li>
+                  <a routerLink="/notificacoes">
+                    <em class="{{item.icon}}"></em>{{item.mensagem}}</a
+                  >
                 </li>
-            </ul>
-        </div>
-        <div class="users navbar-custom-menu">
-            <ul class="nav navbar-nav">
-                <li class="dropdown user user-menu">
-                    <a href="javascript: void(0)" class="dropdown-toggle space-participante" data-toggle="dropdown">
-                        <em class="fa fa-user-circle-o"></em>
-                        <span>{{ user.name }} </span>
-                        <span class="push-left" [hidden]="!user.participante">- {{ user.participanteNome }}</span>
-                    </a>
-                    <ul class="dropdown-menu" appPreserveBehavior="click" (change)="closeDropdown($event)">
-                        <li class="user-header" *ngIf="auth.hasRole(roles.boAdministrador, roles.boOperacoes)">
-                            <p>
-                                {{ user.name }}
-                                <small>({{ user.participanteNome || 'Nenhum participante definido' }})</small>
-                            </p>
-                        </li>
-                        <li class="user-body" *ngIf="auth.hasRole(roles.boAdministrador, roles.boOperacoes)">
-                            <button class="btn btn-success btn-block btn-flat" [hidden]="user.participante"
-                                (click)="impersonate()">
-                                Definir Participante
-                            </button>
-                            <button class="btn btn-success btn-block btn-flat" [hidden]="!user.participante"
-                                (click)="impersonate()">
-                                Trocar Participante
-                            </button>
-                            <span class="text-pointer pull-right" [hidden]="!user.participante"
-                                (click)="clearSession()">
-                                Desfazer Participante
-                            </span>
-                        </li>
-                        <li class="user-body" *ngIf="auth.memberships.length > 1" [formGroup]="formMembership">
-                            <select class="form-control" [formControl]="membership" (change)="changeMembership()">
-                                <option *ngFor="let m of auth.memberships" [value]="m.id">{{ m.nome }}</option>
-                            </select>
-                        </li>
-                        <li class="user-body">
-                            <div class="row text-center">
-                                <div class="col-xs-6">
-                                    <a routerLink="/trocar-senha" data-toggle="control-sidebar" (click)="signout()">
-                                        <em class="fa fa-lock"></em>
-                                        Trocar Senha
-                                    </a>
-                                </div>
-                                <div class="col-xs-6 text-right">
-                                    <a routerLink="/login" data-toggle="control-sidebar" (click)="signout()">
-                                        <em class="fa fa-sign-out"></em>
-                                        Sair
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-
-    </nav>
+              </ul>
+            </li>
+            <li class="footer" *ngIf="notifications.length">
+              <a routerLink="/notificacoes">Ver todas</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="users navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <li class="dropdown user user-menu">
+          <a
+            href="javascript: void(0)"
+            class="dropdown-toggle space-participante"
+            data-toggle="dropdown"
+          >
+            <em class="fa fa-user-circle-o"></em>
+            <span>{{ user.name }} </span>
+            <span class="push-left" [hidden]="!user.participante"
+              >- {{ user.participanteNome }}</span
+            >
+          </a>
+          <ul class="dropdown-menu" appPreserveBehavior="click" (change)="closeDropdown($event)">
+            <li class="user-header" *ngIf="auth.hasRole(roles.boAdministrador, roles.boOperacoes)">
+              <p>
+                {{ user.name }}
+                <small>({{ user.participanteNome || 'Nenhum participante definido' }})</small>
+              </p>
+            </li>
+            <li class="user-body" *ngIf="auth.hasRole(roles.boAdministrador, roles.boOperacoes)">
+              <button
+                class="btn btn-success btn-block btn-flat"
+                [hidden]="user.participante"
+                (click)="impersonate()"
+              >
+                Definir Participante
+              </button>
+              <button
+                class="btn btn-success btn-block btn-flat"
+                [hidden]="!user.participante"
+                (click)="impersonate()"
+              >
+                Trocar Participante
+              </button>
+              <span
+                class="text-pointer pull-right"
+                [hidden]="!user.participante"
+                (click)="clearSession()"
+              >
+                Desfazer Participante
+              </span>
+            </li>
+            <li class="user-body" *ngIf="auth.memberships.length > 1" [formGroup]="formMembership">
+              <select class="form-control" [formControl]="membership" (change)="changeMembership()">
+                <option *ngFor="let m of auth.memberships" [value]="m.id">{{ m.nome }}</option>
+              </select>
+            </li>
+            <li class="user-body">
+              <div class="row text-center">
+                <div class="col-xs-6">
+                  <a routerLink="/trocar-senha" data-toggle="control-sidebar" (click)="signout()">
+                    <em class="fa fa-lock"></em>
+                    Trocar Senha
+                  </a>
+                </div>
+                <div class="col-xs-6 text-right">
+                  <a routerLink="/login" data-toggle="control-sidebar" (click)="signout()">
+                    <em class="fa fa-sign-out"></em>
+                    Sair
+                  </a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </header>

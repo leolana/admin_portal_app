@@ -1,11 +1,11 @@
-@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
-@import "./app/core/datatable/datatable.component.css";
+@import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
+@import './app/core/datatable/datatable.component.css';
 /**/
 
 /* fix switch buttons tabinex */
 
-.bootstrap-switch input[type="radio"],
-.bootstrap-switch input[type="checkbox"] {
+.bootstrap-switch input[type='radio'],
+.bootstrap-switch input[type='checkbox'] {
   visibility: visible !important;
 }
 
@@ -205,9 +205,9 @@ table.table-small {
     display: block;
     width: 100%;
   }
-  input[type="submit"].btn-xs-block,
-  input[type="reset"].btn-xs-block,
-  input[type="button"].btn-xs-block {
+  input[type='submit'].btn-xs-block,
+  input[type='reset'].btn-xs-block,
+  input[type='button'].btn-xs-block {
     width: 100%;
   }
   .btn-block + .btn-xs-block,
@@ -222,9 +222,9 @@ table.table-small {
     display: block;
     width: 100%;
   }
-  input[type="submit"].btn-sm-block,
-  input[type="reset"].btn-sm-block,
-  input[type="button"].btn-sm-block {
+  input[type='submit'].btn-sm-block,
+  input[type='reset'].btn-sm-block,
+  input[type='button'].btn-sm-block {
     width: 100%;
   }
   .btn-block + .btn-sm-block,
@@ -239,9 +239,9 @@ table.table-small {
     display: block;
     width: 100%;
   }
-  input[type="submit"].btn-md-block,
-  input[type="reset"].btn-md-block,
-  input[type="button"].btn-md-block {
+  input[type='submit'].btn-md-block,
+  input[type='reset'].btn-md-block,
+  input[type='button'].btn-md-block {
     width: 100%;
   }
   .btn-block + .btn-md-block,
@@ -256,9 +256,9 @@ table.table-small {
     display: block;
     width: 100%;
   }
-  input[type="submit"].btn-lg-block,
-  input[type="reset"].btn-lg-block,
-  input[type="button"].btn-lg-block {
+  input[type='submit'].btn-lg-block,
+  input[type='reset'].btn-lg-block,
+  input[type='button'].btn-lg-block {
     width: 100%;
   }
   .btn-block + .btn-lg-block,

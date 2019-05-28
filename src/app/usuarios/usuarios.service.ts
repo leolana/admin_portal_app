@@ -9,163 +9,159 @@ import { Observable } from 'rxjs';
 import { NotificationService } from '../core/notification/notification.service';
 
 export enum VerificacaoUsuarioEnum {
-    novo = 1,
-    existente = 2,
-    vincular = 3,
-    vinculoAbortado = 4
+  novo = 1,
+  existente = 2,
+  vincular = 3,
+  vinculoAbortado = 4,
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsuariosService {
-    constructor(
-        private http: HttpClient,
-        private dialogService: DialogService,
-        private authService: AuthService,
-        private notificationService: NotificationService
-    ) { }
+  constructor(
+    private http: HttpClient,
+    private dialogService: DialogService,
+    private authService: AuthService,
+    private notificationService: NotificationService,
+  ) {}
 
-    checaExisteParticipante(emails: string[]) {
-        const url = `${environment.apiUrl}/check-memberships`;
-        const data = { emails };
-        return this.http.post(url, data);
+  checaExisteParticipante(emails: string[]) {
+    const url = `${environment.apiUrl}/check-memberships`;
+    const data = { emails };
+    return this.http.post(url, data);
+  }
+
+  criaVinculo(dados: any) {
+    const url = `${environment.apiUrl}/create-membership`;
+    return this.http.post(url, dados);
+  }
+
+  checaParticipantesDoUsuario = async (
+    email: string,
+    isEditing: boolean,
+    participanteId: number,
+  ): Promise<VerificacaoUsuarioEnum> => {
+    if (!email) {
+      this.notificationService.showErrorMessage('Email não informado');
+      return VerificacaoUsuarioEnum.vinculoAbortado;
     }
 
-    criaVinculo(dados: any) {
-        const url = `${environment.apiUrl}/create-membership`;
-        return this.http.post(url, dados);
+    if (!participanteId) {
+      participanteId = this.authService.user.participante;
     }
 
-    checaParticipantesDoUsuario = async (
-        email: string,
-        isEditing: boolean,
-        participanteId: number
-    ): Promise<VerificacaoUsuarioEnum> => {
+    const url = environment.apiUrl + '/memberships';
+    const data = { email: email };
 
-        if (!email) {
-            this.notificationService.showErrorMessage('Email não informado');
-            return VerificacaoUsuarioEnum.vinculoAbortado;
-        }
-
-        if (!participanteId) {
-            participanteId = this.authService.user.participante;
-        }
-
-        const url = environment.apiUrl + '/memberships';
-        const data = { email: email };
-
-        const participantes = await this.http.post<any[]>(url, data).toPromise();
-        if (!participantes.length) {
-            return VerificacaoUsuarioEnum.novo;
-        }
-
-        console.log('------- participante id ------------');
-        console.log(participanteId);
-        console.log('------- participantes ------------');
-        console.log(JSON.stringify(participantes));
-        console.log('------- isEditing ------------');
-        console.log(JSON.stringify(isEditing));
-        console.log('------- email ------------');
-        console.log(JSON.stringify(email));
-
-        const participante = participantes.find((participant: any) => {
-            return +participant.id === +participanteId;
-        });
-
-        if (participante) {
-            if (!isEditing) {
-                const message = `Este e-mail já está relacionado com o participante "${participante.nome}".`;
-                this.notificationService.showErrorMessage(message);
-            }
-            return VerificacaoUsuarioEnum.existente;
-        }
-
-        const yes = await this.dialogService.open(UsuarioExistenteComponent, participantes);
-
-        return yes
-            ? VerificacaoUsuarioEnum.vincular
-            : VerificacaoUsuarioEnum.vinculoAbortado;
+    const participantes = await this.http.post<any[]>(url, data).toPromise();
+    if (!participantes.length) {
+      return VerificacaoUsuarioEnum.novo;
     }
 
-    obterUsuarios(filter, pageSize?, pageIndex?, sortColumn?, sortOrder?) {
-        const url = `${environment.apiUrl}/usuarios`;
-        return this.http.post<any>(url, filter, {
-            params: {
-                pageSize,
-                pageIndex,
-                sortColumn,
-                sortOrder
-            }
-        });
+    console.log('------- participante id ------------');
+    console.log(participanteId);
+    console.log('------- participantes ------------');
+    console.log(JSON.stringify(participantes));
+    console.log('------- isEditing ------------');
+    console.log(JSON.stringify(isEditing));
+    console.log('------- email ------------');
+    console.log(JSON.stringify(email));
+
+    const participante = participantes.find((participant: any) => {
+      return +participant.id === +participanteId;
+    });
+
+    if (participante) {
+      if (!isEditing) {
+        const message = `Este e-mail já está relacionado com o participante "${participante.nome}".`;
+        this.notificationService.showErrorMessage(message);
+      }
+      return VerificacaoUsuarioEnum.existente;
     }
 
+    const yes = await this.dialogService.open(UsuarioExistenteComponent, participantes);
 
-    obterConvites(filter, pageSize?, pageIndex?, sortColumn?, sortOrder?) {
-        const url = `${environment.apiUrl}/convites`;
-        return this.http.post<any>(url, filter, {
-            params: {
-                pageSize,
-                pageIndex,
-                sortColumn,
-                sortOrder
-            }
-        });
-    }
+    return yes ? VerificacaoUsuarioEnum.vincular : VerificacaoUsuarioEnum.vinculoAbortado;
+  }
 
-    obterResumoUsuario(id) {
-        const url = `${environment.apiUrl}/usuario/detalhe/${id}`;
-        return this.http.get<any[]>(url);
-    }
+  obterUsuarios(filter, pageSize?, pageIndex?, sortColumn?, sortOrder?) {
+    const url = `${environment.apiUrl}/usuarios`;
+    return this.http.post<any>(url, filter, {
+      params: {
+        pageSize,
+        pageIndex,
+        sortColumn,
+        sortOrder,
+      },
+    });
+  }
 
-    salvarUsuario(usuario) {
-        return usuario.id
-            ? this.http.put(`${environment.apiUrl}/usuarios`, usuario)
-            : this.http.post(`${environment.apiUrl}/usuarios/convites`, usuario);
-    }
+  obterConvites(filter, pageSize?, pageIndex?, sortColumn?, sortOrder?) {
+    const url = `${environment.apiUrl}/convites`;
+    return this.http.post<any>(url, filter, {
+      params: {
+        pageSize,
+        pageIndex,
+        sortColumn,
+        sortOrder,
+      },
+    });
+  }
 
-    inativarUsuario(usuarioId) {
-        return this.http.put(`${environment.apiUrl}/usuario/status`, {
-            id: usuarioId,
-            ativo: false
-        });
-    }
+  obterResumoUsuario(id) {
+    const url = `${environment.apiUrl}/usuario/detalhe/${id}`;
+    return this.http.get<any[]>(url);
+  }
 
-    reativarUsuario(usuarioId) {
-        return this.http.put(`${environment.apiUrl}/usuario/status`, {
-            id: usuarioId,
-            ativo: true
-        });
-    }
+  salvarUsuario(usuario) {
+    return usuario.id
+      ? this.http.put(`${environment.apiUrl}/usuarios`, usuario)
+      : this.http.post(`${environment.apiUrl}/usuarios/convites`, usuario);
+  }
 
-    recriarUsuarioKeycloak(usuario) {
-        return this.http.put(`${environment.apiUrl}/recriar-keycloak`, usuario);
-    }
+  inativarUsuario(usuarioId) {
+    return this.http.put(`${environment.apiUrl}/usuario/status`, {
+      id: usuarioId,
+      ativo: false,
+    });
+  }
 
-    registrarUsuario(usuario) {
-        return this.http.post(`${environment.apiUrl}/register`, usuario);
-    }
+  reativarUsuario(usuarioId) {
+    return this.http.put(`${environment.apiUrl}/usuario/status`, {
+      id: usuarioId,
+      ativo: true,
+    });
+  }
 
-    reenviarConvite(usuario) {
-        return this.http.put(`${environment.apiUrl}/usuarios/reenviar-convite`, usuario);
-    }
+  recriarUsuarioKeycloak(usuario) {
+    return this.http.put(`${environment.apiUrl}/recriar-keycloak`, usuario);
+  }
 
-    validaStatusUsuario(idUsuario: string): Observable<any> {
-        const params = {
-            idUsuario: idUsuario
-        };
-        return this.http.get<any>(`${environment.apiUrl}/usuario/status`, { params });
-    }
+  registrarUsuario(usuario) {
+    return this.http.post(`${environment.apiUrl}/register`, usuario);
+  }
 
-    checaUsernameExistente(idUsuario: string, username: string): Observable<any> {
-        const params = {
-            id: idUsuario,
-            username: username
-        };
-        return this.http.get<any>(`${environment.apiUrl}/checkUsername`, { params });
-    }
+  reenviarConvite(usuario) {
+    return this.http.put(`${environment.apiUrl}/usuarios/reenviar-convite`, usuario);
+  }
 
-    obterInfoKeycloak(idUsuario: string){
-        return this.http.get<any>(`${environment.apiUrl}/info/keycloak/${idUsuario}`);
-    }
+  validaStatusUsuario(idUsuario: string): Observable<any> {
+    const params = {
+      idUsuario: idUsuario,
+    };
+    return this.http.get<any>(`${environment.apiUrl}/usuario/status`, { params });
+  }
+
+  checaUsernameExistente(idUsuario: string, username: string): Observable<any> {
+    const params = {
+      id: idUsuario,
+      username: username,
+    };
+    return this.http.get<any>(`${environment.apiUrl}/checkUsername`, { params });
+  }
+
+  obterInfoKeycloak(idUsuario: string) {
+    return this.http.get<any>(`${environment.apiUrl}/info/keycloak/${idUsuario}`);
+  }
 }

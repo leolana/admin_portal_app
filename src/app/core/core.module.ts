@@ -16,27 +16,25 @@ import { InputNovaSenhaComponent } from './components/inputs/input-nova-senha.co
 import { InputConfirmarSenhaComponent } from './components/inputs/input-confirmar-senha.component';
 
 const core = [
-    CollapseDirective,
-    MaskDocumentoDirective,
-    MaskDirective,
-    Select2Directive,
-    SwitchDirective,
-    TriggerDirective,
-    TooltipDirective,
-    SaveSessionStorageDirective,
-    CloneRowValuesDirective,
-    PreserveBehaviorDirective,
-    MovideskComponent,
-    InputTelefoneComponent,
-    InputNovaSenhaComponent,
-    InputConfirmarSenhaComponent
+  CollapseDirective,
+  MaskDocumentoDirective,
+  MaskDirective,
+  Select2Directive,
+  SwitchDirective,
+  TriggerDirective,
+  TooltipDirective,
+  SaveSessionStorageDirective,
+  CloneRowValuesDirective,
+  PreserveBehaviorDirective,
+  MovideskComponent,
+  InputTelefoneComponent,
+  InputNovaSenhaComponent,
+  InputConfirmarSenhaComponent,
 ];
 
 @NgModule({
-    imports: [
-        CommonModule
-    ],
-    declarations: core,
-    exports: core,
+  imports: [CommonModule],
+  declarations: core,
+  exports: core,
 })
-export class CoreModule { }
+export class CoreModule {}

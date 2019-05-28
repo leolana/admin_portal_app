@@ -1,13 +1,13 @@
-.table-exportacao tr>td {
-    vertical-align: middle;
+.table-exportacao tr > td {
+  vertical-align: middle;
 }
 
 .titulo {
-    min-width: 100px;
-    max-width: 200px;
+  min-width: 100px;
+  max-width: 200px;
 }
 
 .download {
-    width: 80px;
-    text-align: center;
+  width: 80px;
+  text-align: center;
 }

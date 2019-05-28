@@ -5,15 +5,13 @@ import { environment } from '../../environments/environment';
 import { IRecebivel } from '../interfaces/recebivel';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class TermoService {
-    constructor(
-        private http: HttpClient,
-    ) { }
+  constructor(private http: HttpClient) {}
 
-    aceitarTermo(termoId: number): Observable<any> {
-        const url = `${environment.apiUrl}/dominio/termo/${termoId}/aceitar`;
-        return this.http.post<IRecebivel[]>(url, { termoId: termoId });
-    }
+  aceitarTermo(termoId: number): Observable<any> {
+    const url = `${environment.apiUrl}/dominio/termo/${termoId}/aceitar`;
+    return this.http.post<IRecebivel[]>(url, { termoId: termoId });
+  }
 }

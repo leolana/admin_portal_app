@@ -1,40 +1,70 @@
 <div class="table-primary">
-    <alpe-datatable [datatable]="fornecedoresIndicacoes"></alpe-datatable>
+  <alpe-datatable [datatable]="fornecedoresIndicacoes"></alpe-datatable>
 </div>
 
 <div class="modal modal-editar-indicacao">
-    <div class="modal-dialog">
-        <form class="modal-content" [formGroup]="formIndicacao" (submit)="atualizarIndicacao()">
-            <div class="modal-header btn-primary">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <h4 class="modal-title">Editar Indicação</h4>
-            </div>
-            <div class="modal-body">
-                    <div [class.has-error]="checkIndicacao.documento() && (indicacao.documento.touched || indicacao.documento.dirty)" class="form-group">
-                        <label for="documento">Documento</label>
-                        <input type="text" class="form-control" [formControl]="indicacao.documento" id="documento"
-                            [attr.disabled]="true">
-                    </div>
-                    <div [class.has-error]="checkIndicacao.nome() && (indicacao.nome.touched || indicacao.nome.dirty)" class="form-group">
-                        <label for="nome">Nome Fornecedor</label>
-                        <input type="text" class="form-control" [formControl]="indicacao.nome" id="nome">
-                    </div>
-                    <div [class.has-error]="checkIndicacao.email() && (indicacao.email.touched || indicacao.email.dirty)" class="form-group">
-                        <label for="email">Email para contato</label>
-                        <input type="text" class="form-control" [formControl]="indicacao.email" id="email">
-                    </div>
-                    <div [class.has-error]="checkIndicacao.telefone() && (indicacao.telefone.touched || indicacao.telefone.dirty)" class="form-group">
-                        <label for="telefone">Telefone para contato</label>
-                        <input type="text" class="form-control" [formControl]="indicacao.telefone" id="telefone"
-                            mask="(00) 0000-0000">
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-wsm btn-primary">Salvar</button>
-                <button type="button" class="btn btn-wsm btn-default" data-dismiss="modal">Cancelar</button>
-            </div>
-        </form>
-    </div>
+  <div class="modal-dialog">
+    <form class="modal-content" [formGroup]="formIndicacao" (submit)="atualizarIndicacao()">
+      <div class="modal-header btn-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title">Editar Indicação</h4>
+      </div>
+      <div class="modal-body">
+        <div
+          [class.has-error]="
+            checkIndicacao.documento() && (indicacao.documento.touched || indicacao.documento.dirty)
+          "
+          class="form-group"
+        >
+          <label for="documento">Documento</label>
+          <input
+            type="text"
+            class="form-control"
+            [formControl]="indicacao.documento"
+            id="documento"
+            [attr.disabled]="true"
+          />
+        </div>
+        <div
+          [class.has-error]="
+            checkIndicacao.nome() && (indicacao.nome.touched || indicacao.nome.dirty)
+          "
+          class="form-group"
+        >
+          <label for="nome">Nome Fornecedor</label>
+          <input type="text" class="form-control" [formControl]="indicacao.nome" id="nome" />
+        </div>
+        <div
+          [class.has-error]="
+            checkIndicacao.email() && (indicacao.email.touched || indicacao.email.dirty)
+          "
+          class="form-group"
+        >
+          <label for="email">Email para contato</label>
+          <input type="text" class="form-control" [formControl]="indicacao.email" id="email" />
+        </div>
+        <div
+          [class.has-error]="
+            checkIndicacao.telefone() && (indicacao.telefone.touched || indicacao.telefone.dirty)
+          "
+          class="form-group"
+        >
+          <label for="telefone">Telefone para contato</label>
+          <input
+            type="text"
+            class="form-control"
+            [formControl]="indicacao.telefone"
+            id="telefone"
+            mask="(00) 0000-0000"
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-wsm btn-primary">Salvar</button>
+        <button type="button" class="btn btn-wsm btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </form>
+  </div>
 </div>

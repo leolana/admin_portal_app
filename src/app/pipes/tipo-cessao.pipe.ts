@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { CessaoOperacoes } from '../interfaces/cessao';
 
 @Pipe({
-  name: 'tipoCessao'
+  name: 'tipoCessao',
 })
 export class TipoCessaoPipe implements PipeTransform {
   transform(value: number): string {
@@ -11,7 +11,7 @@ export class TipoCessaoPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'tipoCessaoEC'
+  name: 'tipoCessaoEC',
 })
 export class TipoCessaoECPipe implements PipeTransform {
   transform(value: number): string {

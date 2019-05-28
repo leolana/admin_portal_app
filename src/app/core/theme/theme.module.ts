@@ -9,25 +9,14 @@ import { FooterComponent } from './footer/footer.component';
 import { CoreModule } from '../core.module';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        AppRoutingModule,
-        PipesModule,
-        CoreModule
-    ],
-    declarations: [
-        HeaderComponent,
-        FooterComponent,
-        ContentHeaderComponent,
-        NotPermittedComponent,
-        BreadcrumbComponent,
-    ],
-    exports: [
-        HeaderComponent,
-        FooterComponent,
-        ContentHeaderComponent,
-        NotPermittedComponent,
-    ]
+  imports: [CommonModule, ReactiveFormsModule, AppRoutingModule, PipesModule, CoreModule],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    ContentHeaderComponent,
+    NotPermittedComponent,
+    BreadcrumbComponent,
+  ],
+  exports: [HeaderComponent, FooterComponent, ContentHeaderComponent, NotPermittedComponent],
 })
-export class ThemeModule { }
+export class ThemeModule {}

@@ -6,17 +6,8 @@ import { PipesModule } from '../../../pipes/pipes.module';
 import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
-    imports: [
-        ReactiveFormsModule,
-        AlpeSelect2Module,
-        PipesModule,
-        BrowserModule,
-    ],
-    declarations: [
-        ModalCancelamentoComponent,
-    ],
-    exports: [
-        ModalCancelamentoComponent,
-    ]
+  imports: [ReactiveFormsModule, AlpeSelect2Module, PipesModule, BrowserModule],
+  declarations: [ModalCancelamentoComponent],
+  exports: [ModalCancelamentoComponent],
 })
-export class ModalCancelamentoModule { }
+export class ModalCancelamentoModule {}

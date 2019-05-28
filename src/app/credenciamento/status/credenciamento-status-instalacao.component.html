@@ -1,53 +1,53 @@
 <div class="content">
-    <h3 class="sub-title">Endereço Instalação</h3>
-    <div class="sub-content">
-        <div class="row">
-            <label class="col-md-3 control-label text-right">CEP</label>
-            <div class="col-md-3">{{ dados.cep }}</div>
-            <label class="col-md-2 control-label text-right">Ponto de Referência</label>
-            <div class="col-md-4">{{ dados.pontoReferencia }}</div>
-        </div>
-        <div class="row">
-            <label class="col-md-3 control-label text-right">Endereço de Instalação</label>
-            <div class="col-md-3">{{ dados.logradouro }}</div>
-            <label class="col-md-2 control-label text-right">Número</label>
-            <div class="col-md-4">{{ dados.numero }}</div>
-        </div>
-        <div class="row">
-            <label class="col-md-3 control-label text-right">Bairro</label>
-            <div class="col-md-3">{{ dados.bairro }}</div>
-            <label class="col-md-2 control-label text-right">Complemento</label>
-            <div class="col-md-4">{{ dados.complemento }}</div>
-        </div>
-        <div class="row">
-            <label class="col-md-3 control-label text-right">Cidade</label>
-            <div class="col-md-3">{{ dados.cidade.nome }}</div>
-            <label class="col-md-2 control-label text-right">UF</label>
-            <div class="col-md-4">{{ dados.cidade.estado }}</div>
-        </div>
-        <div class="row">
-            <label class="col-md-3 control-label text-right">Dias para Instalação</label>
-            <div class="col-md-3">{{ dados.dias | diasSemana }}</div>
-            <label class="col-md-2 control-label text-right">Horário</label>
-            <div class="col-md-4">{{ horarios.descricoes[dados.horario] }}</div>
-        </div>
+  <h3 class="sub-title">Endereço Instalação</h3>
+  <div class="sub-content">
+    <div class="row">
+      <label class="col-md-3 control-label text-right">CEP</label>
+      <div class="col-md-3">{{ dados.cep }}</div>
+      <label class="col-md-2 control-label text-right">Ponto de Referência</label>
+      <div class="col-md-4">{{ dados.pontoReferencia }}</div>
     </div>
-
-    <h3 class="sub-title">Contato de Instalação</h3>
-    <div class="sub-content">
-        <div class="row">
-            <label class="col-md-3 control-label text-right">Telefone</label>
-            <div class="col-md-3">{{ dados.telefone | telefone }}</div>
-
-            <label class="col-md-2 control-label text-right">Nome</label>
-            <div class="col-md-4">{{ dados.nome }}</div>
-        </div>
-        <div class="row">
-            <label class="col-md-3 control-label text-right">Celular</label>
-            <div class="col-md-3">{{ dados.celular | telefone }}</div>
-
-            <label class="col-md-2 control-label text-right">E-mail</label>
-            <div class="col-md-4">{{ dados.email }}</div>
-        </div>
+    <div class="row">
+      <label class="col-md-3 control-label text-right">Endereço de Instalação</label>
+      <div class="col-md-3">{{ dados.logradouro }}</div>
+      <label class="col-md-2 control-label text-right">Número</label>
+      <div class="col-md-4">{{ dados.numero }}</div>
     </div>
+    <div class="row">
+      <label class="col-md-3 control-label text-right">Bairro</label>
+      <div class="col-md-3">{{ dados.bairro }}</div>
+      <label class="col-md-2 control-label text-right">Complemento</label>
+      <div class="col-md-4">{{ dados.complemento }}</div>
+    </div>
+    <div class="row">
+      <label class="col-md-3 control-label text-right">Cidade</label>
+      <div class="col-md-3">{{ dados.cidade.nome }}</div>
+      <label class="col-md-2 control-label text-right">UF</label>
+      <div class="col-md-4">{{ dados.cidade.estado }}</div>
+    </div>
+    <div class="row">
+      <label class="col-md-3 control-label text-right">Dias para Instalação</label>
+      <div class="col-md-3">{{ dados.dias | diasSemana }}</div>
+      <label class="col-md-2 control-label text-right">Horário</label>
+      <div class="col-md-4">{{ horarios.descricoes[dados.horario] }}</div>
+    </div>
+  </div>
+
+  <h3 class="sub-title">Contato de Instalação</h3>
+  <div class="sub-content">
+    <div class="row">
+      <label class="col-md-3 control-label text-right">Telefone</label>
+      <div class="col-md-3">{{ dados.telefone | telefone }}</div>
+
+      <label class="col-md-2 control-label text-right">Nome</label>
+      <div class="col-md-4">{{ dados.nome }}</div>
+    </div>
+    <div class="row">
+      <label class="col-md-3 control-label text-right">Celular</label>
+      <div class="col-md-3">{{ dados.celular | telefone }}</div>
+
+      <label class="col-md-2 control-label text-right">E-mail</label>
+      <div class="col-md-4">{{ dados.email }}</div>
+    </div>
+  </div>
 </div>

@@ -3,20 +3,20 @@ import { Directive, ElementRef, Input } from '@angular/core';
 declare const $: any;
 
 @Directive({
-    selector: '[appTrigger]'
+  selector: '[appTrigger]',
 })
 export class TriggerDirective {
-    @Input() appTrigger: string;
+  @Input() appTrigger: string;
 
-    constructor(private el: ElementRef) {
-        const $el = $(this.el.nativeElement);
+  constructor(private el: ElementRef) {
+    const $el = $(this.el.nativeElement);
 
-        $el.on('click', (e) => {
-            if ($(e.target).closest(this.appTrigger).length) {
-                return 'already target';
-            }
+    $el.on('click', e => {
+      if ($(e.target).closest(this.appTrigger).length) {
+        return 'already target';
+      }
 
-            $el.find(this.appTrigger).trigger('click');
-        });
-    }
+      $el.find(this.appTrigger).trigger('click');
+    });
+  }
 }

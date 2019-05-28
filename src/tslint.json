@@ -4,16 +4,7 @@
     "directive-selector": [
       true,
       "attribute",
-      [
-        "app",
-        "stat",
-        "tooltip",
-        "clone",
-        "switch",
-        "datepicker",
-        "select2",
-        "alpe"
-      ],
+      ["app", "stat", "tooltip", "clone", "switch", "datepicker", "select2", "alpe"],
       "camelCase"
     ],
     "triple-equals": false,

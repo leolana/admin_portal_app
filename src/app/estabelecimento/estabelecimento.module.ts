@@ -18,30 +18,30 @@ import { IndicacaoFornecedorComponent } from './indicacao-fornecedor/indicacao-f
 import { ModalCancelamentoModule } from '../core/components/modal-cancelamento/modal-cancelamento.module';
 
 @NgModule({
-    imports: [
-        ReactiveFormsModule,
-        BrowserModule,
-        ThemeModule,
-        PipesModule,
-        DatatableModule,
-        AlpeTabsModule,
-        NgxMaskModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgxMaskModule,
-        NgxCurrencyModule,
-        CoreModule,
-        ModalCancelamentoModule,
-    ],
-    declarations: [
-        GerenciamentoConsultaFornecedorComponent,
-        FornecedorPendenteComponent,
-        FornecedorAprovadoComponent,
-        FornecedorCanceladoComponent,
-        FornecedorReprovadoComponent,
-        FornecedorIndicacaoComponent,
-        IndicacaoFornecedorComponent,
-    ],
-    exports: [],
+  imports: [
+    ReactiveFormsModule,
+    BrowserModule,
+    ThemeModule,
+    PipesModule,
+    DatatableModule,
+    AlpeTabsModule,
+    NgxMaskModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxMaskModule,
+    NgxCurrencyModule,
+    CoreModule,
+    ModalCancelamentoModule,
+  ],
+  declarations: [
+    GerenciamentoConsultaFornecedorComponent,
+    FornecedorPendenteComponent,
+    FornecedorAprovadoComponent,
+    FornecedorCanceladoComponent,
+    FornecedorReprovadoComponent,
+    FornecedorIndicacaoComponent,
+    IndicacaoFornecedorComponent,
+  ],
+  exports: [],
 })
-export class EstabelecimentoModule { }
+export class EstabelecimentoModule {}

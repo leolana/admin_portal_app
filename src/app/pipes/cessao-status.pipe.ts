@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { CessaoStatus } from '../interfaces/cessao';
 
 @Pipe({
-  name: 'cessaoStatus'
+  name: 'cessaoStatus',
 })
 export class CessaoStatusPipe implements PipeTransform {
   transform(value: number): string {

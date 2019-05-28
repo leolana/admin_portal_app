@@ -10,7 +10,7 @@ export const environment = {
   refreshTokenInterval: 120000,
   sentryClientKey: '',
   gaTag: '',
-  movideskChatboxToken: ''
+  movideskChatboxToken: '',
 };
 
 /*

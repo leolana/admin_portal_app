@@ -10,12 +10,18 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="nome">Nome do Participante:</label>
-            <input class="form-control" id="nome" [formControl]="controls.nomeParticipante">
+            <input class="form-control" id="nome" [formControl]="controls.nomeParticipante" />
           </div>
         </div>
         <div class="col-md-6">
           <button type="submit" class="btn btn-primary btn-search-unlabeled ">Pesquisar</button>
-          <button type="button" class="btn btn-default btn-search-unlabeled ml-15" (click)="reset()">Limpar</button>
+          <button
+            type="button"
+            class="btn btn-default btn-search-unlabeled ml-15"
+            (click)="reset()"
+          >
+            Limpar
+          </button>
         </div>
       </div>
     </form>
@@ -29,10 +35,16 @@
       <alpe-usuarios-inativos [filters]="filters"></alpe-usuarios-inativos>
     </ng-template>
     <ng-template #usuariosConviteAtivo>
-      <alpe-usuarios-convite-ativo #refletirInclusaoConvidados [filters]="filters"></alpe-usuarios-convite-ativo>
+      <alpe-usuarios-convite-ativo
+        #refletirInclusaoConvidados
+        [filters]="filters"
+      ></alpe-usuarios-convite-ativo>
     </ng-template>
     <ng-template #usuariosConviteExpirado>
-      <alpe-usuarios-convite-expirado #refletirInclusaoExpirados [filters]="filters"></alpe-usuarios-convite-expirado>
+      <alpe-usuarios-convite-expirado
+        #refletirInclusaoExpirados
+        [filters]="filters"
+      ></alpe-usuarios-convite-expirado>
     </ng-template>
   </alpe-tabs>
 
@@ -41,5 +53,4 @@
       Incluir Usuário
     </button>
   </div>
-
 </section>

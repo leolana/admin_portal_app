@@ -4,49 +4,49 @@ import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class HealthService {
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-    testMainServices() {
-        return this.http.get(`${environment.apiUrl}/health-check`);
-    }
+  testMainServices() {
+    return this.http.get(`${environment.apiUrl}/health-check`);
+  }
 
-    testPostgresConnection() {
-        return this.http.get(`${environment.apiUrl}/health/testPostgresConnection`);
-    }
+  testPostgresConnection() {
+    return this.http.get(`${environment.apiUrl}/health/testPostgresConnection`);
+  }
 
-    testOracleConnection() {
-        return this.http.get(`${environment.apiUrl}/health/testOracleConnection`);
-    }
+  testOracleConnection() {
+    return this.http.get(`${environment.apiUrl}/health/testOracleConnection`);
+  }
 
-    testKeyCloakAccess() {
-        return this.http.get(`${environment.apiUrl}/health/testKeyCloakAccess`);
-    }
+  testKeyCloakAccess() {
+    return this.http.get(`${environment.apiUrl}/health/testKeyCloakAccess`);
+  }
 
-    testMailer(to) {
-        return this.http.post(`${environment.apiUrl}/health/testMailer`, { to: to });
-    }
+  testMailer(to) {
+    return this.http.post(`${environment.apiUrl}/health/testMailer`, { to: to });
+  }
 
-    getStatusCredenciamentos() {
-        return this.http.get(`${environment.apiUrl}/health/getStatusCredenciamentos`);
-    }
+  getStatusCredenciamentos() {
+    return this.http.get(`${environment.apiUrl}/health/getStatusCredenciamentos`);
+  }
 
-    getStatusFornecedores() {
-        return this.http.get(`${environment.apiUrl}/health/getStatusFornecedores`);
-    }
+  getStatusFornecedores() {
+    return this.http.get(`${environment.apiUrl}/health/getStatusFornecedores`);
+  }
 
-    getStatusCessoes() {
-        return this.http.get(`${environment.apiUrl}/health/getStatusCessoes`);
-    }
+  getStatusCessoes() {
+    return this.http.get(`${environment.apiUrl}/health/getStatusCessoes`);
+  }
 
-    getStatusSignins() {
-        return this.http.get(`${environment.apiUrl}/health/getStatusSignins`);
-    }
+  getStatusSignins() {
+    return this.http.get(`${environment.apiUrl}/health/getStatusSignins`);
+  }
 
-    getVersionAPI() {
-        return this.http.get(`${environment.apiUrl}/version`);
-    }
+  getVersionAPI() {
+    return this.http.get(`${environment.apiUrl}/version`);
+  }
 
-    getMigrations() {
-        return this.http.get<any[]>(`${environment.apiUrl}/health/migrations`);
-    }
+  getMigrations() {
+    return this.http.get<any[]>(`${environment.apiUrl}/health/migrations`);
+  }
 }

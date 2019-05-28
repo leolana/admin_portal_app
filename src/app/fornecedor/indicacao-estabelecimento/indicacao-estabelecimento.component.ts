@@ -8,15 +8,15 @@ import { TiposDocumentos } from '../../interfaces';
 
 @Component({
   templateUrl: './indicacao-estabelecimento.component.html',
-  styleUrls: ['./indicacao-estabelecimento.component.css']
+  styleUrls: ['./indicacao-estabelecimento.component.css'],
 })
 export class IndicacaoEstabelecimentoComponent implements OnInit {
   constructor(
     private fornecedorService: FornecedorService,
     private notification: NotificationService,
     private prompt: PromptService,
-    private router: Router
-  ) { }
+    private router: Router,
+  ) {}
 
   // PROPERTIES
   filter = {
@@ -68,11 +68,11 @@ export class IndicacaoEstabelecimentoComponent implements OnInit {
           return 'Telefone informado não é válido';
         }
       }
-    }
+    },
   };
 
   // METHODS
-  ngOnInit() { }
+  ngOnInit() {}
 
   getParticipante() {
     const documento = this.formFilter.value.documento;
@@ -89,7 +89,9 @@ export class IndicacaoEstabelecimentoComponent implements OnInit {
 
     this.fornecedorService.checaDocumentoIndicacaoEstabelecimento(documento).subscribe(found => {
       if (found && found.jaFoiIndicado) {
-        this.notification.showAlertMessage(`Vínculo já solicitado para o estabelecimento "${found.nome}"`);
+        this.notification.showAlertMessage(
+          `Vínculo já solicitado para o estabelecimento "${found.nome}"`,
+        );
         return;
       }
 
@@ -104,11 +106,13 @@ export class IndicacaoEstabelecimentoComponent implements OnInit {
         return;
       }
 
-      this.prompt.confirm('Estabelecimento não cadastrado. Deseja indicar para cadastro?').then(yes => {
-        if (yes) {
-          this.indicacao.documento.setValue(documento);
-        }
-      });
+      this.prompt
+        .confirm('Estabelecimento não cadastrado. Deseja indicar para cadastro?')
+        .then(yes => {
+          if (yes) {
+            this.indicacao.documento.setValue(documento);
+          }
+        });
     });
   }
 
@@ -126,7 +130,8 @@ export class IndicacaoEstabelecimentoComponent implements OnInit {
     json.documento = String(json.documento).replace(/\D/g, '');
 
     this.fornecedorService.indicarEstabelecimentoParaCadastro(json).subscribe(() => {
-      const message = 'Estabelecimento indicado com sucesso, o cadastramento será realizado pelo Backoffice Alpe';
+      const message =
+        'Estabelecimento indicado com sucesso, o cadastramento será realizado pelo Backoffice Alpe';
       this.notification.showSuccessMessage(message);
       this.router.navigateByUrl('/fornecedor/estabelecimentos/pendentes');
 

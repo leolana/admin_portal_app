@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ViewChild,
-  TemplateRef
-} from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef } from '@angular/core';
 import { CredenciamentoService } from '../credenciamento.service';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationService } from 'src/app/core/notification/notification.service';
@@ -16,14 +10,14 @@ import { AlpeTabs } from 'src/app/core/components/alpe-tabs/alpe-tabs.component'
 declare const $: any;
 
 @Component({
-  templateUrl: './credenciamento-status.component.html'
+  templateUrl: './credenciamento-status.component.html',
 })
 export class CredenciamentoStatusComponent implements OnInit, AfterViewInit {
   constructor(
     private service: CredenciamentoService,
     private route: ActivatedRoute,
     private notification: NotificationService,
-    private prompt: PromptService
+    private prompt: PromptService,
   ) {}
 
   resumo: any;
@@ -42,7 +36,7 @@ export class CredenciamentoStatusComponent implements OnInit, AfterViewInit {
 
   loaded = {
     resumo: false,
-    view: false
+    view: false,
   };
 
   ngOnInit() {
@@ -66,47 +60,47 @@ export class CredenciamentoStatusComponent implements OnInit, AfterViewInit {
       {
         label: 'Resumo',
         template: this.tabCadastro,
-        active: true
-      }
+        active: true,
+      },
     ];
 
     if (this.resumo.cadastro.tipoPessoa === TiposPessoa.juridica) {
       this.tabs.push({
         label: 'Sócios',
-        template: this.tabSocios
+        template: this.tabSocios,
       });
     }
 
     this.tabs = this.tabs.concat([
       {
         label: 'Instalação',
-        template: this.tabInstalacao
+        template: this.tabInstalacao,
       },
       {
         label: 'Domicílio Bancário',
-        template: this.tabDomicilio
+        template: this.tabDomicilio,
       },
       {
         label: 'Documentos',
-        template: this.tabDocumentos
-      }
+        template: this.tabDocumentos,
+      },
     ]);
 
     if (this.resumo.credenciamento.status === CredenciamentoStatus.emAnalise) {
       this.tabs.push({
         label: 'Análise',
-        template: this.tabAnaliseDocumentos
+        template: this.tabAnaliseDocumentos,
       });
     }
 
     if (this.resumo.credenciamento.status === CredenciamentoStatus.aprovado) {
       this.tabs.push({
         label: 'Usuários',
-        template: this.tabUsuarios
+        template: this.tabUsuarios,
       });
       this.tabs.push({
         label: 'Convites',
-        template: this.tabConvites
+        template: this.tabConvites,
       });
     }
   }
@@ -130,35 +124,35 @@ export class CredenciamentoStatusComponent implements OnInit, AfterViewInit {
       const dadosSocios = res.socios.map((socio: any) => ({
         email: socio.email,
         nome: socio.nome,
-        celular: socio.celular || socio.telefone
+        celular: socio.celular || socio.telefone,
       }));
 
       const dadosConvites = [
         {
           email: res.contato.email,
           nome: res.contato.nome,
-          celular: res.contato.celular
+          celular: res.contato.celular,
         },
         {
           email: res.instalacao.email,
           nome: res.instalacao.nome,
-          celular: res.instalacao.celular
+          celular: res.instalacao.celular,
         },
-        ...dadosSocios
+        ...dadosSocios,
       ];
 
       const emails = dadosConvites.map(convite => convite.email);
       const emailsNaoDuplicados = new Set(emails);
 
       emailsNaoDuplicados.forEach(email =>
-        convites.push(dadosConvites.find(convite => convite.email === email))
+        convites.push(dadosConvites.find(convite => convite.email === email)),
       );
 
       this.resumo = $.extend(true, res, {
         cadastro: {
-          contato: res.contato
+          contato: res.contato,
         },
-        convites
+        convites,
       });
 
       callback();
@@ -170,18 +164,14 @@ export class CredenciamentoStatusComponent implements OnInit, AfterViewInit {
   }
 
   iniciarAnalise() {
-    this.prompt
-      .confirm('Deseja Analisar este Credenciamento?', 'Confirmação')
-      .then(yes => {
-        if (yes) {
-          this.service.analisar(this.resumo.id).subscribe(() => {
-            this.notification.showSuccessMessage(
-              `Credenciamento separado para Análise.`
-            );
-            this.ngOnInit();
-          });
-        }
-      });
+    this.prompt.confirm('Deseja Analisar este Credenciamento?', 'Confirmação').then(yes => {
+      if (yes) {
+        this.service.analisar(this.resumo.id).subscribe(() => {
+          this.notification.showSuccessMessage(`Credenciamento separado para Análise.`);
+          this.ngOnInit();
+        });
+      }
+    });
   }
 
   podeAprovarRecusar() {
@@ -189,36 +179,29 @@ export class CredenciamentoStatusComponent implements OnInit, AfterViewInit {
   }
 
   aprovar() {
-    this.prompt
-      .confirm('Deseja Aprovar este Credenciamento?', 'Confirmação')
-      .then(yes => {
-        if (yes) {
-          this.service.aprovar(this.resumo.id).subscribe(() => {
-            this.notification.showSuccessMessage('Credenciamento Aprovado!');
-            this.ngOnInit();
-          });
-        }
-      });
+    this.prompt.confirm('Deseja Aprovar este Credenciamento?', 'Confirmação').then(yes => {
+      if (yes) {
+        this.service.aprovar(this.resumo.id).subscribe(() => {
+          this.notification.showSuccessMessage('Credenciamento Aprovado!');
+          this.ngOnInit();
+        });
+      }
+    });
   }
 
   recusar() {
-    this.prompt
-      .confirm('Deseja Recusar este Credenciamento?', 'Confirmação')
-      .then(yes => {
-        if (yes) {
-          this.service.recusar(this.resumo.id).subscribe(() => {
-            this.notification.showSuccessMessage('Credenciamento Recusado!');
-            this.ngOnInit();
-          });
-        }
-      });
+    this.prompt.confirm('Deseja Recusar este Credenciamento?', 'Confirmação').then(yes => {
+      if (yes) {
+        this.service.recusar(this.resumo.id).subscribe(() => {
+          this.notification.showSuccessMessage('Credenciamento Recusado!');
+          this.ngOnInit();
+        });
+      }
+    });
   }
 
   estaAprovadoOuRecusado() {
     const current = this.resumo.credenciamento.status;
-    return (
-      current === CredenciamentoStatus.aprovado ||
-      current === CredenciamentoStatus.reprovado
-    );
+    return current === CredenciamentoStatus.aprovado || current === CredenciamentoStatus.reprovado;
   }
 }

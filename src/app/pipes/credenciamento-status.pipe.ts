@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { CredenciamentoStatus } from '../interfaces/credenciamento';
 
 @Pipe({
-  name: 'credenciamentoStatus'
+  name: 'credenciamentoStatus',
 })
 export class CredenciamentoStatusPipe implements PipeTransform {
   transform(value: number): string {

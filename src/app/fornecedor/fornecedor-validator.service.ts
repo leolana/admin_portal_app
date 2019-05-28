@@ -8,60 +8,51 @@ import { Horarios } from './../interfaces/credenciamento/index';
 import { DominioService } from '../dominio/dominio.service';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class FornecedorValidatorService {
-    private hasError = {
-        dadosCadastrais: false,
-        dadosBancarios: false,
-        tarifas: false,
-    };
-    private fornecedorSession;
+  private hasError = {
+    dadosCadastrais: false,
+    dadosBancarios: false,
+    tarifas: false,
+  };
+  private fornecedorSession;
 
-    private errorHandler = new BehaviorSubject(this.hasError);
-    errorSender = this.errorHandler.asObservable();
+  private errorHandler = new BehaviorSubject(this.hasError);
+  errorSender = this.errorHandler.asObservable();
 
-    constructor(
-        private service: FornecedorService,
-        private dominioService: DominioService
-    ) { }
+  constructor(private service: FornecedorService, private dominioService: DominioService) {}
 
-    async validaSteps() {
-        this.fornecedorSession = this.service.getFornecedorSessionStorage();
-        if (this.fornecedorSession.id) {
-            const hasErrorLocale = Object.assign({}, this.hasError);
-            hasErrorLocale.dadosBancarios = await this.validaDadosBancarios();
+  async validaSteps() {
+    this.fornecedorSession = this.service.getFornecedorSessionStorage();
+    if (this.fornecedorSession.id) {
+      const hasErrorLocale = Object.assign({}, this.hasError);
+      hasErrorLocale.dadosBancarios = await this.validaDadosBancarios();
 
-
-            this.errorHandler.next(hasErrorLocale);
-            return;
-        }
-
-        this.errorHandler.next(this.hasError);
+      this.errorHandler.next(hasErrorLocale);
+      return;
     }
 
-    async validaDadosBancarios() {
-        const hasError = [
-            await this.validaBancos()
-        ];
+    this.errorHandler.next(this.hasError);
+  }
 
-        return hasError.filter(error => error).length > 0;
-    }
+  async validaDadosBancarios() {
+    const hasError = [await this.validaBancos()];
 
-    validaBancos() {
-        return new Promise(r => {
-            this.dominioService.obterBancos()
-                .subscribe(bancosDisponiveis => {
-                    const bancosSelecionados = this.fornecedorSession.domiciliosBancarios;
-                    const bancosInvalidos = bancosSelecionados
-                        .some(bancoSelecionado => {
-                            return !(bancosDisponiveis
-                                .some(bancoDisponivel => {
-                                    return bancoDisponivel.id == bancoSelecionado.bancoId;
-                                }));
-                        });
-                    r(bancosInvalidos);
-                });
+    return hasError.filter(error => error).length > 0;
+  }
+
+  validaBancos() {
+    return new Promise(r => {
+      this.dominioService.obterBancos().subscribe(bancosDisponiveis => {
+        const bancosSelecionados = this.fornecedorSession.domiciliosBancarios;
+        const bancosInvalidos = bancosSelecionados.some(bancoSelecionado => {
+          return !bancosDisponiveis.some(bancoDisponivel => {
+            return bancoDisponivel.id == bancoSelecionado.bancoId;
+          });
         });
-    }
+        r(bancosInvalidos);
+      });
+    });
+  }
 }

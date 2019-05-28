@@ -1,41 +1,52 @@
 <div class="content">
-    <div *ngFor="let socio of dados; let idx = index">
-        <div class="sub-content">
-            <div class="row">
-                <label class="col-md-3 control-label text-right">Nome:</label>
-                <div class="col-md-3">{{ socio.nome }}</div>
-                <label class="col-md-2 control-label text-right">{{ socio.tipoPessoa | tipoDocumento }}:</label>
-                <div class="col-md-4">{{ socio.documento | documento }}</div>
-            </div>
-            <div class="row">
-                <label class="col-md-3 control-label text-right">{{ socio.tipoPessoa | aberturaNascimento }}:</label>
-                <div class="col-md-3">{{ socio.aberturaNascimento | date }}</div>
-                <label class="col-md-2 control-label text-right">Telefone:</label>
-                <div class="col-md-4">{{ socio.telefone | telefone }}</div>
-            </div>
-            <div class="row" *ngIf="socio.tipoPessoa === tiposPessoa.juridica">
-                <label class="col-md-3 control-label text-right">Inscrição Estadual:</label>
-                <div class="col-md-3">{{ socio.inscricaoEstadual }}</div>
+  <div *ngFor="let socio of dados; let idx = index">
+    <div class="sub-content">
+      <div class="row">
+        <label class="col-md-3 control-label text-right">Nome:</label>
+        <div class="col-md-3">{{ socio.nome }}</div>
+        <label class="col-md-2 control-label text-right"
+          >{{ socio.tipoPessoa | tipoDocumento }}:</label
+        >
+        <div class="col-md-4">{{ socio.documento | documento }}</div>
+      </div>
+      <div class="row">
+        <label class="col-md-3 control-label text-right"
+          >{{ socio.tipoPessoa | aberturaNascimento }}:</label
+        >
+        <div class="col-md-3">{{ socio.aberturaNascimento | date }}</div>
+        <label class="col-md-2 control-label text-right">Telefone:</label>
+        <div class="col-md-4">{{ socio.telefone | telefone }}</div>
+      </div>
+      <div class="row" *ngIf="socio.tipoPessoa === tiposPessoa.juridica">
+        <label class="col-md-3 control-label text-right">Inscrição Estadual:</label>
+        <div class="col-md-3">{{ socio.inscricaoEstadual }}</div>
 
-                <label class="col-md-2 control-label text-right">Inscrição Municipal:</label>
-                <div class="col-md-4">{{ socio.inscricaoMunicipal }}</div>
-            </div>
-            <div class="row">
-                <label class="col-md-3 control-label text-right">E-mail:</label>
-                <div class="col-md-3">{{ socio.email }}</div>
+        <label class="col-md-2 control-label text-right">Inscrição Municipal:</label>
+        <div class="col-md-4">{{ socio.inscricaoMunicipal }}</div>
+      </div>
+      <div class="row">
+        <label class="col-md-3 control-label text-right">E-mail:</label>
+        <div class="col-md-3">{{ socio.email }}</div>
 
-                <label class="col-md-2 control-label text-right">Utilizar como contato:</label>
-                <div class="col-md-4">{{ socio.contato ? 'Sim' : 'Não' }}</div>
-            </div>
-            <div class="row">
-                <div *ngIf="socio.tipoPessoa === tiposPessoa.juridica">
-                    <label class="col-md-3 control-label text-right">Razão Social:</label>
-                    <div class="col-md-3">{{ socio.razaoSocial }}</div>
-                </div>
-                <label class="{{ socio.tipoPessoa === tiposPessoa.juridica ? 'col-md-2' : 'col-md-3' }} control-label text-right">Participação:</label>
-                <div class="{{ socio.tipoPessoa === tiposPessoa.juridica ? 'col-md-4' : 'col-md-9' }}">{{ socio.participacao }}</div>
-            </div>
+        <label class="col-md-2 control-label text-right">Utilizar como contato:</label>
+        <div class="col-md-4">{{ socio.contato ? 'Sim' : 'Não' }}</div>
+      </div>
+      <div class="row">
+        <div *ngIf="socio.tipoPessoa === tiposPessoa.juridica">
+          <label class="col-md-3 control-label text-right">Razão Social:</label>
+          <div class="col-md-3">{{ socio.razaoSocial }}</div>
         </div>
-        <hr [hidden]="idx == (dados.length - 1)" />
+        <label
+          class="{{
+            socio.tipoPessoa === tiposPessoa.juridica ? 'col-md-2' : 'col-md-3'
+          }} control-label text-right"
+          >Participação:</label
+        >
+        <div class="{{ socio.tipoPessoa === tiposPessoa.juridica ? 'col-md-4' : 'col-md-9' }}">
+          {{ socio.participacao }}
+        </div>
+      </div>
     </div>
+    <hr [hidden]="idx == dados.length - 1" />
+  </div>
 </div>

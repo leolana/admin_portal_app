@@ -2,18 +2,16 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-    selector: 'input-nova-senha',
-    templateUrl: 'input-nova-senha.component.html',
+  selector: 'input-nova-senha',
+  templateUrl: 'input-nova-senha.component.html',
 })
-
 export class InputNovaSenhaComponent {
-    constructor() { }
+  constructor() {}
 
-    @Output() typingPassword = new EventEmitter<string>();
-    @Input() valuePassword: FormControl;
+  @Output() typingPassword = new EventEmitter<string>();
+  @Input() valuePassword: FormControl;
 
-    emitirSenha(password) {
-        this.typingPassword.emit(password);
-    }
-
+  emitirSenha(password) {
+    this.typingPassword.emit(password);
+  }
 }

@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 
 @Component({
   styleUrls: ['../participante.styles.css'],
-  templateUrl: './taxas.component.html'
+  templateUrl: './taxas.component.html',
 })
 export class ParticipanteTaxasComponent implements OnInit {
   constructor(private participanteService: ParticipanteService) {}
@@ -24,7 +24,7 @@ export class ParticipanteTaxasComponent implements OnInit {
         catchError(data => {
           this.dados = {};
           return of(data);
-        })
+        }),
       )
       .subscribe(taxas => {
         this.dados = taxas;
@@ -33,7 +33,7 @@ export class ParticipanteTaxasComponent implements OnInit {
 
   obterTaxasAdministrativasPorProduto(produto) {
     return this.ordenandoPorParcela(this.dados.condicoesComerciais.taxasAdministrativas).filter(
-      t => t.bandeira.id === produto.id
+      t => t.bandeira.id === produto.id,
     );
   }
 
@@ -41,36 +41,34 @@ export class ParticipanteTaxasComponent implements OnInit {
     return this.ordenandoPorParcela(this.dados.condicoesComerciais.taxasAdministrativas).filter(
       t =>
         t.bandeira.id === produto.id &&
-        t.opcoesParcelamento.minimoParcelas ===
-          periodo.opcoesParcelamento.minimoParcelas &&
-        t.opcoesParcelamento.maximoParcelas ===
-          periodo.opcoesParcelamento.maximoParcelas
+        t.opcoesParcelamento.minimoParcelas === periodo.opcoesParcelamento.minimoParcelas &&
+        t.opcoesParcelamento.maximoParcelas === periodo.opcoesParcelamento.maximoParcelas,
     );
   }
 
   obterTaxasAdministrativasPeriodos() {
-    const taxas =  this.dados.condicoesComerciais.taxasAdministrativas.reduce(
+    const taxas = this.dados.condicoesComerciais.taxasAdministrativas.reduce(
       (accumulator, current) => {
         if (
           !accumulator.some(
             r =>
               r.prazo === current.prazo &&
-              r.opcoesParcelamento.minimoParcelas ===
-                current.opcoesParcelamento.minimoParcelas &&
-              r.opcoesParcelamento.maximoParcelas ===
-                current.opcoesParcelamento.maximoParcelas
+              r.opcoesParcelamento.minimoParcelas === current.opcoesParcelamento.minimoParcelas &&
+              r.opcoesParcelamento.maximoParcelas === current.opcoesParcelamento.maximoParcelas,
           )
         ) {
           accumulator.push(current);
         }
         return accumulator;
       },
-      []
+      [],
     );
     return this.ordenandoPorParcela(taxas);
   }
 
   ordenandoPorParcela(arr) {
-    return arr.sort((a, b) => a.opcoesParcelamento.minimoParcelas - b.opcoesParcelamento.minimoParcelas);
+    return arr.sort(
+      (a, b) => a.opcoesParcelamento.minimoParcelas - b.opcoesParcelamento.minimoParcelas,
+    );
   }
 }

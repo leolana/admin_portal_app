@@ -1,56 +1,67 @@
 <app-content-header title="Cessão" subtitle="Sua lista de estabelecimentos"></app-content-header>
 
 <section class="content">
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Filtros</h3>
-        </div>
-        <form class="box-body" [formGroup]="form" (submit)="setFilters()">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="nome">Nome</label>
-                        <input class="form-control" id="nome" [formControl]="controls.nome">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="documento">CPF/CNPJ</label>
-                        <input class="form-control" id="documento" [formControl]="controls.documento" appMaskDocumento>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <date-picker id="dataCadastroInicio" [formControl]="controls.dataCadastroInicio"
-                            label="Data Cadastro (início)">
-                        </date-picker>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <date-picker id="dataCadastroFim" [formControl]="controls.dataCadastroFim"
-                            label="Data Cadastro (fim)">
-                        </date-picker>
-                    </div>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary pull-right ml-15">Pesquisar</button>
-            <button type="button" class="btn btn-default pull-right" (click)="reset()">Limpar</button>
-        </form>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Filtros</h3>
     </div>
+    <form class="box-body" [formGroup]="form" (submit)="setFilters()">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="nome">Nome</label>
+            <input class="form-control" id="nome" [formControl]="controls.nome" />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="documento">CPF/CNPJ</label>
+            <input
+              class="form-control"
+              id="documento"
+              [formControl]="controls.documento"
+              appMaskDocumento
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <date-picker
+              id="dataCadastroInicio"
+              [formControl]="controls.dataCadastroInicio"
+              label="Data Cadastro (início)"
+            >
+            </date-picker>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <date-picker
+              id="dataCadastroFim"
+              [formControl]="controls.dataCadastroFim"
+              label="Data Cadastro (fim)"
+            >
+            </date-picker>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary pull-right ml-15">Pesquisar</button>
+      <button type="button" class="btn btn-default pull-right" (click)="reset()">Limpar</button>
+    </form>
+  </div>
 
-    <alpe-tabs [tabs]="tabs">
-        <ng-template #ecsAprovados>
-            <alpe-estabelecimentos-aprovados [filters]="filters"></alpe-estabelecimentos-aprovados>
-        </ng-template>
-        <ng-template #ecsPendentes>
-            <alpe-estabelecimentos-pendentes [filters]="filters"></alpe-estabelecimentos-pendentes>
-        </ng-template>
-        <ng-template #ecsReprovados>
-            <alpe-estabelecimentos-reprovados [filters]="filters"></alpe-estabelecimentos-reprovados>
-        </ng-template>
-        <ng-template #ecsCancelados>
-            <alpe-estabelecimentos-cancelados [filters]="filters"></alpe-estabelecimentos-cancelados>
-        </ng-template>
-    </alpe-tabs>
+  <alpe-tabs [tabs]="tabs">
+    <ng-template #ecsAprovados>
+      <alpe-estabelecimentos-aprovados [filters]="filters"></alpe-estabelecimentos-aprovados>
+    </ng-template>
+    <ng-template #ecsPendentes>
+      <alpe-estabelecimentos-pendentes [filters]="filters"></alpe-estabelecimentos-pendentes>
+    </ng-template>
+    <ng-template #ecsReprovados>
+      <alpe-estabelecimentos-reprovados [filters]="filters"></alpe-estabelecimentos-reprovados>
+    </ng-template>
+    <ng-template #ecsCancelados>
+      <alpe-estabelecimentos-cancelados [filters]="filters"></alpe-estabelecimentos-cancelados>
+    </ng-template>
+  </alpe-tabs>
 </section>

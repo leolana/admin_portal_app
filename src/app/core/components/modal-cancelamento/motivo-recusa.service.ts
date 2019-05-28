@@ -6,31 +6,29 @@ import { recusaTipoEnum } from './recusa-tipo.enum';
 import { MotivoRecusaViewModel } from './modal-cancelamento.component';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class MotivoRecusaService {
-    constructor(
-        private http: HttpClient,
-    ) { }
+  constructor(private http: HttpClient) {}
 
-    list(recusaTipoId: recusaTipoEnum): Observable<MotivoRecusaViewModel[]> {
-        return this.http.get<MotivoRecusaViewModel[]>(this.getUrl(recusaTipoId));
+  list(recusaTipoId: recusaTipoEnum): Observable<MotivoRecusaViewModel[]> {
+    return this.http.get<MotivoRecusaViewModel[]>(this.getUrl(recusaTipoId));
+  }
+
+  getUrl(recusaTipoId: recusaTipoEnum) {
+    let route = null;
+    switch (recusaTipoId) {
+      case recusaTipoEnum.cad_estabelecimento:
+        route = 'motivo-recusa/indicacao/ec';
+        break;
+      case recusaTipoEnum.cad_fornecedor:
+        route = 'motivo-recusa/indicacao/fornecedor';
+        break;
+      case recusaTipoEnum.recusa_vinculo:
+        route = 'motivo-recusa/vinculo';
+        break;
     }
 
-    getUrl(recusaTipoId: recusaTipoEnum) {
-        let route = null;
-        switch (recusaTipoId) {
-            case recusaTipoEnum.cad_estabelecimento:
-                route = 'motivo-recusa/indicacao/ec';
-                break;
-            case recusaTipoEnum.cad_fornecedor:
-                route = 'motivo-recusa/indicacao/fornecedor';
-                break;
-            case recusaTipoEnum.recusa_vinculo:
-                route = 'motivo-recusa/vinculo';
-                break;
-        }
-
-        return `${environment.apiUrl}/${route}`;
-    }
+    return `${environment.apiUrl}/${route}`;
+  }
 }

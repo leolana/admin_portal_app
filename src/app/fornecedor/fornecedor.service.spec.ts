@@ -5,7 +5,7 @@ import { FornecedorService } from './fornecedor.service';
 describe('FornecedorService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FornecedorService]
+      providers: [FornecedorService],
     });
   });
 

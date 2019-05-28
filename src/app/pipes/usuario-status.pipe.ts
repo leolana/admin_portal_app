@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { UsuarioStatus } from '../interfaces';
 
 @Pipe({
-  name: 'usuarioStatus'
+  name: 'usuarioStatus',
 })
 export class UsuarioStatusPipe implements PipeTransform {
   transform(value: number): string {

@@ -16,25 +16,18 @@ import { DatatableModule } from 'src/app/core/datatable/datatable.module';
 import { CredenciamentoStatusConvitesComponent } from './credenciamento-status-convites.component';
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        PipesModule,
-        ThemeModule,
-        FormsModule,
-        AlpeTabsModule,
-        DatatableModule,
-    ],
-    declarations: [
-        CredenciamentoStatusComponent,
-        CredenciamentoStatusResumoComponent,
-        CredenciamentoStatusInstalacaoComponent,
-        CredenciamentoStatusDomicilioComponent,
-        CredenciamentoStatusDocumentosComponent,
-        CredenciamentoStatusSociosComponent,
-        CredenciamentoStatusAnaliseDocumentosComponent,
-        CredenciamentoStatusUsuariosComponent,
-        CredenciamentoStatusConvitesComponent,
-    ],
-    exports: []
+  imports: [BrowserModule, PipesModule, ThemeModule, FormsModule, AlpeTabsModule, DatatableModule],
+  declarations: [
+    CredenciamentoStatusComponent,
+    CredenciamentoStatusResumoComponent,
+    CredenciamentoStatusInstalacaoComponent,
+    CredenciamentoStatusDomicilioComponent,
+    CredenciamentoStatusDocumentosComponent,
+    CredenciamentoStatusSociosComponent,
+    CredenciamentoStatusAnaliseDocumentosComponent,
+    CredenciamentoStatusUsuariosComponent,
+    CredenciamentoStatusConvitesComponent,
+  ],
+  exports: [],
 })
-export class CredenciamentoStatusModule { }
+export class CredenciamentoStatusModule {}

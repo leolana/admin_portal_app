@@ -1,5 +1,6 @@
-export const tags: { [s: string]: string; } = {
-  'internal-server-error': 'Não foi possível completar a ação. Se persistir o erro, entre em contato com o Administrador do Sistema.',
+export const tags: { [s: string]: string } = {
+  'internal-server-error':
+    'Não foi possível completar a ação. Se persistir o erro, entre em contato com o Administrador do Sistema.',
   'not-implemented': 'Serviço indisponível',
   'access-denied': 'Acesso negado',
   'usuario-ja-e-membro': 'Usuário já é membro',
@@ -33,8 +34,10 @@ export const tags: { [s: string]: string; } = {
   'invalid-participante-id': 'Identificador (id) de Participante inválido',
   'missing-credenciamento-id': 'O id do credenciamento não foi informado',
   'missing-document': 'O documento não foi informado',
-  'movidesk-document-mismatch': 'O documento do participante no Movidesk não corresponde ao documento atual.',
-  'movidesk-username-exists-to-other-participant-id': 'Usuário já cadastrado no Movidesk para outro Participante.',
+  'movidesk-document-mismatch':
+    'O documento do participante no Movidesk não corresponde ao documento atual.',
+  'movidesk-username-exists-to-other-participant-id':
+    'Usuário já cadastrado no Movidesk para outro Participante.',
   'missing-movidesk-code-reference': 'CodeReference do Movidesk não informado',
   'missing-email': 'O e-mail não foi informado',
   'fornecedor-ja-cadastrado': 'Já existe um fornecedor cadastrado com o documento informado.',
@@ -53,20 +56,28 @@ export const tags: { [s: string]: string; } = {
   'invalid-sent-data': 'Dados inválidos',
   'cep-not-found': 'CEP não encontrado',
   'termo-nao-encontrado': 'Termo não encontrado.',
-  'cessao-pendente-existente': 'Não é possível solicitar outra cessão recorrente enquanto a anterior ainda está pendente de aprovação.',
-  'cessao-recorrente-existente-no-mes': 'Não é possível solicitar mais de uma cessão recorrente no mesmo mês.',
-  'cessao-recorrente-existente-no-mes-vencimento': 'Mês da data de vencimento coincide com outra cessão recorrente.',
+  'cessao-pendente-existente':
+    'Não é possível solicitar outra cessão recorrente enquanto a anterior ainda está pendente de aprovação.',
+  'cessao-recorrente-existente-no-mes':
+    'Não é possível solicitar mais de uma cessão recorrente no mesmo mês.',
+  'cessao-recorrente-existente-no-mes-vencimento':
+    'Mês da data de vencimento coincide com outra cessão recorrente.',
   'recorrencia-expirada': 'A data de validade para cessões recorrentes expirou.',
   'recorrencia-invalida': 'Existe uma recorrência que ainda não foi aprovada.',
-  'valor-solicitado-superior-valor-recorrente': 'Valor da Cessão solicitada não pode ser superior ao Valor Máximo recorrente.',
-  'data-expiracao-inferior-30-dias': 'Data de validade da recorrência não pode ser menor que 30 dias a partir de hoje.',
-  'valor-solicitado-superior-valor-disponivel': 'Valor da Cessão solicitada não pode ser superior ao Valor Disponível para Cessão.',
+  'valor-solicitado-superior-valor-recorrente':
+    'Valor da Cessão solicitada não pode ser superior ao Valor Máximo recorrente.',
+  'data-expiracao-inferior-30-dias':
+    'Data de validade da recorrência não pode ser menor que 30 dias a partir de hoje.',
+  'valor-solicitado-superior-valor-disponivel':
+    'Valor da Cessão solicitada não pode ser superior ao Valor Disponível para Cessão.',
   'data-expiracao-anterior-prox-dia': 'Data de Expiração deve ser a partir do próximo dia.',
   'data-expiracao-anterior-prox-dois-dias': 'Data de Vencimento deve ser superior a 2 dias.',
-  'data-expiracao-posterior-vencimento': 'Data de Expiração deve ser anterior à data de vencimento.',
+  'data-expiracao-posterior-vencimento':
+    'Data de Expiração deve ser anterior à data de vencimento.',
   'status-recorrencia-invalido': 'Recorrência com status inválido para inclusão.',
   'taxa-not-found': 'Configuração de Taxas não encontrada',
-  'taxa-overlaps': 'Não pode haver sobreposição de vigência. Por favor tente com outras datas de início/término.',
+  'taxa-overlaps':
+    'Não pode haver sobreposição de vigência. Por favor tente com outras datas de início/término.',
   'missing-inicio-vigencia': 'Selecione a Vigência Inicial',
   'inicio-vigencia-invalid': 'O Início da Vigência deve ser a partir de amanhã',
   'termino-vigencia-invalid': 'O Término da Vigência deve ser após o Início da mesma',
@@ -82,8 +93,9 @@ export const tags: { [s: string]: string; } = {
   'time-limit-exceeded': 'Solicitação de antecipação passou do horário limite',
   'anticipation-time-limit-exceeded': 'Solicitação de antecipação passou do horário limite',
   'anticipation-blocked-day': 'Solicitação de antecipação fora dos dias úteis',
-  'faturamento-anual-desatualizado': 'A sua opção de faturamento anual cadastrado está desativado em nosso sistema'
-    + ', por favor, atualize seu faturamento anual',
+  'faturamento-anual-desatualizado':
+    'A sua opção de faturamento anual cadastrado está desativado em nosso sistema' +
+    ', por favor, atualize seu faturamento anual',
   'tipoPessoa-invalido': 'O tipo de pessoa selecionado é inválido',
   'download-fichaCadastro': 'Erro ao fazer download do arquivo Ficha de Cadastro.',
   'download-comprovanteDeResidencia': 'Erro ao fazer download do arquivo Compovante de Residência.',

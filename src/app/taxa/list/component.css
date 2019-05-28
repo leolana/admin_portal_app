@@ -1,24 +1,25 @@
-td.fit, th.fit {
-    white-space: nowrap;
-    width: 1px;
+td.fit,
+th.fit {
+  white-space: nowrap;
+  width: 1px;
 }
 
 .nothing-to-see {
-    padding: 20px 0;
+  padding: 20px 0;
 }
 
 .mt-25 {
-    margin-top: 25px;
+  margin-top: 25px;
 }
 
 .td-div-buttons {
-    display: flex;
+  display: flex;
 }
 
-.td-div-buttons> :not(:first-child) {
-    margin-left: 5px;
+.td-div-buttons > :not(:first-child) {
+  margin-left: 5px;
 }
 
 .table-taxas td {
-    vertical-align: middle;
+  vertical-align: middle;
 }

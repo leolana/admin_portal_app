@@ -4,15 +4,8 @@ import { AlpeTabsComponent } from './alpe-tabs.component';
 import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        MatTabsModule
-    ],
-    declarations: [
-        AlpeTabsComponent
-    ],
-    exports: [
-        AlpeTabsComponent
-    ]
+  imports: [BrowserModule, MatTabsModule],
+  declarations: [AlpeTabsComponent],
+  exports: [AlpeTabsComponent],
 })
-export class AlpeTabsModule { }
+export class AlpeTabsModule {}

@@ -1,238 +1,413 @@
-<app-content-header title="Credenciamento Pessoa {{ tiposPessoa.descricoes[tipoPessoa] }}" hideBreadCrumb="true">
+<app-content-header
+  title="Credenciamento Pessoa {{ tiposPessoa.descricoes[tipoPessoa] }}"
+  hideBreadCrumb="true"
+>
 </app-content-header>
 
-<app-wizard [steps]="steps" [tipoPessoa]="tipoPessoa" *ngIf="jaPodePegarDoSessionStorage" [config]="wizardConfig">
+<app-wizard
+  [steps]="steps"
+  [tipoPessoa]="tipoPessoa"
+  *ngIf="jaPodePegarDoSessionStorage"
+  [config]="wizardConfig"
+>
 </app-wizard>
 
 <section class="content" *ngIf="jaPodePegarDoSessionStorage">
-	<div class="box box-primary">
-		<div class="box-header with-border">
-			<h3 class="box-title">Dados Cadastrais</h3>
-		</div>
-		<div class="box-body">
-			<form [formGroup]="formDadosCadastrais" [saveSessionStorage]="formDadosCadastrais"
-				[waitFor]="jaPodePegarDoSessionStorage" name="dadosCadastrais" url="true">
-				<div class="row">
-					<div class="col-md-3">
-						<div class="form-group" *ngIf="tipoPessoa == tiposPessoa.fisica"
-							[class.has-error]="documento | hasError">
-							<label for="inputCPF">CPF</label>
-							<input type="text" class="form-control" id="inputCPF" formControlName="documento"
-								mask="000.000.000-00" placeholder="000.000.000-00" minlength="11" required
-								(blur)="documento.valid && checkDocumentExistence(documento.value)">
-						</div>
-						<div class="form-group" *ngIf="tipoPessoa == tiposPessoa.juridica"
-							[class.has-error]="documento | hasError">
-							<label for="inputCNPJ">CNPJ</label>
-							<input type="text" class="form-control" id="inputCNPJ" formControlName="documento"
-								mask="00.000.000/0000-00" placeholder="00.000.000/0000-00" minlength="14" required
-								(blur)="documento.valid && checkDocumentExistence(documento.value)">
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group" [class.has-error]="ramoAtividade | hasError">
-							<label for="selectRamoAtividade">Ramo de Atividade</label>
-							<select class="form-control" id="selectRamoAtividade" formControlName="ramoAtividade"
-								select2="dominio/ramos-atividade?tipoPessoa={{ tipoPessoa }}">
-							</select>
-						</div>
-					</div>
-					<div class="col-md-3" *ngIf="tipoPessoa == tiposPessoa.fisica">
-						<input-telefone label="Telefone" id="inputTelefone"
-						 [control]="telefone" [hasError]="telefone.invalid" required>
-						</input-telefone>
-					</div>
-					<div class="col-md-3" *ngIf="tipoPessoa == tiposPessoa.fisica">
-						<date-picker id="dataNascimento" name="dataNascimento" [hasError]="dataNascimento.invalid"
-							formControlName="dataNascimento" [formControl]="dataNascimento" [allowFutureDates]="false"
-							label="Data de Nascimento">
-						</date-picker>
-					</div>
-					<div class="col-md-3" *ngIf="tipoPessoa == tiposPessoa.juridica">
-						<div class="form-group" [class.has-error]="inscricaoEstadual | hasError">
-							<label for="inputInscricaoEstadual">Inscrição Estadual</label>
-							<div class="input-group">
-								<input type="text" class="form-control" id="inputInscricaoEstadual"
-									formControlName="inscricaoEstadual"
-									[attr.disabled]="inscricaoEstadualIsenta ? '' : null" maxlength="15" required>
-								<span class="input-group-addon">
-									<input type="checkbox" [(ngModel)]="inscricaoEstadualIsenta"
-										[ngModelOptions]="{standalone: true}" (change)="desabilitarInscricaoEstadual()">
-									<span style="margin-left: 3px; vertical-align: top;">Isento</span>
-								</span>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3" *ngIf="tipoPessoa == tiposPessoa.juridica">
-						<div class="form-group" [class.has-error]="inscricaoMunicipal | hasError">
-							<label for="inputInscricaoMunicipal">Inscrição Municipal</label>
-							<div class="input-group">
-								<input type="text" class="form-control" id="inputInscricaoMunicipal"
-									formControlName="inscricaoMunicipal"
-									[attr.disabled]="inscricaoMunicipalIsenta ? '' : null" maxlength="15" required>
-								<span class="input-group-addon">
-									<input type="checkbox" [(ngModel)]="inscricaoMunicipalIsenta"
-										[ngModelOptions]="{standalone: true}"
-										(change)="desabilitarInscricaoMunicipal()">
-									<span style="margin-left: 3px; vertical-align: top;">Isento</span>
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row" *ngIf="tipoPessoa == tiposPessoa.juridica">
-					<div class="col-xs-12">
-						<div class="form-group" [class.has-error]="razaoSocial | hasError">
-							<label for="inputRazao">Razão Social</label>
-							<input type="text" class="form-control" id="inputRazao" formControlName="razaoSocial"
-								maxlength="100" required>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="{{ tipoPessoa == tiposPessoa.fisica ? 'col-md-12' : 'col-md-6' }}">
-						<div class="form-group" [class.has-error]="nome | hasError">
-							<label
-								for="inputNome">{{ tipoPessoa == tiposPessoa.fisica ? 'Nome' : 'Nome Fantasia' }}</label>
-							<input type="text" class="form-control" id="inputNome" formControlName="nome"
-								maxlength="100" required>
-						</div>
-					</div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Dados Cadastrais</h3>
+    </div>
+    <div class="box-body">
+      <form
+        [formGroup]="formDadosCadastrais"
+        [saveSessionStorage]="formDadosCadastrais"
+        [waitFor]="jaPodePegarDoSessionStorage"
+        name="dadosCadastrais"
+        url="true"
+      >
+        <div class="row">
+          <div class="col-md-3">
+            <div
+              class="form-group"
+              *ngIf="tipoPessoa == tiposPessoa.fisica"
+              [class.has-error]="documento | hasError"
+            >
+              <label for="inputCPF">CPF</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputCPF"
+                formControlName="documento"
+                mask="000.000.000-00"
+                placeholder="000.000.000-00"
+                minlength="11"
+                required
+                (blur)="documento.valid && checkDocumentExistence(documento.value)"
+              />
+            </div>
+            <div
+              class="form-group"
+              *ngIf="tipoPessoa == tiposPessoa.juridica"
+              [class.has-error]="documento | hasError"
+            >
+              <label for="inputCNPJ">CNPJ</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputCNPJ"
+                formControlName="documento"
+                mask="00.000.000/0000-00"
+                placeholder="00.000.000/0000-00"
+                minlength="14"
+                required
+                (blur)="documento.valid && checkDocumentExistence(documento.value)"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group" [class.has-error]="ramoAtividade | hasError">
+              <label for="selectRamoAtividade">Ramo de Atividade</label>
+              <select
+                class="form-control"
+                id="selectRamoAtividade"
+                formControlName="ramoAtividade"
+                select2="dominio/ramos-atividade?tipoPessoa={{ tipoPessoa }}"
+              >
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3" *ngIf="tipoPessoa == tiposPessoa.fisica">
+            <input-telefone
+              label="Telefone"
+              id="inputTelefone"
+              [control]="telefone"
+              [hasError]="telefone.invalid"
+              required
+            >
+            </input-telefone>
+          </div>
+          <div class="col-md-3" *ngIf="tipoPessoa == tiposPessoa.fisica">
+            <date-picker
+              id="dataNascimento"
+              name="dataNascimento"
+              [hasError]="dataNascimento.invalid"
+              formControlName="dataNascimento"
+              [formControl]="dataNascimento"
+              [allowFutureDates]="false"
+              label="Data de Nascimento"
+            >
+            </date-picker>
+          </div>
+          <div class="col-md-3" *ngIf="tipoPessoa == tiposPessoa.juridica">
+            <div class="form-group" [class.has-error]="inscricaoEstadual | hasError">
+              <label for="inputInscricaoEstadual">Inscrição Estadual</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputInscricaoEstadual"
+                  formControlName="inscricaoEstadual"
+                  [attr.disabled]="inscricaoEstadualIsenta ? '' : null"
+                  maxlength="15"
+                  required
+                />
+                <span class="input-group-addon">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="inscricaoEstadualIsenta"
+                    [ngModelOptions]="{ standalone: true }"
+                    (change)="desabilitarInscricaoEstadual()"
+                  />
+                  <span style="margin-left: 3px; vertical-align: top;">Isento</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3" *ngIf="tipoPessoa == tiposPessoa.juridica">
+            <div class="form-group" [class.has-error]="inscricaoMunicipal | hasError">
+              <label for="inputInscricaoMunicipal">Inscrição Municipal</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputInscricaoMunicipal"
+                  formControlName="inscricaoMunicipal"
+                  [attr.disabled]="inscricaoMunicipalIsenta ? '' : null"
+                  maxlength="15"
+                  required
+                />
+                <span class="input-group-addon">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="inscricaoMunicipalIsenta"
+                    [ngModelOptions]="{ standalone: true }"
+                    (change)="desabilitarInscricaoMunicipal()"
+                  />
+                  <span style="margin-left: 3px; vertical-align: top;">Isento</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="tipoPessoa == tiposPessoa.juridica">
+          <div class="col-xs-12">
+            <div class="form-group" [class.has-error]="razaoSocial | hasError">
+              <label for="inputRazao">Razão Social</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputRazao"
+                formControlName="razaoSocial"
+                maxlength="100"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="{{ tipoPessoa == tiposPessoa.fisica ? 'col-md-12' : 'col-md-6' }}">
+            <div class="form-group" [class.has-error]="nome | hasError">
+              <label for="inputNome">{{
+                tipoPessoa == tiposPessoa.fisica ? 'Nome' : 'Nome Fantasia'
+              }}</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputNome"
+                formControlName="nome"
+                maxlength="100"
+                required
+              />
+            </div>
+          </div>
 
-					<div class="col-md-3" *ngIf="tipoPessoa == tiposPessoa.juridica">
-						<input-telefone label="Telefone" id="telefoneControl" [control]="telefone" [hasError]="telefone.invalid" required>
-						</input-telefone>
-					</div>
-					<div class="col-md-3" *ngIf="tipoPessoa == tiposPessoa.juridica">
-						<date-picker id="inputDataAbertura" name="inputDataAbertura" [hasError]="dataAbertura.invalid"
-							formControlName="inputDataAbertura" [formControl]="dataAbertura" [allowFutureDates]="true"
-							required label="Data de Abertura">
-						</date-picker>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3">
-						<div class="form-group" [class.has-error]="cep | hasError">
-							<label for="inputCEP">CEP</label>
-							<input type="text" class="form-control" id="inputCEP" formControlName="cep"
-								(blur)="obterEndereco($event.target.value)" mask="00000-000" minlength="8" required>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group" [class.has-error]="logradouro | hasError">
-							<label for="inputLogradouro">Endereço Comercial</label>
-							<input type="text" class="form-control" id="inputLogradouro" formControlName="logradouro"
-								maxlength="200" required>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group" [class.has-error]="numero | hasError">
-							<label for="inputNumero">Número</label>
-							<input type="text" class="form-control" id="inputNumero" formControlName="numero"
-								maxlength="15" required>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4">
-						<div class="form-group" [class.has-error]="complemento | hasError">
-							<label for="inputComplemento">Complemento</label>
-							<input type="text" class="form-control" id="inputComplemento" formControlName="complemento"
-								maxlength="50">
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="form-group" [class.has-error]="bairro | hasError">
-							<label for="inputBairro">Bairro</label>
-							<input type="text" class="form-control" id="inputBairro" formControlName="bairro"
-								maxlength="100" required>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="form-group" [class.has-error]="cidade | hasError">
-							<label for="selectCidade">Cidade</label>
-							<select class="form-control" id="selectCidade" formControlName="cidade"
-								select2="dominio/cidades">
-							</select>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+          <div class="col-md-3" *ngIf="tipoPessoa == tiposPessoa.juridica">
+            <input-telefone
+              label="Telefone"
+              id="telefoneControl"
+              [control]="telefone"
+              [hasError]="telefone.invalid"
+              required
+            >
+            </input-telefone>
+          </div>
+          <div class="col-md-3" *ngIf="tipoPessoa == tiposPessoa.juridica">
+            <date-picker
+              id="inputDataAbertura"
+              name="inputDataAbertura"
+              [hasError]="dataAbertura.invalid"
+              formControlName="inputDataAbertura"
+              [formControl]="dataAbertura"
+              [allowFutureDates]="true"
+              required
+              label="Data de Abertura"
+            >
+            </date-picker>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group" [class.has-error]="cep | hasError">
+              <label for="inputCEP">CEP</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputCEP"
+                formControlName="cep"
+                (blur)="obterEndereco($event.target.value)"
+                mask="00000-000"
+                minlength="8"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group" [class.has-error]="logradouro | hasError">
+              <label for="inputLogradouro">Endereço Comercial</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputLogradouro"
+                formControlName="logradouro"
+                maxlength="200"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group" [class.has-error]="numero | hasError">
+              <label for="inputNumero">Número</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputNumero"
+                formControlName="numero"
+                maxlength="15"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group" [class.has-error]="complemento | hasError">
+              <label for="inputComplemento">Complemento</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputComplemento"
+                formControlName="complemento"
+                maxlength="50"
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group" [class.has-error]="bairro | hasError">
+              <label for="inputBairro">Bairro</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputBairro"
+                formControlName="bairro"
+                maxlength="100"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group" [class.has-error]="cidade | hasError">
+              <label for="selectCidade">Cidade</label>
+              <select
+                class="form-control"
+                id="selectCidade"
+                formControlName="cidade"
+                select2="dominio/cidades"
+              >
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
-	<div class="box box-primary">
-		<div class="box-header with-border">
-			<h3 class="box-title">Informações Financeiras</h3>
-		</div>
-		<div class="box-body">
-			<form [formGroup]="formInformacoesFinanceiras" [saveSessionStorage]="formInformacoesFinanceiras"
-				[waitFor]="jaPodePegarDoSessionStorage" name="financeiro">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group" [class.has-error]="faturamentoAnual | hasError">
-							<label for="selectFaturamentoAnual">Faturamento Mensal com Cartões</label>
-							<select class="form-control" id="selectFaturamentoAnual" formControlName="faturamentoAnual"
-								select2 select2-hide-input>
-								<option value="">Selecione uma opção</option>
-								<option *ngFor="let o of opcoesFaturamentoCartao" [value]="o.id">{{ o.text }}</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group" [class.has-error]="ticketMedio | hasError">
-							<label for="selectTicketMedio">Ticket Médio</label>
-							<select class="form-control" id="selectTicketMedio" formControlName="ticketMedio" select2
-								select2-hide-input>
-								<option value="">Selecione uma opção</option>
-								<option *ngFor="let ticket of opcoesTicketMedio" [value]="ticket.id">{{ ticket.text }}
-								</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Informações Financeiras</h3>
+    </div>
+    <div class="box-body">
+      <form
+        [formGroup]="formInformacoesFinanceiras"
+        [saveSessionStorage]="formInformacoesFinanceiras"
+        [waitFor]="jaPodePegarDoSessionStorage"
+        name="financeiro"
+      >
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group" [class.has-error]="faturamentoAnual | hasError">
+              <label for="selectFaturamentoAnual">Faturamento Mensal com Cartões</label>
+              <select
+                class="form-control"
+                id="selectFaturamentoAnual"
+                formControlName="faturamentoAnual"
+                select2
+                select2-hide-input
+              >
+                <option value="">Selecione uma opção</option>
+                <option *ngFor="let o of opcoesFaturamentoCartao" [value]="o.id">{{
+                  o.text
+                }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group" [class.has-error]="ticketMedio | hasError">
+              <label for="selectTicketMedio">Ticket Médio</label>
+              <select
+                class="form-control"
+                id="selectTicketMedio"
+                formControlName="ticketMedio"
+                select2
+                select2-hide-input
+              >
+                <option value="">Selecione uma opção</option>
+                <option *ngFor="let ticket of opcoesTicketMedio" [value]="ticket.id"
+                  >{{ ticket.text }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
-	<div class="box box-primary">
-		<div class="box-header with-border">
-			<h3 class="box-title">Dados para Primeiro Contato</h3>
-		</div>
-		<div class="box-body">
-			<form [formGroup]="formContato" [saveSessionStorage]="formContato" [waitFor]="jaPodePegarDoSessionStorage"
-				name="contato">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group" [class.has-error]="nomeContato.invalid && nomeContato.dirty">
-							<label for="inputNomeContato">Nome</label>
-							<input type="text" class="form-control" id="inputNomeContato" formControlName="nomeContato"
-								maxlength="100" required>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<input-telefone label="Telefone" id="inputTelefoneContato" [control]="telefoneContato" [hasError]="telefoneContato.invalid" required>
-						</input-telefone>
-					</div>
-					<div class="col-md-3">
-						<input-telefone label="Celular" id="inputCelularContato" [control]="celularContato" [hasError]="celularContato.invalid" required>
-						</input-telefone>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="form-group" [class.has-error]="emailContato.invalid && emailContato.dirty">
-							<label for="inputEmailContato">E-mail</label>
-							<input type="text" class="form-control" id="inputEmailContato"
-								formControlName="emailContato" maxlength="200" required>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Dados para Primeiro Contato</h3>
+    </div>
+    <div class="box-body">
+      <form
+        [formGroup]="formContato"
+        [saveSessionStorage]="formContato"
+        [waitFor]="jaPodePegarDoSessionStorage"
+        name="contato"
+      >
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group" [class.has-error]="nomeContato.invalid && nomeContato.dirty">
+              <label for="inputNomeContato">Nome</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputNomeContato"
+                formControlName="nomeContato"
+                maxlength="100"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <input-telefone
+              label="Telefone"
+              id="inputTelefoneContato"
+              [control]="telefoneContato"
+              [hasError]="telefoneContato.invalid"
+              required
+            >
+            </input-telefone>
+          </div>
+          <div class="col-md-3">
+            <input-telefone
+              label="Celular"
+              id="inputCelularContato"
+              [control]="celularContato"
+              [hasError]="celularContato.invalid"
+              required
+            >
+            </input-telefone>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group" [class.has-error]="emailContato.invalid && emailContato.dirty">
+              <label for="inputEmailContato">E-mail</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputEmailContato"
+                formControlName="emailContato"
+                maxlength="200"
+                required
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
-	<div class="text-center">
-		<button class="btn btn-primary btn-wlg" (click)="submitForm()">Prosseguir</button>
-	</div>
+  <div class="text-center">
+    <button class="btn btn-primary btn-wlg" (click)="submitForm()">Prosseguir</button>
+  </div>
 </section>

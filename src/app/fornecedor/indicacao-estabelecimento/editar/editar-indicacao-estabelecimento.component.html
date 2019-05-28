@@ -1,36 +1,58 @@
 <app-content-header title="Editar Indicação"></app-content-header>
 
 <section class="content">
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Formulário de Indicação</h3>
-        </div>
-        <form class="box-body" [formGroup]="form" (submit)="atualizarIndicacao()">
-            <div [class.has-error]="hasError.documento() && (controls.documento.touched || controls.documento.dirty)"
-                class="form-group">
-                <label for="documento">Documento</label>
-                <input type="text" class="form-control" [formControl]="controls.documento" id="documento"
-                    [attr.disabled]="true">
-            </div>
-            <div [class.has-error]="hasError.nome() && (controls.nome.touched || controls.nome.dirty)"
-                class="form-group">
-                <label for="nome">Nome</label>
-                <input type="text" class="form-control" [formControl]="controls.nome" id="nome">
-            </div>
-            <div [class.has-error]="hasError.email() && (controls.email.touched || controls.email.dirty)"
-                class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" [formControl]="controls.email" id="email">
-            </div>
-            <div [class.has-error]="hasError.telefone() && (controls.telefone.touched || controls.telefone.dirty)"
-                class="form-group">
-                <label for="telefone">Telefone</label>
-                <input type="text" class="form-control" [formControl]="controls.telefone" id="telefone"
-                    mask="(00) 0000-0000">
-            </div>
-
-            <button class="btn btn-primary pull-right ml-15" type="submit">Salvar</button>
-            <button class="btn btn-default pull-right" type="button" (click)="voltar()">Voltar</button>
-        </form>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Formulário de Indicação</h3>
     </div>
+    <form class="box-body" [formGroup]="form" (submit)="atualizarIndicacao()">
+      <div
+        [class.has-error]="
+          hasError.documento() && (controls.documento.touched || controls.documento.dirty)
+        "
+        class="form-group"
+      >
+        <label for="documento">Documento</label>
+        <input
+          type="text"
+          class="form-control"
+          [formControl]="controls.documento"
+          id="documento"
+          [attr.disabled]="true"
+        />
+      </div>
+      <div
+        [class.has-error]="hasError.nome() && (controls.nome.touched || controls.nome.dirty)"
+        class="form-group"
+      >
+        <label for="nome">Nome</label>
+        <input type="text" class="form-control" [formControl]="controls.nome" id="nome" />
+      </div>
+      <div
+        [class.has-error]="hasError.email() && (controls.email.touched || controls.email.dirty)"
+        class="form-group"
+      >
+        <label for="email">Email</label>
+        <input type="text" class="form-control" [formControl]="controls.email" id="email" />
+      </div>
+      <div
+        [class.has-error]="
+          hasError.telefone() && (controls.telefone.touched || controls.telefone.dirty)
+        "
+        class="form-group"
+      >
+        <label for="telefone">Telefone</label>
+        <input
+          type="text"
+          class="form-control"
+          [formControl]="controls.telefone"
+          id="telefone"
+          mask="(00) 0000-0000"
+        />
+      </div>
+
+      <button class="btn btn-primary pull-right ml-15" type="submit">Salvar</button>
+      <button class="btn btn-default pull-right" type="button" (click)="voltar()">Voltar</button>
+    </form>
+  </div>
 </section>

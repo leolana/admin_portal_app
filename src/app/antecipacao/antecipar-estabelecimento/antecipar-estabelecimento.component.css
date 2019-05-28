@@ -1,228 +1,241 @@
 .antecipar-estabelecimento .card {
-    margin: 16px;
-    padding: 5px;
-    border: 1px solid #ddd;
-    background-color: #e0e2e4;
+  margin: 16px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  background-color: #e0e2e4;
 }
 
 .antecipar-estabelecimento .card-selected {
-    background-color: #fff;
-    border-color: #000;
+  background-color: #fff;
+  border-color: #000;
 }
 
 .antecipar-estabelecimento .card-row {
-    margin-bottom: 10px;
-    display: inline-block;
-    margin-right: 25px;
+  margin-bottom: 10px;
+  display: inline-block;
+  margin-right: 25px;
 }
 
 .antecipar-estabelecimento .card-row label {
-    display: block;
+  display: block;
 }
 
-.antecipar-estabelecimento .card-row>* {
-    word-break: break-all;
+.antecipar-estabelecimento .card-row > * {
+  word-break: break-all;
 }
 
 .antecipar-estabelecimento .valor-disponivel {
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #008000;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #008000;
 }
 
 .antecipar-estabelecimento .mt-15 {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 .antecipar-estabelecimento .mr-15 {
-    margin-right: 15px;
+  margin-right: 15px;
 }
 
 .antecipar-estabelecimento .ml-15 {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
 .antecipar-estabelecimento .mb-15 {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
-
 
 .antecipar-estabelecimento table {
-    width: 100%;
-    table-layout: fixed;
+  width: 100%;
+  table-layout: fixed;
 }
 
-.antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(1) div.mat-sort-header-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.antecipar-estabelecimento
+  .table-primary
+  th.mat-header-cell:nth-child(1)
+  div.mat-sort-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .antecipar-estabelecimento .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-    background-color: #6C1980;
+  background-color: #6c1980;
 }
 
 .antecipar-estabelecimento .table-primary td.mat-cell {
-    text-align: center;
+  text-align: center;
 }
-
 
 .antecipar-estabelecimento .table-primary th.mat-header-cell,
 .antecipar-estabelecimento .table-primary td.mat-cell {
-    overflow-wrap: break-word;
-    white-space: normal;
-    font-size: 12px;
+  overflow-wrap: break-word;
+  white-space: normal;
+  font-size: 12px;
 }
 
 .antecipar-estabelecimento .table-primary .mat-header-row:nth-child(1) {
-    width: 30px;
+  width: 30px;
 }
 
-.antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(3)>.mat-sort-header-container,
-.antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(4)>.mat-sort-header-container,
-.antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(5)>.mat-sort-header-container,
-.antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(6)>.mat-sort-header-container {
-    justify-content: center
+.antecipar-estabelecimento
+  .table-primary
+  th.mat-header-cell:nth-child(3)
+  > .mat-sort-header-container,
+.antecipar-estabelecimento
+  .table-primary
+  th.mat-header-cell:nth-child(4)
+  > .mat-sort-header-container,
+.antecipar-estabelecimento
+  .table-primary
+  th.mat-header-cell:nth-child(5)
+  > .mat-sort-header-container,
+.antecipar-estabelecimento
+  .table-primary
+  th.mat-header-cell:nth-child(6)
+  > .mat-sort-header-container {
+  justify-content: center;
 }
 
 .antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(4) {
-    width: 80px;
+  width: 80px;
 }
 
 .antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(5) {
-    width: 55px;
+  width: 55px;
 }
 
 .antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(2),
 .antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(11) {
-    width: 91px;
+  width: 91px;
 }
 
 .antecipar-estabelecimento .block {
-    display: block;
+  display: block;
 }
 
 .antecipar-estabelecimento .debito {
-    color: red;
-    font-weight: bold;
+  color: red;
+  font-weight: bold;
 }
 
 .antecipar-estabelecimento .debito-card {
-    border: 1px solid red;
+  border: 1px solid red;
 }
 
 .antecipar-estabelecimento .group {
-    border: 2px solid rgba(70, 18, 103, .5);
-    margin-left: 15px;
+  border: 2px solid rgba(70, 18, 103, 0.5);
+  margin-left: 15px;
 }
 
 .antecipar-estabelecimento .group,
 .antecipar-estabelecimento .soltos {
-    align-items: flex-end;
-    width: 50%;
-    border-radius: 30px;
-    padding: 25px;
-    text-align: center;
-    display: inline-flex;
-    justify-content: space-around;
+  align-items: flex-end;
+  width: 50%;
+  border-radius: 30px;
+  padding: 25px;
+  text-align: center;
+  display: inline-flex;
+  justify-content: space-around;
 }
 
 .antecipar-estabelecimento .group-field {
-    width: 30%;
+  width: 30%;
 }
 
 .antecipar-estabelecimento .fa-4 {
-    width: 5%;
+  width: 5%;
 }
 
 .antecipar-estabelecimento .soltos {
-    margin-right: 15px;
+  margin-right: 15px;
 }
 
 .antecipar-estabelecimento .soltos-field {
-    width: 30%;
+  width: 30%;
 }
 
 .antecipar-estabelecimento .total {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .antecipar-estabelecimento .pink-block {
-    padding: 17px;
+  padding: 17px;
 }
 
 .antecipar-estabelecimento .pink-block {
-    background-color: rgba(108, 25, 128, .1);
-    border-radius: 7px;
+  background-color: rgba(108, 25, 128, 0.1);
+  border-radius: 7px;
 }
 
 .antecipar-estabelecimento div.soltos-field-antecipar {
-    width: 40%;
-    font-size: 16px;
+  width: 40%;
+  font-size: 16px;
 }
 
 .antecipar-estabelecimento .mobile-antecipar {
-    color: #6C1980;
-    font-size: 16px;
+  color: #6c1980;
+  font-size: 16px;
 }
 
 .antecipar-estabelecimento .antecipar {
-    background-color: #6C1980;
-    color: #fff;
-    padding: 17px;
-    font-size: 16px;
-    border-radius: 7px;
+  background-color: #6c1980;
+  color: #fff;
+  padding: 17px;
+  font-size: 16px;
+  border-radius: 7px;
 }
 
 .antecipar-estabelecimento .hide-this {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .antecipar-estabelecimento .ml-35 {
-    margin-left: 35px;
+  margin-left: 35px;
 }
 
 .antecipar-estabelecimento .group-field span {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
-.antecipar-estabelecimento .group-field>* {
-    text-align: center;
+.antecipar-estabelecimento .group-field > * {
+  text-align: center;
 }
 
 .antecipar-estabelecimento .totais {
-    display: flex;
-    text-align: center;
-    justify-content: space-around;
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
 }
 
 @media (max-width: 700px) {
-    .antecipar-estabelecimento tr.mat-row.campos-invalidos {
-        border: 1px solid red;
-    }
+  .antecipar-estabelecimento tr.mat-row.campos-invalidos {
+    border: 1px solid red;
+  }
 
-    .antecipar-estabelecimento .totais {
-        flex-direction: column;
-    }
+  .antecipar-estabelecimento .totais {
+    flex-direction: column;
+  }
 
-    .antecipar-estabelecimento .align-like-cards {
-        display: flex;
-        justify-content: space-between;
-    }
+  .antecipar-estabelecimento .align-like-cards {
+    display: flex;
+    justify-content: space-between;
+  }
 
-    .antecipar-estabelecimento .table-primary td.mat-cell:nth-child(1),
-    .antecipar-estabelecimento .table-primary td.mat-cell:nth-child(15) {
-        padding-left: 8px;
-        padding-right: 8px;
-        height: 25px;
-    }
+  .antecipar-estabelecimento .table-primary td.mat-cell:nth-child(1),
+  .antecipar-estabelecimento .table-primary td.mat-cell:nth-child(15) {
+    padding-left: 8px;
+    padding-right: 8px;
+    height: 25px;
+  }
 
-    .antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(2),
-    .antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(4),
-    .antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(5),
-    .antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(11) {
-        width: 100%;
-        padding: auto 8px;
-    }
+  .antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(2),
+  .antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(4),
+  .antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(5),
+  .antecipar-estabelecimento .table-primary th.mat-header-cell:nth-child(11) {
+    width: 100%;
+    padding: auto 8px;
+  }
 }

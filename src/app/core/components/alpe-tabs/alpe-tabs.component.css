@@ -1,21 +1,21 @@
 .mat-tab-label-content {
-    color: #6e3e7f;
+  color: #6e3e7f;
 }
 
 .mat-tab-label.mat-tab-label-active {
-    opacity: 1;
-    font-weight: bold;
+  opacity: 1;
+  font-weight: bold;
 }
 
 .mat-tab-body {
-    margin-bottom: 10px;
-    background: #fff;
+  margin-bottom: 10px;
+  background: #fff;
 }
 
 .mat-tab-label-container {
-    margin-bottom: 1%;
+  margin-bottom: 1%;
 }
 
 .mat-tab-labels {
-    background: #fff;
+  background: #fff;
 }

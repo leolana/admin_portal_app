@@ -1,130 +1,136 @@
 <app-content-header title="Taxas"></app-content-header>
 <section class="content">
-    <div class="nav-tabs-custom">
-        <div *ngIf="dados">
-            <div>
-                <div class="head-table">
-                    <p class="text-center title-taxas">Condições Comerciais</p>
-                </div>
-                <table class="table">
-                    <tbody class="data-table style-table">
-                        <tr *ngIf="dados.condicoesComerciais.taxaContratual.antecipacao">
-                            <td><strong>Taxa de antecipação</strong></td>
-                            <td>
-                                {{ dados.condicoesComerciais.taxaContratual.antecipacao + "%" }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Taxa de Adesão</strong></td>
-                            <td>
-                                {{
-                dados.condicoesComerciais.taxaContratual.adesao
-                  | currency: "BRL":"symbol":"1.2-2"
-              }}
-                            </td>
-                        </tr>
-                        <tr *ngIf="dados.condicoesComerciais.taxasAdministrativas.length">
-                            <td><strong>Prazo de Recebimento</strong></td>
-                            <td>
-                                {{ dados.condicoesComerciais.taxasAdministrativas[0].prazo }} dias
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="desktop" *ngIf="dados.condicoesComerciais.taxasAdministrativas.length">
-                <h3 class="sub-title">Taxa Administrativas</h3>
-                <table class="table">
-                    <tbody class="text-center second-table data-table">
-                        <tr>
-                            <td><strong>Bandeira</strong></td>
-                            <td *ngFor="let item of obterTaxasAdministrativasPeriodos()">
-                                <strong>{{ item | taxaAdministrativaParcelas }}</strong></td>
-                        </tr>
-                        <tr *ngFor="let taxaDebito of dados.condicoesComerciais.taxasDebito">
-                            <td><strong>{{ taxaDebito.bandeira.text }}</strong></td>
-                            <td *ngFor="let taxa of obterTaxasAdministrativasPorProduto(taxaDebito.bandeira)">
-                                {{ taxa.valor | number:'1.2-2' }}%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-
-            <div class="mobile" *ngIf="dados.condicoesComerciais.taxasAdministrativas.length">
-                <h3 class="sub-title">Taxa Administrativas</h3>
-                <div class="row dados-taxa" *ngFor="let taxaDebito of dados.condicoesComerciais.taxasDebito">
-                    <div class="col-xs-12">
-                        <div class="bandeira-header">
-                            <strong>{{ taxaDebito.bandeira.text }}</strong>
-                        </div>
-                    </div>
-
-                    <div class="col-xs-4" *ngFor="let item of obterTaxasAdministrativasPeriodos()">
-                        <label class="control-label text-right">{{ item | taxaAdministrativaParcelas }}</label>
-                    </div>
-
-                    <div class="col-xs-4" *ngFor="let item of obterTaxasAdministrativasPeriodos()">
-                        <span>
-                            {{ obterTaxasAdministrativasPorProdutoEPeriodo(taxaDebito.bandeira, item)[0].valor | number:'1.2-2' }}%</span>
-                    </div>
-                </div>
-            </div>
-
-
-            <div *ngIf="dados.condicoesComerciais.taxasDebito.length">
-                <h3 class="sub-title ">Taxa de Débito</h3>
-                <table class="table">
-                    <tbody class="text-center third-table data-table">
-                        <tr *ngFor="let taxaDebito of dados.condicoesComerciais.taxasDebito">
-                            <td><strong>{{ taxaDebito.bandeira.text }}</strong></td>
-                            <td>{{ taxaDebito.valor | number:'1.2-2' }}%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-
-            <div class="head-table" *ngIf="dados.captura">
-                <p class="text-center title-taxas">Capturas</p>
-            </div>
-
-            <div>
-                <table class="table" *ngIf="dados.captura">
-                    <tbody class="text-center fourth-table data-table">
-                        <tr>
-                            <td><strong>Descrição</strong></td>
-                            <td><strong>Quantidade</strong></td>
-                            <td><strong>Valor</strong></td>
-                        </tr>
-                        <tr *ngFor="let captura of dados.captura.capturas">
-                            <td class="mobile">
-                                {{captura.captura.produto.nome}}
-                                <p class="label-captura">
-                                    {{ captura.captura.tipoCaptura | tipoCaptura }}
-                                </p>
-
-                            </td>
-                            <td class="desktop">{{captura.captura.produto.nome}} -
-                                {{ captura.captura.tipoCaptura | tipoCaptura }}
-                            </td>
-                            <td>{{captura.quantidade}}</td>
-                            <td>{{captura.valor * captura.quantidade
-										| currency:'BRL' : 'symbol' :'1.2-2' }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div *ngIf="!dados.captura.capturas.length">
-                    <div class="bloco">
-                        <h4>Nenhum registro encontrado!</h4>
-                    </div>
-                </div>
-            </div>
+  <div class="nav-tabs-custom">
+    <div *ngIf="dados">
+      <div>
+        <div class="head-table">
+          <p class="text-center title-taxas">Condições Comerciais</p>
         </div>
-        <div *ngIf="!dados" class="loading-container">
-            <div class="loading"></div>
+        <table class="table">
+          <tbody class="data-table style-table">
+            <tr *ngIf="dados.condicoesComerciais.taxaContratual.antecipacao">
+              <td><strong>Taxa de antecipação</strong></td>
+              <td>
+                {{ dados.condicoesComerciais.taxaContratual.antecipacao + '%' }}
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Taxa de Adesão</strong></td>
+              <td>
+                {{
+                  dados.condicoesComerciais.taxaContratual.adesao | currency: 'BRL':'symbol':'1.2-2'
+                }}
+              </td>
+            </tr>
+            <tr *ngIf="dados.condicoesComerciais.taxasAdministrativas.length">
+              <td><strong>Prazo de Recebimento</strong></td>
+              <td>{{ dados.condicoesComerciais.taxasAdministrativas[0].prazo }} dias</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="desktop" *ngIf="dados.condicoesComerciais.taxasAdministrativas.length">
+        <h3 class="sub-title">Taxa Administrativas</h3>
+        <table class="table">
+          <tbody class="text-center second-table data-table">
+            <tr>
+              <td><strong>Bandeira</strong></td>
+              <td *ngFor="let item of obterTaxasAdministrativasPeriodos()">
+                <strong>{{ item | taxaAdministrativaParcelas }}</strong>
+              </td>
+            </tr>
+            <tr *ngFor="let taxaDebito of dados.condicoesComerciais.taxasDebito">
+              <td>
+                <strong>{{ taxaDebito.bandeira.text }}</strong>
+              </td>
+              <td *ngFor="let taxa of obterTaxasAdministrativasPorProduto(taxaDebito.bandeira)">
+                {{ taxa.valor | number: '1.2-2' }}%
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mobile" *ngIf="dados.condicoesComerciais.taxasAdministrativas.length">
+        <h3 class="sub-title">Taxa Administrativas</h3>
+        <div
+          class="row dados-taxa"
+          *ngFor="let taxaDebito of dados.condicoesComerciais.taxasDebito"
+        >
+          <div class="col-xs-12">
+            <div class="bandeira-header">
+              <strong>{{ taxaDebito.bandeira.text }}</strong>
+            </div>
+          </div>
+
+          <div class="col-xs-4" *ngFor="let item of obterTaxasAdministrativasPeriodos()">
+            <label class="control-label text-right">{{ item | taxaAdministrativaParcelas }}</label>
+          </div>
+
+          <div class="col-xs-4" *ngFor="let item of obterTaxasAdministrativasPeriodos()">
+            <span>
+              {{
+                obterTaxasAdministrativasPorProdutoEPeriodo(taxaDebito.bandeira, item)[0].valor
+                  | number: '1.2-2'
+              }}%</span
+            >
+          </div>
         </div>
+      </div>
+
+      <div *ngIf="dados.condicoesComerciais.taxasDebito.length">
+        <h3 class="sub-title ">Taxa de Débito</h3>
+        <table class="table">
+          <tbody class="text-center third-table data-table">
+            <tr *ngFor="let taxaDebito of dados.condicoesComerciais.taxasDebito">
+              <td>
+                <strong>{{ taxaDebito.bandeira.text }}</strong>
+              </td>
+              <td>{{ taxaDebito.valor | number: '1.2-2' }}%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="head-table" *ngIf="dados.captura">
+        <p class="text-center title-taxas">Capturas</p>
+      </div>
+
+      <div>
+        <table class="table" *ngIf="dados.captura">
+          <tbody class="text-center fourth-table data-table">
+            <tr>
+              <td><strong>Descrição</strong></td>
+              <td><strong>Quantidade</strong></td>
+              <td><strong>Valor</strong></td>
+            </tr>
+            <tr *ngFor="let captura of dados.captura.capturas">
+              <td class="mobile">
+                {{ captura.captura.produto.nome }}
+                <p class="label-captura">
+                  {{ captura.captura.tipoCaptura | tipoCaptura }}
+                </p>
+              </td>
+              <td class="desktop">
+                {{ captura.captura.produto.nome }} -
+                {{ captura.captura.tipoCaptura | tipoCaptura }}
+              </td>
+              <td>{{ captura.quantidade }}</td>
+              <td>{{ captura.valor * captura.quantidade | currency: 'BRL':'symbol':'1.2-2' }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div *ngIf="!dados.captura.capturas.length">
+          <div class="bloco">
+            <h4>Nenhum registro encontrado!</h4>
+          </div>
+        </div>
+      </div>
     </div>
+    <div *ngIf="!dados" class="loading-container">
+      <div class="loading"></div>
+    </div>
+  </div>
 </section>

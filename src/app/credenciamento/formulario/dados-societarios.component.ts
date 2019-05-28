@@ -5,7 +5,11 @@ import { CredenciamentoService } from '../credenciamento.service';
 import { PromptService } from '../../core/prompt/prompt.service';
 import { TiposPessoa } from '../../interfaces';
 import { ISocio } from '../../interfaces/participante';
-import { CredenciamentoSteps, Wizard, CredenciamentoNumeroSteps } from '../../interfaces/credenciamento';
+import {
+  CredenciamentoSteps,
+  Wizard,
+  CredenciamentoNumeroSteps,
+} from '../../interfaces/credenciamento';
 import { NomeFunctions } from '../../core/functions/nome.functions';
 import { CpfFunctions } from '../../core/functions/cpf.functions';
 import { CnpjFunctions } from '../../core/functions/cnpj.functions';
@@ -19,7 +23,7 @@ export class CredenciamentoDadosSocietariosComponent implements OnInit {
     private credenciamentoService: CredenciamentoService,
     private promptService: PromptService,
     private notification: NotificationService,
-  ) { }
+  ) {}
 
   tiposPessoa = TiposPessoa;
   steps;
@@ -32,7 +36,7 @@ export class CredenciamentoDadosSocietariosComponent implements OnInit {
 
   wizardConfig = {
     stepValidation: () => this.validForm(),
-    adjustmentSessionStorage: () => this.atualizaDadosSessionStorage()
+    adjustmentSessionStorage: () => this.atualizaDadosSessionStorage(),
   };
 
   ngOnInit(): void {
@@ -43,19 +47,16 @@ export class CredenciamentoDadosSocietariosComponent implements OnInit {
     if (this.sociosStorage && JSON.stringify(this.sociosStorage) !== '{}') {
       this.preencheDadosExistentes();
     } else {
-      const {
-        nomeContato,
-        emailContato,
-        telefoneContato,
-        celularContato
-      } = JSON.parse(sessionStorage.getItem('contato'));
+      const { nomeContato, emailContato, telefoneContato, celularContato } = JSON.parse(
+        sessionStorage.getItem('contato'),
+      );
 
       this.adicionarSocio(TiposPessoa.fisica, {
         nome: nomeContato,
         telefone: telefoneContato,
         celular: celularContato,
         email: emailContato,
-        contato: true
+        contato: true,
       });
     }
     this.contatoOn = false;
@@ -99,18 +100,15 @@ export class CredenciamentoDadosSocietariosComponent implements OnInit {
       telefone: new FormControl(dadosContato.telefone || '', Validators.required),
       aberturaNascimento: new FormControl('', [
         Validators.required,
-        DataFunctions.validatorDataFutura
+        DataFunctions.validatorDataFutura,
       ]),
       email: new FormControl(dadosContato.email || '', [Validators.required, Validators.email]),
-      participacao: new FormControl(0, [
-        Validators.required,
-        Validators.min(0.01)
-      ]),
+      participacao: new FormControl(0, [Validators.required, Validators.min(0.01)]),
       contato: new FormControl(dadosContato.contato || this.contatoOn),
       celular: new FormControl(dadosContato.celular || ''),
       razaoSocial: new FormControl(),
       inscricaoEstadual: new FormControl(),
-      inscricaoMunicipal: new FormControl()
+      inscricaoMunicipal: new FormControl(),
     });
 
     form.controls.tipoPessoa.valueChanges.subscribe(value => {
@@ -130,12 +128,12 @@ export class CredenciamentoDadosSocietariosComponent implements OnInit {
         });
         if (checked) {
           const nome = checked.controls.nome.value;
-          const msg = nome ? `${nome} não será mais contato para instalação.` : `Já existe outro sócio marcado como contato.`;
+          const msg = nome
+            ? `${nome} não será mais contato para instalação.`
+            : `Já existe outro sócio marcado como contato.`;
           this.promptService.confirm(msg + ' Deseja continuar?').then(yes => {
-            if (yes)
-              checked.controls.contato.setValue(false);
-            else
-              form.controls.contato.setValue(false);
+            if (yes) checked.controls.contato.setValue(false);
+            else form.controls.contato.setValue(false);
           });
         }
       }
@@ -172,7 +170,6 @@ export class CredenciamentoDadosSocietariosComponent implements OnInit {
         inscricaoMunicipalIsencao: group.value.inscricaoMunicipalIsencao,
       });
     });
-
   }
 
   setSteps() {
@@ -204,7 +201,9 @@ export class CredenciamentoDadosSocietariosComponent implements OnInit {
 
   removerSocio(index, event) {
     const promise = this.socios.at(index).dirty
-      ? this.promptService.confirm(`Deseja mesmo remover ${this.socios.at(index).value.nome || 'este sócio'}?`)
+      ? this.promptService.confirm(
+          `Deseja mesmo remover ${this.socios.at(index).value.nome || 'este sócio'}?`,
+        )
       : Promise.resolve(true);
 
     promise.then(result => {
@@ -224,7 +223,9 @@ export class CredenciamentoDadosSocietariosComponent implements OnInit {
   validForm() {
     let sum = 0;
     for (let g = 0; g < this.socios.controls.length; g++) {
-      Object.keys(this.socios.controls[g]['controls']).forEach(k => this.socios.controls[g]['controls'][k].markAsDirty());
+      Object.keys(this.socios.controls[g]['controls']).forEach(k =>
+        this.socios.controls[g]['controls'][k].markAsDirty(),
+      );
 
       sum += this.socios.controls[g]['controls'].participacao.value;
     }
@@ -236,11 +237,13 @@ export class CredenciamentoDadosSocietariosComponent implements OnInit {
       };
 
       const controlsErrors = this.socios.controls
-        .map(form => Object.keys(form['controls'])
-          .map(key => form['controls'][key])
-          .filter(control => !!control.errors)
-          .map(control => control.errors)
-          .reduce(obterErrosListaCampos, {}))
+        .map(form =>
+          Object.keys(form['controls'])
+            .map(key => form['controls'][key])
+            .filter(control => !!control.errors)
+            .map(control => control.errors)
+            .reduce(obterErrosListaCampos, {}),
+        )
         .reduce(obterErrosListaCampos, {});
 
       if (!!controlsErrors['cpf']) {
@@ -249,7 +252,9 @@ export class CredenciamentoDadosSocietariosComponent implements OnInit {
       }
 
       if (!!controlsErrors['data']) {
-        this.notification.showAlertMessage('Verifique o campo Data de Nascimento antes de prosseguir!');
+        this.notification.showAlertMessage(
+          'Verifique o campo Data de Nascimento antes de prosseguir!',
+        );
         return false;
       }
 
@@ -284,10 +289,12 @@ export class CredenciamentoDadosSocietariosComponent implements OnInit {
     const dadosSocietarios: ISocio[] = [];
 
     Object.keys(this.socios.controls).forEach(k => {
-      this.socios.controls[k].controls.contato.setValue(!!this.socios.controls[k].controls.contato.value);
+      this.socios.controls[k].controls.contato.setValue(
+        !!this.socios.controls[k].controls.contato.value,
+      );
       dadosSocietarios.push(this.socios.controls[k].value);
     });
-    if (!(Boolean(sessionStorage.getItem('credenciamentoEmAnalise')))) {
+    if (!Boolean(sessionStorage.getItem('credenciamentoEmAnalise'))) {
       dadosSocietarios.forEach(s => {
         delete s.id;
       });

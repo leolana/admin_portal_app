@@ -1,44 +1,50 @@
 <div class="content">
-    <table class="table table-striped table-condensed">
-        <thead>
-            <tr>
-                <th>Descrição</th>
-                <th style="width: 10px">
-                    <button type="button" class="btn btn-success" (click)="downloadAll()">
-                        <em class="fa fa-download"></em>
-                        Baixar Todos
-                    </button>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of documentos">
-                <td>{{ item.tipoFormatado }} ({{ item.nomeArquivo }})</td>
-                <td class="no-wrap">
-                    <button class="btn btn-xs btn-success pull-right"
-                        (click)="download(item.tipo, item.arquivo, item.nomeArquivo)">
-                        <em class="fa fa-download"></em>
-                    </button>
-                </td>
-            </tr>
-            <tr *ngFor="let extrato of extratosBancarios; let i = index">
-                <td>Extrato Bancário ({{ extrato.nomeArquivo }})</td>
-                <td>
-                    <button class="btn btn-xs btn-success pull-right"
-                        (click)="downloadExtrato(extrato.id, extrato.nomeArquivo)">
-                        <em class="fa fa-download"></em>
-                    </button>
-                </td>
-            </tr>
-            <tr *ngFor="let analise of analises; let i = index">
-                <td>Análise - {{ analise.observacao }} ({{ analise.nomeArquivo }})</td>
-                <td>
-                    <button class="btn btn-xs btn-success pull-right"
-                        (click)="download(analise.tipo, analise.arquivo, analise.nomeArquivo, i)">
-                        <em class="fa fa-download"></em>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <table class="table table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th style="width: 10px">
+          <button type="button" class="btn btn-success" (click)="downloadAll()">
+            <em class="fa fa-download"></em>
+            Baixar Todos
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of documentos">
+        <td>{{ item.tipoFormatado }} ({{ item.nomeArquivo }})</td>
+        <td class="no-wrap">
+          <button
+            class="btn btn-xs btn-success pull-right"
+            (click)="download(item.tipo, item.arquivo, item.nomeArquivo)"
+          >
+            <em class="fa fa-download"></em>
+          </button>
+        </td>
+      </tr>
+      <tr *ngFor="let extrato of extratosBancarios; let i = index">
+        <td>Extrato Bancário ({{ extrato.nomeArquivo }})</td>
+        <td>
+          <button
+            class="btn btn-xs btn-success pull-right"
+            (click)="downloadExtrato(extrato.id, extrato.nomeArquivo)"
+          >
+            <em class="fa fa-download"></em>
+          </button>
+        </td>
+      </tr>
+      <tr *ngFor="let analise of analises; let i = index">
+        <td>Análise - {{ analise.observacao }} ({{ analise.nomeArquivo }})</td>
+        <td>
+          <button
+            class="btn btn-xs btn-success pull-right"
+            (click)="download(analise.tipo, analise.arquivo, analise.nomeArquivo, i)"
+          >
+            <em class="fa fa-download"></em>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

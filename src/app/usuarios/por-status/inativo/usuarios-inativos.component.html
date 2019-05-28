@@ -1,97 +1,112 @@
 <div class="table-primary">
-    <alpe-datatable [datatable]="usuariosInativos"></alpe-datatable>
+  <alpe-datatable [datatable]="usuariosInativos"></alpe-datatable>
 </div>
 
-
 <div class="modal">
-    <div class="modal-dialog">
-        <div class="modal-content" *ngIf="openInfo">
-            <div class="modal-header btn-primary">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Informações do usuário no Keycloak</h4>
-            </div>
-            <div class="modal-body">
-
-                <div class="row row-info-user" *ngIf="!infoUserKeyclaok.id">
-                    <div class="col-md-12 has-error">
-                        <label class="control-label">
-                            <em class="fa fa-times-circle"></em> Usuário não existe no Keycloak
-                        </label>
-                    </div>
-                </div>
-
-                <div class="row row-info-user">
-                    <div class="col-md-2">
-                        <label>UUID:</label>
-                    </div>
-                    <div class="col-md-8" [class.has-success]="dataValidation.id"
-                        [class.has-error]="!dataValidation.id">
-                        <span>{{ infoUserKeyclaok.id }}</span>
-                        <div class="control-label validation-label" *ngIf="dataValidation.id">
-                            <em class="fa fa-check-circle"></em> ID Ok
-                        </div>
-                        <div class="control-label validation-label" *ngIf="!dataValidation.id">
-                            <em class="fa fa-times-circle"></em> ID divergente
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row row-info-user">
-                    <div class="col-md-2">
-                        <label>E-mail:</label>
-                    </div>
-                    <div class="col-md-8" [class.has-success]="dataValidation.email"
-                        [class.has-error]="!dataValidation.email">
-                        <span>{{ infoUserKeyclaok.email }}</span>
-                        <div class="control-label validation-label" *ngIf="dataValidation.email">
-                            <em class="fa fa-check-circle"></em> Email Ok
-                        </div>
-                        <div class="control-label validation-label" *ngIf="!dataValidation.email">
-                            <em class="fa fa-times-circle"></em> Email divergente
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row row-info-user">
-                    <div class="col-md-2">
-                        <label>Status:</label>
-                    </div>
-                    <div class="col-md-8" [class.has-success]="dataValidation.status"
-                        [class.has-error]="!dataValidation.status">
-                        <span>{{ infoUserKeyclaok.status }}</span>
-                        <div class="control-label validation-label" *ngIf="dataValidation.status">
-                            <em class="fa fa-check-circle"></em> Status Ok
-                        </div>
-                        <div class="control-label validation-label" *ngIf="!dataValidation.status">
-                            <em class="fa fa-times-circle"></em> Status divergente
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row row-info-user">
-                    <div class="col-md-2">
-                        <label>Perfis:</label>
-                    </div>
-                    <div class="col-md-8" [class.has-success]="dataValidation.roles"
-                        [class.has-error]="!dataValidation.roles">
-                        <span>{{ infoUserKeyclaok.perfis }}</span>
-                        <div class="control-label validation-label" *ngIf="dataValidation.roles">
-                            <em class="fa fa-check-circle"></em> Perfis Ok
-                        </div>
-                        <div class="control-label validation-label" *ngIf="!dataValidation.roles">
-                            <em class="fa fa-times-circle"></em> Perfis divergentes
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left ml-15"
-                    *ngIf="loggedUserIsBKO() && infoUserKeyclaok.infoErrada" (click)="recriarUsuario()">Recriar Usuário
-                    no Keycloak</button>
-                <button type="button" class="btn btn-wsm btn-primary" data-dismiss="modal">Cancelar</button>
-            </div>
+  <div class="modal-dialog">
+    <div class="modal-content" *ngIf="openInfo">
+      <div class="modal-header btn-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title">Informações do usuário no Keycloak</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row row-info-user" *ngIf="!infoUserKeyclaok.id">
+          <div class="col-md-12 has-error">
+            <label class="control-label">
+              <em class="fa fa-times-circle"></em> Usuário não existe no Keycloak
+            </label>
+          </div>
         </div>
+
+        <div class="row row-info-user">
+          <div class="col-md-2">
+            <label>UUID:</label>
+          </div>
+          <div
+            class="col-md-8"
+            [class.has-success]="dataValidation.id"
+            [class.has-error]="!dataValidation.id"
+          >
+            <span>{{ infoUserKeyclaok.id }}</span>
+            <div class="control-label validation-label" *ngIf="dataValidation.id">
+              <em class="fa fa-check-circle"></em> ID Ok
+            </div>
+            <div class="control-label validation-label" *ngIf="!dataValidation.id">
+              <em class="fa fa-times-circle"></em> ID divergente
+            </div>
+          </div>
+        </div>
+
+        <div class="row row-info-user">
+          <div class="col-md-2">
+            <label>E-mail:</label>
+          </div>
+          <div
+            class="col-md-8"
+            [class.has-success]="dataValidation.email"
+            [class.has-error]="!dataValidation.email"
+          >
+            <span>{{ infoUserKeyclaok.email }}</span>
+            <div class="control-label validation-label" *ngIf="dataValidation.email">
+              <em class="fa fa-check-circle"></em> Email Ok
+            </div>
+            <div class="control-label validation-label" *ngIf="!dataValidation.email">
+              <em class="fa fa-times-circle"></em> Email divergente
+            </div>
+          </div>
+        </div>
+
+        <div class="row row-info-user">
+          <div class="col-md-2">
+            <label>Status:</label>
+          </div>
+          <div
+            class="col-md-8"
+            [class.has-success]="dataValidation.status"
+            [class.has-error]="!dataValidation.status"
+          >
+            <span>{{ infoUserKeyclaok.status }}</span>
+            <div class="control-label validation-label" *ngIf="dataValidation.status">
+              <em class="fa fa-check-circle"></em> Status Ok
+            </div>
+            <div class="control-label validation-label" *ngIf="!dataValidation.status">
+              <em class="fa fa-times-circle"></em> Status divergente
+            </div>
+          </div>
+        </div>
+
+        <div class="row row-info-user">
+          <div class="col-md-2">
+            <label>Perfis:</label>
+          </div>
+          <div
+            class="col-md-8"
+            [class.has-success]="dataValidation.roles"
+            [class.has-error]="!dataValidation.roles"
+          >
+            <span>{{ infoUserKeyclaok.perfis }}</span>
+            <div class="control-label validation-label" *ngIf="dataValidation.roles">
+              <em class="fa fa-check-circle"></em> Perfis Ok
+            </div>
+            <div class="control-label validation-label" *ngIf="!dataValidation.roles">
+              <em class="fa fa-times-circle"></em> Perfis divergentes
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-default pull-left ml-15"
+          *ngIf="loggedUserIsBKO() && infoUserKeyclaok.infoErrada"
+          (click)="recriarUsuario()"
+        >
+          Recriar Usuário no Keycloak
+        </button>
+        <button type="button" class="btn btn-wsm btn-primary" data-dismiss="modal">Cancelar</button>
+      </div>
     </div>
+  </div>
 </div>

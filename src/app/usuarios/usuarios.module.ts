@@ -15,30 +15,25 @@ import { AlpeTabsModule } from '../core/components/alpe-tabs/alpe-tabs.module';
 import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
-    imports: [
-        ReactiveFormsModule,
-        BrowserModule,
-        ThemeModule,
-        PipesModule,
-        DatatableModule,
-        AlpeTabsModule,
-        NgxMaskModule
-    ],
-    declarations: [
-        UsuarioEditarComponent,
-        UsuarioExistenteComponent,
-        UsuariosGerenciamentoComponent,
-        UsuariosAtivosComponent,
-        UsuariosConviteAtivoComponent,
-        UsuariosConviteExpiradoComponent,
-        UsuariosInativosComponent
-    ],
-    exports: [
-        UsuariosGerenciamentoComponent
-    ],
-    entryComponents: [
-        UsuarioEditarComponent,
-        UsuarioExistenteComponent,
-    ]
+  imports: [
+    ReactiveFormsModule,
+    BrowserModule,
+    ThemeModule,
+    PipesModule,
+    DatatableModule,
+    AlpeTabsModule,
+    NgxMaskModule,
+  ],
+  declarations: [
+    UsuarioEditarComponent,
+    UsuarioExistenteComponent,
+    UsuariosGerenciamentoComponent,
+    UsuariosAtivosComponent,
+    UsuariosConviteAtivoComponent,
+    UsuariosConviteExpiradoComponent,
+    UsuariosInativosComponent,
+  ],
+  exports: [UsuariosGerenciamentoComponent],
+  entryComponents: [UsuarioEditarComponent, UsuarioExistenteComponent],
 })
-export class UsuariosModule { }
+export class UsuariosModule {}

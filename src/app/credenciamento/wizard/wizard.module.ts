@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CoreModule } from '../../core/core.module';
@@ -14,23 +13,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        ReactiveFormsModule,
-        FormsModule,
-        HttpClientModule,
-        AppRoutingModule,
-        ThemeModule,
-        CoreModule,
-        PipesModule,
-        NgxMaskModule.forRoot(),
-        NgxCurrencyModule,
-    ],
-    declarations: [
-        WizardComponent
-    ],
-    exports: [
-        WizardComponent,
-    ]
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    ThemeModule,
+    CoreModule,
+    PipesModule,
+    NgxMaskModule.forRoot(),
+    NgxCurrencyModule,
+  ],
+  declarations: [WizardComponent],
+  exports: [WizardComponent],
 })
-export class WizardModule { }
+export class WizardModule {}

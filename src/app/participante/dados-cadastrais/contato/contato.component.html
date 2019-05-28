@@ -1,27 +1,25 @@
 <div class="tab-pane" id="tabContato">
+  <h3 class="sub-title">Dados de Contato</h3>
 
-    <h3 class="sub-title">Dados de Contato</h3>
+  <div>
+    <div class="sub-content layer-white" *ngIf="dados">
+      <div class="row">
+        <label class="col-md-3 control-label text-right">Nome:</label>
+        <div class="col-md-3">{{ dados.nome }}</div>
+        <label class="col-md-3 control-label text-right">E-mail</label>
+        <div class="col-md-3">{{ dados.email }}</div>
+      </div>
+      <div class="row">
+        <label class="col-md-3 control-label text-right">Telefone:</label>
+        <div class="col-md-3">{{ dados.telefone | telefone }}</div>
 
-    <div>
-        <div class="sub-content layer-white" *ngIf="dados">
-            <div class="row">
-                <label class="col-md-3 control-label text-right">Nome:</label>
-                <div class="col-md-3">{{dados.nome}}</div>
-                <label class="col-md-3 control-label text-right">E-mail</label>
-                <div class="col-md-3">{{ dados.email }}</div>
-            </div>
-            <div class="row">
-                <label class="col-md-3 control-label text-right">Telefone:</label>
-                <div class="col-md-3">{{ dados.telefone | telefone }}</div>
-
-                <label class="col-md-3 control-label text-right">Celular:</label>
-                <div class="col-md-3">{{ dados.celular | telefone }}</div>
-            </div>
-        </div>
-
-        <div *ngIf="!dados" class="loading-container">
-            <div class="loading"></div>
-        </div>
+        <label class="col-md-3 control-label text-right">Celular:</label>
+        <div class="col-md-3">{{ dados.celular | telefone }}</div>
+      </div>
     </div>
 
+    <div *ngIf="!dados" class="loading-container">
+      <div class="loading"></div>
+    </div>
+  </div>
 </div>

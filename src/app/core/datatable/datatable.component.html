@@ -1,94 +1,135 @@
 <div class="table-responsive">
-    <table mat-table [dataSource]="datatable.internal.visibleData" matSort [matSortDisableClear]="true"
-        (matSortChange)="onMatSortChange($event)">
-
-        <ng-container *ngFor="let item of datatable.internal.table">
-            <ng-container [matColumnDef]="item.property">
-                <ng-container *ngIf="item.checkbox">
-                    <th class="checkbox-header" mat-header-cell *matHeaderCellDef>
-                        <mat-checkbox (change)="selectAllRows(item, !item.checkbox.isAllChecked)"
-                            [checked]="item.checkbox.isAllChecked">
-                        </mat-checkbox>
-                    </th>
-                </ng-container>
-                <ng-container *ngIf="item.disableSort">
-                    <th mat-header-cell *matHeaderCellDef>{{ item.description }}</th>
-                </ng-container>
-                <ng-container *ngIf="!item.disableSort && !item.hideSort">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ item.description }}</th>
-                </ng-container>
-                <ng-container *ngIf="item.hideSort && !item.disableSort">
-                    <th class="hide-sort" mat-header-cell *matHeaderCellDef mat-sort-header>{{ item.description }}</th>
-                </ng-container>
-
-                <td mat-cell *matCellDef="let row">
-                    <strong *ngIf="!item.hideMobileLabel">{{ item.description }}</strong>
-                    <ng-container *ngIf="item.buttons">
-                        <ng-container *ngFor="let btn of item.buttons">
-                            <button *ngIf="btn.visible(row)" type="button"
-                            class="btn btn-sm {{ btn.btnClass }}" (click)="btn.fnAction(row)">
-                                <em *ngIf="btn.iconClass" class="fa {{ btn.iconClass }}"></em>
-                                {{ btn.text }}
-                            </button>
-                            <span *ngIf="!btn.visible(row)" [innerHTML]="btn.notVisibleMessage"></span>
-                        </ng-container>
-                    </ng-container>
-                    <ng-container *ngIf="item.groupButtonToggle">
-                        <div class="btn-group btn-group-toggle mobile-position">
-                            <ng-container *ngFor="let btn of item.groupButtonToggle.buttons">
-                                <label class="btn btn-outline-primary group-button btn-sm" [ngClass]="{ active: btn.value === row[item.property] }">
-                                    <input (click)="clickBtnGroup(row, item, btn.value)" [value]="btn.value" type="radio" class="btn-group-toggle">
-                                    {{ btn.text }}
-                                </label>
-                            </ng-container>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf="item.inputNumber">
-                        <input type="number" [min]="item.inputNumber.min" [value]="row[item.property]"
-                            (change)="inputNumberChanged($event, row, item)">
-                        {{ item.inputNumber.label(row) }}
-                    </ng-container>
-                    <ng-container *ngIf="item.slideToggle">
-                        <mat-slide-toggle
-                            (change)="changeYesOrNo(item.slideToggle.changeSlideToggle, row, item.property)"
-                            [disabled]="item.slideToggle.disableSlideToggle" [checked]="row[item.property]">
-                            <span class="{{item.slideToggle.labelClass}}">
-                                {{row[item.property] ? item.slideToggle.textTrue : item.slideToggle.textFalse }}
-                            </span>
-                        </mat-slide-toggle>
-                    </ng-container>
-                    <ng-container *ngIf="item.checkbox">
-                        <mat-checkbox (change)="selectRow(item, row)" [disabled]="rowBlocked(row)"
-                            [checked]="row[item.property]">
-                        </mat-checkbox>
-                    </ng-container>
-                    <ng-container *ngIf="!item.buttons && !item.slideToggle && !item.inputNumber && !item.checkbox && !item.groupButtonToggle">
-                        <span *ngIf="item.pipe === 'date'">
-                            {{ row[item.property] | date }}
-                        </span>
-                        <span *ngIf="item.pipe === 'dateTime'">
-                            {{ row[item.property] | dateTime }}
-                        </span>
-                        <span *ngIf="item.pipe === 'currency'">
-                            {{ row[item.property] | currency:'BRL':'symbol':'1.2-2' }}
-                        </span>
-                        <span *ngIf="item.pipe === 'noSymbolCurrency'">
-                            {{ row[item.property] | currency:'BRL':'':'1.2-2' }}
-                        </span>
-                        <span *ngIf="item.pipe == null" class="{{item.classProperty}}">
-                            {{ row[item.property] }}
-                        </span>
-                    </ng-container>
-                </td>
-
-            </ng-container>
+  <table
+    mat-table
+    [dataSource]="datatable.internal.visibleData"
+    matSort
+    [matSortDisableClear]="true"
+    (matSortChange)="onMatSortChange($event)"
+  >
+    <ng-container *ngFor="let item of datatable.internal.table">
+      <ng-container [matColumnDef]="item.property">
+        <ng-container *ngIf="item.checkbox">
+          <th class="checkbox-header" mat-header-cell *matHeaderCellDef>
+            <mat-checkbox
+              (change)="selectAllRows(item, !item.checkbox.isAllChecked)"
+              [checked]="item.checkbox.isAllChecked"
+            >
+            </mat-checkbox>
+          </th>
+        </ng-container>
+        <ng-container *ngIf="item.disableSort">
+          <th mat-header-cell *matHeaderCellDef>{{ item.description }}</th>
+        </ng-container>
+        <ng-container *ngIf="!item.disableSort && !item.hideSort">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ item.description }}</th>
+        </ng-container>
+        <ng-container *ngIf="item.hideSort && !item.disableSort">
+          <th class="hide-sort" mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ item.description }}
+          </th>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: columns" [ngClass]="rowClasses(row)"></tr>
-    </table>
+        <td mat-cell *matCellDef="let row">
+          <strong *ngIf="!item.hideMobileLabel">{{ item.description }}</strong>
+          <ng-container *ngIf="item.buttons">
+            <ng-container *ngFor="let btn of item.buttons">
+              <button
+                *ngIf="btn.visible(row)"
+                type="button"
+                class="btn btn-sm {{ btn.btnClass }}"
+                (click)="btn.fnAction(row)"
+              >
+                <em *ngIf="btn.iconClass" class="fa {{ btn.iconClass }}"></em>
+                {{ btn.text }}
+              </button>
+              <span *ngIf="!btn.visible(row)" [innerHTML]="btn.notVisibleMessage"></span>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="item.groupButtonToggle">
+            <div class="btn-group btn-group-toggle mobile-position">
+              <ng-container *ngFor="let btn of item.groupButtonToggle.buttons">
+                <label
+                  class="btn btn-outline-primary group-button btn-sm"
+                  [ngClass]="{ active: btn.value === row[item.property] }"
+                >
+                  <input
+                    (click)="clickBtnGroup(row, item, btn.value)"
+                    [value]="btn.value"
+                    type="radio"
+                    class="btn-group-toggle"
+                  />
+                  {{ btn.text }}
+                </label>
+              </ng-container>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="item.inputNumber">
+            <input
+              type="number"
+              [min]="item.inputNumber.min"
+              [value]="row[item.property]"
+              (change)="inputNumberChanged($event, row, item)"
+            />
+            {{ item.inputNumber.label(row) }}
+          </ng-container>
+          <ng-container *ngIf="item.slideToggle">
+            <mat-slide-toggle
+              (change)="changeYesOrNo(item.slideToggle.changeSlideToggle, row, item.property)"
+              [disabled]="item.slideToggle.disableSlideToggle"
+              [checked]="row[item.property]"
+            >
+              <span class="{{ item.slideToggle.labelClass }}">
+                {{ row[item.property] ? item.slideToggle.textTrue : item.slideToggle.textFalse }}
+              </span>
+            </mat-slide-toggle>
+          </ng-container>
+          <ng-container *ngIf="item.checkbox">
+            <mat-checkbox
+              (change)="selectRow(item, row)"
+              [disabled]="rowBlocked(row)"
+              [checked]="row[item.property]"
+            >
+            </mat-checkbox>
+          </ng-container>
+          <ng-container
+            *ngIf="
+              !item.buttons &&
+              !item.slideToggle &&
+              !item.inputNumber &&
+              !item.checkbox &&
+              !item.groupButtonToggle
+            "
+          >
+            <span *ngIf="item.pipe === 'date'">
+              {{ row[item.property] | date }}
+            </span>
+            <span *ngIf="item.pipe === 'dateTime'">
+              {{ row[item.property] | dateTime }}
+            </span>
+            <span *ngIf="item.pipe === 'currency'">
+              {{ row[item.property] | currency: 'BRL':'symbol':'1.2-2' }}
+            </span>
+            <span *ngIf="item.pipe === 'noSymbolCurrency'">
+              {{ row[item.property] | currency: 'BRL':'':'1.2-2' }}
+            </span>
+            <span *ngIf="item.pipe == null" class="{{ item.classProperty }}">
+              {{ row[item.property] }}
+            </span>
+          </ng-container>
+        </td>
+      </ng-container>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns" [ngClass]="rowClasses(row)"></tr>
+  </table>
 </div>
 
-<mat-paginator [pageSizeOptions]="datatable.internal.pageSizeOptions" [length]="datatable.internal.data.length"
-    [pageSize]="datatable.internal.pageSize" showFirstLastButtons (page)="onMatPaginatorChange($event)">
+<mat-paginator
+  [pageSizeOptions]="datatable.internal.pageSizeOptions"
+  [length]="datatable.internal.data.length"
+  [pageSize]="datatable.internal.pageSize"
+  showFirstLastButtons
+  (page)="onMatPaginatorChange($event)"
+>
 </mat-paginator>

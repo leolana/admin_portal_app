@@ -1,33 +1,33 @@
 <div class="timeline-wrapper" *ngFor="let objData of recebiveis">
-    <div (click)="collapse($event)" class="timeline-head">
-        <div>
-            <span class="{{ colorTextMoney(objData.total) }}">
-                {{ objData.total | currency:'BRL' }}
-            </span>
-        </div>
-        <div>
-            {{ objData.data | date }}
-            <span class="text-gray margin-l-10">
-                <i class="fa fa-plus"></i>
-            </span>
-        </div>
+  <div (click)="collapse($event)" class="timeline-head">
+    <div>
+      <span class="{{ colorTextMoney(objData.total) }}">
+        {{ objData.total | currency: 'BRL' }}
+      </span>
     </div>
-    <ul class="timeline">
-        <li *ngFor="let recebivel of objData.recebiveis">
-            <i class="fa {{ setaDinheiro(recebivel.valorPagarEc)}}"></i>
-            <div class="timeline-item">
-                <h3 class="timeline-header">
-                    <div>
-                        {{ recebivel.valorPagarEc | currency:'BRL' }}
-                    </div>
-                    <span class="small block">
-                        {{ recebivel.evento ? recebivel.evento.nome : '' }}
-                        <span class="cession-flag">
-                            {{ recebivel.bandeira ? ' - ' + recebivel.bandeira.nome : '' }}
-                        </span>
-                    </span>
-                </h3>
-            </div>
-        </li>
-    </ul>
+    <div>
+      {{ objData.data | date }}
+      <span class="text-gray margin-l-10">
+        <i class="fa fa-plus"></i>
+      </span>
+    </div>
+  </div>
+  <ul class="timeline">
+    <li *ngFor="let recebivel of objData.recebiveis">
+      <i class="fa {{ setaDinheiro(recebivel.valorPagarEc) }}"></i>
+      <div class="timeline-item">
+        <h3 class="timeline-header">
+          <div>
+            {{ recebivel.valorPagarEc | currency: 'BRL' }}
+          </div>
+          <span class="small block">
+            {{ recebivel.evento ? recebivel.evento.nome : '' }}
+            <span class="cession-flag">
+              {{ recebivel.bandeira ? ' - ' + recebivel.bandeira.nome : '' }}
+            </span>
+          </span>
+        </h3>
+      </div>
+    </li>
+  </ul>
 </div>

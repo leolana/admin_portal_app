@@ -1,179 +1,285 @@
 <app-content-header title="Cadastro de Fornecedor" hideBreadCrumb="true"></app-content-header>
 
-<app-wizard [steps]="steps" fornecedor=true [config]="wizardConfig"> </app-wizard>
+<app-wizard [steps]="steps" fornecedor="true" [config]="wizardConfig"> </app-wizard>
 
 <section class="content">
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Dados Cadastrais</h3>
-        </div>
-        <div class="box-body">
-            <form [formGroup]="formFornecedorDadosCadastrais">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group" [class.has-error]="documento.invalid && documento.dirty">
-                            <label for="inputCNPJ">CNPJ</label>
-                            <input type="text" class="form-control" id="inputCNPJ" formControlName="documento"
-                                mask="00.000.000/0000-00" minlength="14" mask-value="clean"
-                                placeholder="00.000.000/0000-00" required [readOnly]="blockId"
-								(blur)="documento.valid && checkDocumentExistence(documento.value)">
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="form-group"
-                            [class.has-error]="inscricaoEstadual.invalid && inscricaoEstadual.dirty">
-                            <label for="inputInscricaoEstadual">Inscrição Estadual</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="inputInscricaoEstadual"
-                                    formControlName="inscricaoEstadual"
-                                    [attr.disabled]="inscricaoEstadualIsenta ? '' : null" maxlength="15" required>
-                                <span class="input-group-addon">
-                                    <input type="checkbox" [(ngModel)]="inscricaoEstadualIsenta"
-                                        [ngModelOptions]="{standalone: true}"
-                                        (change)="desabilitarInscricaoEstadual()"><span
-                                        style="margin-left: 3px; vertical-align: top;">Isento</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group"
-                            [class.has-error]="inscricaoMunicipal.invalid && inscricaoMunicipal.dirty">
-                            <label for="inputInscricaoMunicipal">Inscrição Municipal</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="inputInscricaoMunicipal"
-                                    formControlName="inscricaoMunicipal"
-                                    [attr.disabled]="inscricaoMunicipalIsenta ? '' : null" maxlength="15" required>
-                                <span class="input-group-addon">
-                                    <input type="checkbox" [(ngModel)]="inscricaoMunicipalIsenta"
-                                        [ngModelOptions]="{standalone: true}"
-                                        (change)="desabilitarInscricaoMunicipal()"><span
-                                        style="margin-left: 3px; vertical-align: top;">Isento</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group" [class.has-error]="telefone.invalid && telefone.dirty">
-                            <label for="inputTelefone">Telefone</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="inputTelefone" formControlName="telefone"
-                                    mask="(00) 0000-0000" minlength="10" required>
-                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group" [class.has-error]="razaoSocial.invalid && razaoSocial.dirty">
-                            <label for="inputRazao">Razão Social</label>
-                            <input type="text" class="form-control" id="inputRazao" formControlName="razaoSocial"
-                                maxlength="100" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group" [class.has-error]="nomeFantasia.invalid && nomeFantasia.dirty">
-                            <label for="inputNomeFantasia">Nome Fantasia</label>
-                            <input type="text" class="form-control" id="inputNomeFantasia"
-                                formControlName="nomeFantasia" maxlength="100" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group" [class.has-error]="cep.invalid && cep.dirty">
-                            <label for="inputCEP">CEP</label>
-                            <input type="text" class="form-control" id="inputCEP" formControlName="cep"
-                                (blur)="obterEndereco($event.target.value)" mask="00000-000" minlength="8" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group" [class.has-error]="logradouro.invalid && logradouro.dirty">
-                            <label for="inputLogradouro">Endereço Comercial</label>
-                            <input type="text" class="form-control" id="inputLogradouro" formControlName="logradouro"
-                                maxlength="200" required>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group" [class.has-error]="numero.invalid && numero.dirty">
-                            <label for="inputNumero">Número</label>
-                            <input type="text" class="form-control" id="inputNumero" formControlName="numero"
-                                maxlength="15" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group" [class.has-error]="complemento.invalid && complemento.dirty">
-                            <label for="inputComplemento">Complemento</label>
-                            <input type="text" class="form-control" id="inputComplemento" formControlName="complemento"
-                                maxlength="50">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group" [class.has-error]="bairro.invalid && bairro.dirty">
-                            <label for="inputBairro">Bairro</label>
-                            <input type="text" class="form-control" id="inputBairro" formControlName="bairro"
-                                maxlength="100" required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group" [class.has-error]="cidade.invalid && cidade.dirty">
-                            <label for="selectCidade">Cidade</label>
-                            <select class="form-control" id="selectCidade" formControlName="cidade"
-                                select2="dominio/cidades">
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Dados Cadastrais</h3>
     </div>
+    <div class="box-body">
+      <form [formGroup]="formFornecedorDadosCadastrais">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group" [class.has-error]="documento.invalid && documento.dirty">
+              <label for="inputCNPJ">CNPJ</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputCNPJ"
+                formControlName="documento"
+                mask="00.000.000/0000-00"
+                minlength="14"
+                mask-value="clean"
+                placeholder="00.000.000/0000-00"
+                required
+                [readOnly]="blockId"
+                (blur)="documento.valid && checkDocumentExistence(documento.value)"
+              />
+            </div>
+          </div>
 
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title col-md-7 col-sm-12">Dados do Contato</h3>
-            <div *ngIf="nome.value" class="col-md-5 col-sm-12">
-				<p class="contact-message">As informações de contato serão utilizadas para o envio do convite de {{ nome.value }}.</p>
-			</div>
+          <div class="col-md-3">
+            <div
+              class="form-group"
+              [class.has-error]="inscricaoEstadual.invalid && inscricaoEstadual.dirty"
+            >
+              <label for="inputInscricaoEstadual">Inscrição Estadual</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputInscricaoEstadual"
+                  formControlName="inscricaoEstadual"
+                  [attr.disabled]="inscricaoEstadualIsenta ? '' : null"
+                  maxlength="15"
+                  required
+                />
+                <span class="input-group-addon">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="inscricaoEstadualIsenta"
+                    [ngModelOptions]="{ standalone: true }"
+                    (change)="desabilitarInscricaoEstadual()"
+                  /><span style="margin-left: 3px; vertical-align: top;">Isento</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              class="form-group"
+              [class.has-error]="inscricaoMunicipal.invalid && inscricaoMunicipal.dirty"
+            >
+              <label for="inputInscricaoMunicipal">Inscrição Municipal</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputInscricaoMunicipal"
+                  formControlName="inscricaoMunicipal"
+                  [attr.disabled]="inscricaoMunicipalIsenta ? '' : null"
+                  maxlength="15"
+                  required
+                />
+                <span class="input-group-addon">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="inscricaoMunicipalIsenta"
+                    [ngModelOptions]="{ standalone: true }"
+                    (change)="desabilitarInscricaoMunicipal()"
+                  /><span style="margin-left: 3px; vertical-align: top;">Isento</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group" [class.has-error]="telefone.invalid && telefone.dirty">
+              <label for="inputTelefone">Telefone</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputTelefone"
+                  formControlName="telefone"
+                  mask="(00) 0000-0000"
+                  minlength="10"
+                  required
+                />
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="box-body">
-            <form [formGroup]="formFornecedorDadosContato">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group" [class.has-error]="nome.invalid && nome.dirty">
-                            <label for="inputNome">Nome</label>
-                            <input type="text" class="form-control" id="inputNome" formControlName="nome"
-                                maxlength="100" required>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group" [class.has-error]="email.invalid && email.dirty">
-                            <label for="inputNome">Email</label>
-                            <input type="text" class="form-control" id="inputEmail" formControlName="email"
-                                maxlength="200" required>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group" [class.has-error]="celular.invalid && celular.dirty">
-                            <label for="inputCelular">Celular</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="inputCelular" formControlName="celular"
-                                    mask="(00) 00000-0000" minlength="10" required>
-                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group" [class.has-error]="razaoSocial.invalid && razaoSocial.dirty">
+              <label for="inputRazao">Razão Social</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputRazao"
+                formControlName="razaoSocial"
+                maxlength="100"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group" [class.has-error]="nomeFantasia.invalid && nomeFantasia.dirty">
+              <label for="inputNomeFantasia">Nome Fantasia</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputNomeFantasia"
+                formControlName="nomeFantasia"
+                maxlength="100"
+                required
+              />
+            </div>
+          </div>
         </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group" [class.has-error]="cep.invalid && cep.dirty">
+              <label for="inputCEP">CEP</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputCEP"
+                formControlName="cep"
+                (blur)="obterEndereco($event.target.value)"
+                mask="00000-000"
+                minlength="8"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group" [class.has-error]="logradouro.invalid && logradouro.dirty">
+              <label for="inputLogradouro">Endereço Comercial</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputLogradouro"
+                formControlName="logradouro"
+                maxlength="200"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group" [class.has-error]="numero.invalid && numero.dirty">
+              <label for="inputNumero">Número</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputNumero"
+                formControlName="numero"
+                maxlength="15"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group" [class.has-error]="complemento.invalid && complemento.dirty">
+              <label for="inputComplemento">Complemento</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputComplemento"
+                formControlName="complemento"
+                maxlength="50"
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group" [class.has-error]="bairro.invalid && bairro.dirty">
+              <label for="inputBairro">Bairro</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputBairro"
+                formControlName="bairro"
+                maxlength="100"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group" [class.has-error]="cidade.invalid && cidade.dirty">
+              <label for="selectCidade">Cidade</label>
+              <select
+                class="form-control"
+                id="selectCidade"
+                formControlName="cidade"
+                select2="dominio/cidades"
+              >
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <div class="row">
-        <div class="col-xs-12 text-center">
-            <button type="button" class="btn btn-primary btn-wlg" (click)="submitForm()">Prosseguir</button>
-        </div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title col-md-7 col-sm-12">Dados do Contato</h3>
+      <div *ngIf="nome.value" class="col-md-5 col-sm-12">
+        <p class="contact-message">
+          As informações de contato serão utilizadas para o envio do convite de {{ nome.value }}.
+        </p>
+      </div>
     </div>
+    <div class="box-body">
+      <form [formGroup]="formFornecedorDadosContato">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group" [class.has-error]="nome.invalid && nome.dirty">
+              <label for="inputNome">Nome</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputNome"
+                formControlName="nome"
+                maxlength="100"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group" [class.has-error]="email.invalid && email.dirty">
+              <label for="inputNome">Email</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputEmail"
+                formControlName="email"
+                maxlength="200"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group" [class.has-error]="celular.invalid && celular.dirty">
+              <label for="inputCelular">Celular</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputCelular"
+                  formControlName="celular"
+                  mask="(00) 00000-0000"
+                  minlength="10"
+                  required
+                />
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <button type="button" class="btn btn-primary btn-wlg" (click)="submitForm()">
+        Prosseguir
+      </button>
+    </div>
+  </div>
 </section>

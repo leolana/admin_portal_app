@@ -6,114 +6,124 @@ import { Datatable } from '../../core/datatable/datatable.interface';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
-    templateUrl: './pesquisar-antecipacao-estabelecimento.component.html',
-    styleUrls: ['./pesquisar-antecipacao-estabelecimento.component.css'],
-    encapsulation: ViewEncapsulation.None
+  templateUrl: './pesquisar-antecipacao-estabelecimento.component.html',
+  styleUrls: ['./pesquisar-antecipacao-estabelecimento.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class PesquisarAntecipacaoEstabelecimentoComponent implements OnInit {
-    constructor(
-        private antecipacaoService: AntecipacaoService,
-        private dominioService: DominioService,
-    ) { }
+  constructor(
+    private antecipacaoService: AntecipacaoService,
+    private dominioService: DominioService,
+  ) {}
 
-    // PROPERTIES
-    mobile: boolean;
+  // PROPERTIES
+  mobile: boolean;
 
-    combos = {
-        bandeiras: [] as any[],
-        produtos: [] as any[],
-    };
+  combos = {
+    bandeiras: [] as any[],
+    produtos: [] as any[],
+  };
 
-    controls = {
-        dataPagamento: new FormControl(null),
-        dataSolicitacao: new FormControl(null),
-        bandeirasIds: new FormControl(null),
-        produtoId: new FormControl(null),
-        codigo: new FormControl(null),
-    };
+  controls = {
+    dataPagamento: new FormControl(null),
+    dataSolicitacao: new FormControl(null),
+    bandeirasIds: new FormControl(null),
+    produtoId: new FormControl(null),
+    codigo: new FormControl(null),
+  };
 
-    antecipacoesRealizadas = new Datatable<any>({
-        table: [
-            { property: 'dataVenda', description: 'Data da\nvenda', pipe: 'date' },
-            { property: 'bandeira', description: 'Bandeira' },
-            { property: 'modalidade', description: 'Modalidade' },
-            { property: 'parcelaAtual', description: 'Plano' },
-            { property: 'valorVenda', description: 'Valor da venda (R$)', pipe: 'noSymbolCurrency' },
-            { property: 'valorParcela', description: 'Valor da parcela (R$)', pipe: 'noSymbolCurrency' },
-            { property: 'valorDescontoMdr', description: 'Valor do desconto (R$)', pipe: 'noSymbolCurrency' },
-            { property: 'valorPagar', description: 'Valor líquido da parcela (R$)', pipe: 'noSymbolCurrency' },
-            { property: 'autorizacao', description: 'Autorização' },
-            { property: 'dataPagarLojaOriginal', description: 'Previsão de pagamento', pipe: 'date' },
-            { property: 'taxaAntecipacao', description: '% Taxa de antecipação' },
-            { property: 'descontoAntecipacao', description: 'Valor do desconto antecipação (R$)', pipe: 'noSymbolCurrency' },
-            { property: 'valorAntecipado', description: 'Valor líquido antecipado (R$)', pipe: 'noSymbolCurrency' },
-            { property: 'dataAntecipacao', description: 'Data da antecipação', pipe: 'date' },
-            { property: 'codigo', description: 'Código da antecipação' },
-            { property: 'domicilioBancario', description: 'Domicílio bancário' },
-        ],
-        data: []
+  antecipacoesRealizadas = new Datatable<any>({
+    table: [
+      { property: 'dataVenda', description: 'Data da\nvenda', pipe: 'date' },
+      { property: 'bandeira', description: 'Bandeira' },
+      { property: 'modalidade', description: 'Modalidade' },
+      { property: 'parcelaAtual', description: 'Plano' },
+      { property: 'valorVenda', description: 'Valor da venda (R$)', pipe: 'noSymbolCurrency' },
+      { property: 'valorParcela', description: 'Valor da parcela (R$)', pipe: 'noSymbolCurrency' },
+      {
+        property: 'valorDescontoMdr',
+        description: 'Valor do desconto (R$)',
+        pipe: 'noSymbolCurrency',
+      },
+      {
+        property: 'valorPagar',
+        description: 'Valor líquido da parcela (R$)',
+        pipe: 'noSymbolCurrency',
+      },
+      { property: 'autorizacao', description: 'Autorização' },
+      { property: 'dataPagarLojaOriginal', description: 'Previsão de pagamento', pipe: 'date' },
+      { property: 'taxaAntecipacao', description: '% Taxa de antecipação' },
+      {
+        property: 'descontoAntecipacao',
+        description: 'Valor do desconto antecipação (R$)',
+        pipe: 'noSymbolCurrency',
+      },
+      {
+        property: 'valorAntecipado',
+        description: 'Valor líquido antecipado (R$)',
+        pipe: 'noSymbolCurrency',
+      },
+      { property: 'dataAntecipacao', description: 'Data da antecipação', pipe: 'date' },
+      { property: 'codigo', description: 'Código da antecipação' },
+      { property: 'domicilioBancario', description: 'Domicílio bancário' },
+    ],
+    data: [],
+  });
+
+  form = new FormGroup(this.controls);
+
+  // METHODS
+  ngOnInit(): void {
+    this.solveLayout();
+    this.getBandeiras();
+    this.getProdutos();
+    this.filter();
+  }
+
+  getBandeiras() {
+    this.dominioService.obterBandeiras().subscribe(arr => {
+      this.combos.bandeiras = arr;
     });
+  }
 
-    form = new FormGroup(this.controls);
+  getProdutos() {
+    this.antecipacaoService.getComboProdutosAntecipacaoRealizada().subscribe(arr => {
+      this.combos.produtos = arr;
+    });
+  }
 
-    // METHODS
-    ngOnInit(): void {
-        this.solveLayout();
-        this.getBandeiras();
-        this.getProdutos();
-        this.filter();
-    }
+  reset() {
+    this.form.reset();
+    this.filter();
+  }
 
-    getBandeiras() {
-        this.dominioService
-            .obterBandeiras()
-            .subscribe(arr => {
-                this.combos.bandeiras = arr;
-            });
-    }
+  filter(): void {
+    const parameters = this.form.value;
+    this.antecipacaoService.pesquisarAntecipacoesRealizadas(parameters).subscribe(values => {
+      values.forEach(value => {
+        value.bandeira = value.bandeira.nome;
+        value.modalidade = value.evento.nome;
+        value.taxaAntecipacao = value.taxaAntecipacao + '%';
+      });
+      this.antecipacoesRealizadas.updateData(values);
+    });
+  }
 
-    getProdutos() {
-        this.antecipacaoService
-            .getComboProdutosAntecipacaoRealizada()
-            .subscribe(arr => {
-                this.combos.produtos = arr;
-            });
-    }
+  clearFilter() {
+    this.form.reset();
+    this.filter();
+  }
 
-    reset() {
-        this.form.reset();
-        this.filter();
-    }
+  solveLayout(): void {
+    const checkScreenSize = () => {
+      this.mobile = document.body.offsetWidth < 992;
+    };
 
-    filter(): void {
-        const parameters = this.form.value;
-        this.antecipacaoService
-            .pesquisarAntecipacoesRealizadas(parameters)
-            .subscribe(values => {
-                values.forEach(value => {
-                    value.bandeira = value.bandeira.nome;
-                    value.modalidade = value.evento.nome;
-                    value.taxaAntecipacao = value.taxaAntecipacao + '%';
-                });
-                this.antecipacoesRealizadas.updateData(values);
-            });
-    }
+    window.onresize = checkScreenSize;
+    checkScreenSize();
+  }
 
-    clearFilter() {
-        this.form.reset();
-        this.filter();
-    }
-
-    solveLayout(): void {
-        const checkScreenSize = () => {
-            this.mobile = document.body.offsetWidth < 992;
-        };
-
-        window.onresize = checkScreenSize;
-        checkScreenSize();
-    }
-
-    isDebit(antecipacao){
-        return antecipacao.valorPagar < 0;
-    }
+  isDebit(antecipacao) {
+    return antecipacao.valorPagar < 0;
+  }
 }

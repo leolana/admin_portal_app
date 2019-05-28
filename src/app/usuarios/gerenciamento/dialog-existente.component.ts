@@ -3,14 +3,13 @@ import { DialogComponent } from '../../core/dialog/dialog.component';
 
 @Component({ templateUrl: './dialog-existente.component.html' })
 export class UsuarioExistenteComponent extends DialogComponent {
-    constructor(private element: ElementRef)
-    {
-        super(element);
-    }
+  constructor(private element: ElementRef) {
+    super(element);
+  }
 
-    participantes: any[] = null;
+  participantes: any[] = null;
 
-    onInit(memberships) {
-        this.participantes = memberships;
-    }
+  onInit(memberships) {
+    this.participantes = memberships;
+  }
 }

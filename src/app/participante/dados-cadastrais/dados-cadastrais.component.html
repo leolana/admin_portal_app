@@ -1,50 +1,50 @@
 <app-content-header title="Dados"></app-content-header>
 <section class="content">
-    <div>
-        <div class="nav-tabs-custom">
-            <div class="nav-tabs-custom nav-tab-flex">
-                <ul class="nav nav-tabs nav-tab-fill" [class.flex-container]="mobile">
-                    <ng-container *ngFor="let status of statuses">
-                        <li class="nav-tab-fill" [class.active]="selecionarStatus(status)"
-                            *ngIf="mobile ? selecionarStatus(status) : true">
-                            <a href="#{{ status.id }}" class="nav-tab-active" data-toggle="tab">
-                                {{ status.text }}
-                            </a>
-                        </li>
-                    </ng-container>
-                    <div class="dropdown pull-right flex-container" *ngIf="mobile">
-                        <button type="button" class="btn-nav-tab" data-toggle="dropdown">
-                            <i class="fa fa-chevron-down"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <ng-container *ngFor="let status of statuses">
-                                <li [class.active]="selecionarStatus(status)" *ngIf="status !== statusSelecionado">
-                                    <a href="#{{ status.id }}" data-toggle="tab"
-                                        (click)="statusSelecionado = status">
-                                        {{ status.text }}
-                                    </a>
-                                </li>
-                            </ng-container>
-                        </ul>
-                    </div>
-                </ul>
-            </div>
-            
-            <div class="tab-content">
+  <div>
+    <div class="nav-tabs-custom">
+      <div class="nav-tabs-custom nav-tab-flex">
+        <ul class="nav nav-tabs nav-tab-fill" [class.flex-container]="mobile">
+          <ng-container *ngFor="let status of statuses">
+            <li
+              class="nav-tab-fill"
+              [class.active]="selecionarStatus(status)"
+              *ngIf="mobile ? selecionarStatus(status) : true"
+            >
+              <a href="#{{ status.id }}" class="nav-tab-active" data-toggle="tab">
+                {{ status.text }}
+              </a>
+            </li>
+          </ng-container>
+          <div class="dropdown pull-right flex-container" *ngIf="mobile">
+            <button type="button" class="btn-nav-tab" data-toggle="dropdown">
+              <i class="fa fa-chevron-down"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <ng-container *ngFor="let status of statuses">
+                <li [class.active]="selecionarStatus(status)" *ngIf="status !== statusSelecionado">
+                  <a href="#{{ status.id }}" data-toggle="tab" (click)="statusSelecionado = status">
+                    {{ status.text }}
+                  </a>
+                </li>
+              </ng-container>
+            </ul>
+          </div>
+        </ul>
+      </div>
 
-                <div class="tab-pane active" id="tabCadastrais">
-                    <app-dados-cadastrais></app-dados-cadastrais>
-                </div>
-
-                <div class="tab-pane" id="tabContato">
-                    <app-dados-contato></app-dados-contato>
-                </div>
-
-                <div class="tab-pane" id="tabDomicilio">
-                    <app-dados-domicilio></app-dados-domicilio>
-                </div>
-
-            </div>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tabCadastrais">
+          <app-dados-cadastrais></app-dados-cadastrais>
         </div>
+
+        <div class="tab-pane" id="tabContato">
+          <app-dados-contato></app-dados-contato>
+        </div>
+
+        <div class="tab-pane" id="tabDomicilio">
+          <app-dados-domicilio></app-dados-domicilio>
+        </div>
+      </div>
     </div>
+  </div>
 </section>

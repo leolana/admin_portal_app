@@ -1,143 +1,238 @@
-<app-content-header title="Credenciamento Pessoa {{ tiposPessoa.descricoes[tipoPessoa] }} / Instalação"></app-content-header>
+<app-content-header
+  title="Credenciamento Pessoa {{ tiposPessoa.descricoes[tipoPessoa] }} / Instalação"
+></app-content-header>
 <app-wizard [steps]="steps" [tipoPessoa]="tipoPessoa" [config]="wizardConfig"></app-wizard>
 
 <section class="content">
-	<div class="box box-primary">
-		<div class="box-header with-border">
-			<h3 class="box-title">Endereço de Instalação</h3>
-		</div>
-		<div class="box-body">
-			<form [formGroup]="formEndereco" [saveSessionStorage]="formEndereco" name="dadosInstalacao" url="true" [waitFor]="loaded">
-				<div class="row">
-					<div class="col-md-3">
-						<div class="form-group" [class.has-error]="cep.invalid && cep.dirty">
-							<label for="inputCEP">CEP</label>
-							<input type="text" class="form-control" id="inputCEP" formControlName="cep" (blur)="obterEndereco($event.target.value)"
-							 mask="00000-000" minlength="8" required>
-						</div>
-					</div>
-					<div class="col-md-7">
-						<div class="form-group" [class.has-error]="logradouro.invalid && logradouro.dirty">
-							<label for="inputLogradouro">Logradouro</label>
-							<input type="text" class="form-control" id="inputLogradouro" formControlName="logradouro" maxlength="200"
-							 required>
-						</div>
-					</div>
-					<div class="col-md-2">
-						<div class="form-group" [class.has-error]="numero.invalid && numero.dirty">
-							<label for="inputNumero">Número</label>
-							<input type="text" class="form-control" id="inputNumero" formControlName="numero" maxlength="15" required>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4">
-						<div class="form-group" [class.has-error]="complemento.invalid && complemento.dirty">
-							<label for="inputComplemento">Complemento</label>
-							<input type="text" class="form-control" id="inputComplemento" formControlName="complemento" maxlength="50">
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="form-group" [class.has-error]="bairro.invalid && bairro.dirty">
-							<label for="inputBairro">Bairro</label>
-							<input type="text" class="form-control" id="inputBairro" formControlName="bairro" maxlength="100" required>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="form-group" [class.has-error]="cidade.invalid && cidade.dirty">
-							<label for="selectCidade">Cidade</label>
-							<select class="form-control" id="selectCidade" formControlName="cidade" select2="dominio/cidades"> </select>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-5">
-						<div class="form-group" [class.has-error]="pontoReferencia.invalid && pontoReferencia.dirty">
-							<label for="inputReferencia">Ponto de Referência</label>
-							<input type="text" class="form-control" id="inputReferencia" formControlName="pontoReferencia" maxlength="100">
-						</div>
-					</div>
-					<div class="col-md-2">
-						<div class="form-group" [class.has-error]="horario.invalid && horario.dirty">
-							<label for="horario">Horário de Instalação</label>
-							<select class="form-control" id="horario" formControlName="horario" (change)="selectAllDays($event)">
-								<option *ngFor="let item of horarios.descricoes | keyvalue" [value]="item.key">{{ item.value }}</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-5">
-						<div class="form-group">
-							<label>Dias para Instalação</label>
-							<div class="checkbox-group">
-								<label class="checkbox-inline">
-									<input type="checkbox" formControlName="segunda"> Seg
-								</label>
-								<label class="checkbox-inline">
-									<input type="checkbox" formControlName="terca"> Ter
-								</label>
-								<label class="checkbox-inline">
-									<input type="checkbox" formControlName="quarta"> Qua
-								</label>
-								<label class="checkbox-inline">
-									<input type="checkbox" formControlName="quinta"> Qui
-								</label>
-								<label class="checkbox-inline">
-									<input type="checkbox" formControlName="sexta"> Sex
-								</label>
-								<label class="checkbox-inline">
-									<input type="checkbox" formControlName="sabado"> Sáb
-								</label>
-								<label class="checkbox-inline">
-									<input type="checkbox" formControlName="domingo"> Dom
-								</label>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Endereço de Instalação</h3>
+    </div>
+    <div class="box-body">
+      <form
+        [formGroup]="formEndereco"
+        [saveSessionStorage]="formEndereco"
+        name="dadosInstalacao"
+        url="true"
+        [waitFor]="loaded"
+      >
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group" [class.has-error]="cep.invalid && cep.dirty">
+              <label for="inputCEP">CEP</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputCEP"
+                formControlName="cep"
+                (blur)="obterEndereco($event.target.value)"
+                mask="00000-000"
+                minlength="8"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="form-group" [class.has-error]="logradouro.invalid && logradouro.dirty">
+              <label for="inputLogradouro">Logradouro</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputLogradouro"
+                formControlName="logradouro"
+                maxlength="200"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group" [class.has-error]="numero.invalid && numero.dirty">
+              <label for="inputNumero">Número</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputNumero"
+                formControlName="numero"
+                maxlength="15"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group" [class.has-error]="complemento.invalid && complemento.dirty">
+              <label for="inputComplemento">Complemento</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputComplemento"
+                formControlName="complemento"
+                maxlength="50"
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group" [class.has-error]="bairro.invalid && bairro.dirty">
+              <label for="inputBairro">Bairro</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputBairro"
+                formControlName="bairro"
+                maxlength="100"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group" [class.has-error]="cidade.invalid && cidade.dirty">
+              <label for="selectCidade">Cidade</label>
+              <select
+                class="form-control"
+                id="selectCidade"
+                formControlName="cidade"
+                select2="dominio/cidades"
+              >
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <div
+              class="form-group"
+              [class.has-error]="pontoReferencia.invalid && pontoReferencia.dirty"
+            >
+              <label for="inputReferencia">Ponto de Referência</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputReferencia"
+                formControlName="pontoReferencia"
+                maxlength="100"
+              />
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group" [class.has-error]="horario.invalid && horario.dirty">
+              <label for="horario">Horário de Instalação</label>
+              <select
+                class="form-control"
+                id="horario"
+                formControlName="horario"
+                (change)="selectAllDays($event)"
+              >
+                <option *ngFor="let item of horarios.descricoes | keyvalue" [value]="item.key">{{
+                  item.value
+                }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group">
+              <label>Dias para Instalação</label>
+              <div class="checkbox-group">
+                <label class="checkbox-inline">
+                  <input type="checkbox" formControlName="segunda" /> Seg
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" formControlName="terca" /> Ter
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" formControlName="quarta" /> Qua
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" formControlName="quinta" /> Qui
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" formControlName="sexta" /> Sex
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" formControlName="sabado" /> Sáb
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" formControlName="domingo" /> Dom
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
-	<div class="box box-primary">
-		<div class="box-header with-border">
-			<h3 class="box-title">Contato no Estabelecimento</h3>
-		</div>
-		<div class="box-body">
-			<form [formGroup]="formContato" [saveSessionStorage]="formContato" name="dadosInstalacao" [waitFor]="loaded">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group" [class.has-error]="nome.invalid && nome.dirty">
-							<label for="inputNome">Nome</label>
-							<input type="text" class="form-control" id="inputNome" formControlName="nome" maxlength="100" required>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<input-telefone label="Telefone" id="inputTelefone" [control]="telefone" [hasError]="telefone.invalid" required>
-						</input-telefone>
-					</div>
-					<div class="col-md-3">
-							<input-telefone label="Celular" id="inputCelular" [control]="celular" [hasError]="celular.invalid" required>
-						</input-telefone>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="form-group" [class.has-error]="email.invalid && email.dirty">
-							<label for="inputEmail">E-mail</label>
-							<input type="text" class="form-control" id="inputEmail" formControlName="email" maxlength="200" required>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Contato no Estabelecimento</h3>
+    </div>
+    <div class="box-body">
+      <form
+        [formGroup]="formContato"
+        [saveSessionStorage]="formContato"
+        name="dadosInstalacao"
+        [waitFor]="loaded"
+      >
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group" [class.has-error]="nome.invalid && nome.dirty">
+              <label for="inputNome">Nome</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputNome"
+                formControlName="nome"
+                maxlength="100"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <input-telefone
+              label="Telefone"
+              id="inputTelefone"
+              [control]="telefone"
+              [hasError]="telefone.invalid"
+              required
+            >
+            </input-telefone>
+          </div>
+          <div class="col-md-3">
+            <input-telefone
+              label="Celular"
+              id="inputCelular"
+              [control]="celular"
+              [hasError]="celular.invalid"
+              required
+            >
+            </input-telefone>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group" [class.has-error]="email.invalid && email.dirty">
+              <label for="inputEmail">E-mail</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputEmail"
+                formControlName="email"
+                maxlength="200"
+                required
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
-	<div class="row">
-		<div class="col-xs-6 text-right">
-			<button class="btn btn-default btn-wlg" (click)="goBack()">Voltar</button>
-		</div>
-		<div class="col-xs-6 text-left">
-			<button class="btn btn-primary btn-wlg" (click)="submitForm()">Prosseguir</button>
-		</div>
-	</div>
+  <div class="row">
+    <div class="col-xs-6 text-right">
+      <button class="btn btn-default btn-wlg" (click)="goBack()">Voltar</button>
+    </div>
+    <div class="col-xs-6 text-left">
+      <button class="btn btn-primary btn-wlg" (click)="submitForm()">Prosseguir</button>
+    </div>
+  </div>
 </section>

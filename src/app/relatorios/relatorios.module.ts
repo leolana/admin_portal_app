@@ -13,26 +13,26 @@ import { RelatorioConsolidadoFornecedorComponent } from './fornecedor/consolidad
 import { DatePickerModule } from '../core/date-picker/date-picker.module';
 
 @NgModule({
-    imports: [
-        ThemeModule,
-        ReactiveFormsModule,
-        CoreModule,
-        BrowserModule,
-        PipesModule,
-        AlpeSelect2Module,
-        AlpeExpandableModule,
-        DatatableModule,
-        DatePickerModule,
-    ],
-    declarations: [
-        ExtratoDetalhadoComponent,
-        ExtratoResumidoComponent,
-        RelatorioConsolidadoFornecedorComponent,
-    ],
-    exports: [
-        ExtratoDetalhadoComponent,
-        ExtratoResumidoComponent,
-        RelatorioConsolidadoFornecedorComponent,
-    ],
+  imports: [
+    ThemeModule,
+    ReactiveFormsModule,
+    CoreModule,
+    BrowserModule,
+    PipesModule,
+    AlpeSelect2Module,
+    AlpeExpandableModule,
+    DatatableModule,
+    DatePickerModule,
+  ],
+  declarations: [
+    ExtratoDetalhadoComponent,
+    ExtratoResumidoComponent,
+    RelatorioConsolidadoFornecedorComponent,
+  ],
+  exports: [
+    ExtratoDetalhadoComponent,
+    ExtratoResumidoComponent,
+    RelatorioConsolidadoFornecedorComponent,
+  ],
 })
-export class RelatoriosModule { }
+export class RelatoriosModule {}

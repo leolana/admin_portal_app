@@ -9,126 +9,136 @@ import { TiposDocumentos } from '../interfaces';
 import { NumberFunctions } from '../core/functions/number.functions';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class EstabelecimentoService {
-    constructor(
-        private http: HttpClient,
-        private auth: AuthService
-    ) { }
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
-    subject = new Subject<any>();
+  subject = new Subject<any>();
 
-    private alterarStatusVinculo(vinculo: IVinculo, url: string) {
-        const params: any = {
-            id: vinculo.id,
-        };
+  private alterarStatusVinculo(vinculo: IVinculo, url: string) {
+    const params: any = {
+      id: vinculo.id,
+    };
 
-        const data = vinculo as any;
+    const data = vinculo as any;
 
-        if (data.motivoTipoRecusaId) {
-            params.motivoTipoRecusaId = data.motivoTipoRecusaId;
-        }
-
-        if (data.motivoRecusaObservacao) {
-            params.motivoRecusaObservacao = data.motivoRecusaObservacao;
-        }
-
-        const result = new Observable((observer) => {
-            this.http.post(url, data).subscribe(() => {
-                this.subject.next();
-                observer.next();
-            });
-        });
-
-        return result;
+    if (data.motivoTipoRecusaId) {
+      params.motivoTipoRecusaId = data.motivoTipoRecusaId;
     }
 
-    checaDocumentoIndicacaoFornecedor(documento: string): Observable<any> {
-        documento = NumberFunctions.removeNonDigits(documento);
-        let url = '/estabelecimento/checa-documento-indicacao-fornecedor/';
-        url = environment.apiUrl + url + documento;
-        return this.http.get(url);
+    if (data.motivoRecusaObservacao) {
+      params.motivoRecusaObservacao = data.motivoRecusaObservacao;
     }
 
-    indicarFornecedorParaCadastro(objFornecedor) {
-        const url = `${environment.apiUrl}/fornecedores/indicacoes`;
-        return this.http.post(url, objFornecedor);
-    }
+    const result = new Observable(observer => {
+      this.http.post(url, data).subscribe(() => {
+        this.subject.next();
+        observer.next();
+      });
+    });
 
-    vincular(fornecedorId: number): Observable<any> {
-        const estabelecimentoId = this.auth.user.participante;
-        const url = `${environment.apiUrl}/estabelecimento/${estabelecimentoId}/fornecedor`;
-        return this.http
-            .post(url, {
-                estabelecimentoComercialId: estabelecimentoId,
-                fornecedorId: fornecedorId,
-            });
-    }
+    return result;
+  }
 
-    obterIndicacaoes() {
-        const id = this.auth.user.participante;
-        const url = `${environment.apiUrl}/estabelecimento/${id}/indicacoes`;
-        return this.http.get<any[]>(url);
-    }
+  checaDocumentoIndicacaoFornecedor(documento: string): Observable<any> {
+    documento = NumberFunctions.removeNonDigits(documento);
+    let url = '/estabelecimento/checa-documento-indicacao-fornecedor/';
+    url = environment.apiUrl + url + documento;
+    return this.http.get(url);
+  }
 
-    obterVinculos(status, hideLoading: boolean = false): Observable<IVinculo[]> {
-        const id = this.auth.user.participante;
-        const url = `${environment.apiUrl}/estabelecimento/${id}/fornecedores`;
-        return this.http.get<IVinculo[]>(url, hideLoading ?
-            { params: { hideLoading: 'true', status: status } } : { params: { status: status } });
-    }
+  indicarFornecedorParaCadastro(objFornecedor) {
+    const url = `${environment.apiUrl}/fornecedores/indicacoes`;
+    return this.http.post(url, objFornecedor);
+  }
 
-    aprovarVinculo(vinculo: IVinculo) {
-        const id = this.auth.user.participante;
-        const url = `${environment.apiUrl}/estabelecimento/${id}/fornecedor/${vinculo.participante.id}/aprovar`;
-        return this.alterarStatusVinculo(vinculo, url);
-    }
+  vincular(fornecedorId: number): Observable<any> {
+    const estabelecimentoId = this.auth.user.participante;
+    const url = `${environment.apiUrl}/estabelecimento/${estabelecimentoId}/fornecedor`;
+    return this.http.post(url, {
+      estabelecimentoComercialId: estabelecimentoId,
+      fornecedorId: fornecedorId,
+    });
+  }
 
-    recusarVinculo(vinculo: IVinculo) {
-        const id = this.auth.user.participante;
-        const url = `${environment.apiUrl}/estabelecimento/${id}/fornecedor/${vinculo.participante.id}/recusar`;
-        return this.alterarStatusVinculo(vinculo, url);
-    }
+  obterIndicacaoes() {
+    const id = this.auth.user.participante;
+    const url = `${environment.apiUrl}/estabelecimento/${id}/indicacoes`;
+    return this.http.get<any[]>(url);
+  }
 
-    cancelarVinculo(vinculo: IVinculo) {
-        const id = this.auth.user.participante;
-        const url = `${environment.apiUrl}/estabelecimento/${id}/fornecedor/${vinculo.participante.id}/cancelar`;
-        return this.http.post(url, vinculo);
-    }
+  obterVinculos(status, hideLoading: boolean = false): Observable<IVinculo[]> {
+    const id = this.auth.user.participante;
+    const url = `${environment.apiUrl}/estabelecimento/${id}/fornecedores`;
+    return this.http.get<IVinculo[]>(
+      url,
+      hideLoading
+        ? { params: { hideLoading: 'true', status: status } }
+        : { params: { status: status } },
+    );
+  }
 
-    reativarVinculo(vinculo: IVinculo) {
-        const id = this.auth.user.participante;
-        const url = `${environment.apiUrl}/estabelecimento/${id}/fornecedor/${vinculo.participante.id}/reativar`;
-        return this.alterarStatusVinculo(vinculo, url);
-    }
+  aprovarVinculo(vinculo: IVinculo) {
+    const id = this.auth.user.participante;
+    const url = `${environment.apiUrl}/estabelecimento/${id}/fornecedor/${
+      vinculo.participante.id
+    }/aprovar`;
+    return this.alterarStatusVinculo(vinculo, url);
+  }
 
-    alterarVinculo(vinculo: IVinculo) {
-        const id = this.auth.user.participante;
-        const url = `${environment.apiUrl}/estabelecimento/${id}/fornecedor/${vinculo.participante.id}/vinculo/alterar`;
+  recusarVinculo(vinculo: IVinculo) {
+    const id = this.auth.user.participante;
+    const url = `${environment.apiUrl}/estabelecimento/${id}/fornecedor/${
+      vinculo.participante.id
+    }/recusar`;
+    return this.alterarStatusVinculo(vinculo, url);
+  }
 
-        return this.http.post(url, {
-            vinculoId: vinculo.id,
-            exibeValorDisponivel: vinculo.exibeValorDisponivel,
-            valorMaximoExibicao: vinculo.valorMaximoExibicao,
-            diasAprovacao: vinculo.diasAprovacao,
-        });
-    }
+  cancelarVinculo(vinculo: IVinculo) {
+    const id = this.auth.user.participante;
+    const url = `${environment.apiUrl}/estabelecimento/${id}/fornecedor/${
+      vinculo.participante.id
+    }/cancelar`;
+    return this.http.post(url, vinculo);
+  }
 
-    alterarIndicacao(indicacao) {
-        const id = this.auth.user.participante;
-        const url = `${environment.apiUrl}/estabelecimento/${id}/indicacao/${indicacao.id}/alterar`;
+  reativarVinculo(vinculo: IVinculo) {
+    const id = this.auth.user.participante;
+    const url = `${environment.apiUrl}/estabelecimento/${id}/fornecedor/${
+      vinculo.participante.id
+    }/reativar`;
+    return this.alterarStatusVinculo(vinculo, url);
+  }
 
-        return this.http.post(url, {
-            participanteIndicacaoId: indicacao.id,
-            documento: indicacao.documento,
-            nome: indicacao.nome,
-            telefone: indicacao.telefone,
-            email: indicacao.email,
-        });
-    }
+  alterarVinculo(vinculo: IVinculo) {
+    const id = this.auth.user.participante;
+    const url = `${environment.apiUrl}/estabelecimento/${id}/fornecedor/${
+      vinculo.participante.id
+    }/vinculo/alterar`;
 
-    vinculoStatusSubscription(): Observable<any> {
-        return this.subject.asObservable();
-    }
+    return this.http.post(url, {
+      vinculoId: vinculo.id,
+      exibeValorDisponivel: vinculo.exibeValorDisponivel,
+      valorMaximoExibicao: vinculo.valorMaximoExibicao,
+      diasAprovacao: vinculo.diasAprovacao,
+    });
+  }
+
+  alterarIndicacao(indicacao) {
+    const id = this.auth.user.participante;
+    const url = `${environment.apiUrl}/estabelecimento/${id}/indicacao/${indicacao.id}/alterar`;
+
+    return this.http.post(url, {
+      participanteIndicacaoId: indicacao.id,
+      documento: indicacao.documento,
+      nome: indicacao.nome,
+      telefone: indicacao.telefone,
+      email: indicacao.email,
+    });
+  }
+
+  vinculoStatusSubscription(): Observable<any> {
+    return this.subject.asObservable();
+  }
 }
