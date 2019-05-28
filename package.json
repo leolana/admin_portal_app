@@ -59,6 +59,9 @@
 		"cz-conventional-changelog": "^2.1.0",
 		"husky": "^2.3.0",
 		"lint-staged": "^8.1.7",
+		"stylelint": "^10.0.1",
+		"stylelint-config-prettier": "^5.2.0",
+		"stylelint-config-standard": "^18.3.0",
 		"ts-node": "~8.2.0",
 		"tslint": "~5.16.0",
 		"typescript": "~3.2.4",
@@ -76,8 +79,16 @@
 		}
 	},
 	"lint-staged": {
+		"src/**/*.{js,jsx,ts,tsx,scss,less}": [
+			"npx prettier --write",
+			"git add"
+		],
 		"*.ts": [
 			"./node_modules/.bin/tslint --project tsconfig.json --format stylish --fix",
+			"git add"
+		],
+		"src/**/*.{scss,less}": [
+			"npx stylelint",
 			"git add"
 		]
 	}
