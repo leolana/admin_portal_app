@@ -1,0 +1,18 @@
+<div class="f1-steps">
+    <div class="f1-progress">
+        <div class="f1-progress-line" [ngStyle]="{'width': progressLine + '%'}"></div>
+    </div>
+    <div *ngFor="let step of steps; let i = index" class="f1-step" [ngClass]="step.class" [ngStyle]="{'width': width + '%'}">
+        <div *ngIf='setStepError(i)' class="errorBullet">
+            <strong>
+                <span>!</span>
+            </strong>
+        </div>
+        <div *ngIf="!step.escondido" class="step" [ngStyle]="{'cursor': step.cursor}">
+            <div class="f1-step-icon" (click)="goTo(step)">
+                <i [ngClass]="step.icon"></i>
+            </div>
+            <p>{{step.label}}</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+@media (max-width: 425px){
+  .mobile-roles{
+    font-size: 10px;
+  }
+}
+
+
+.validation-label{
+  font-size: 85%;
+  font-weight: bold;
+}
+
+.row-info-user{
+  margin-bottom: 15px;
+}

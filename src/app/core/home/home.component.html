@@ -1,0 +1,13 @@
+<app-header (impersonated)="alpeMenu.refreshAll()"></app-header>
+
+<div class="app-content">
+    <app-menu #alpeMenu></app-menu>
+    <div class="content-main">
+        <div class="content-wrapper">
+            <router-outlet></router-outlet>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>
+
+<app-loader></app-loader>

@@ -1,0 +1,50 @@
+<div class="form-group text-center mt-15">
+    <span>Valor da Cessão</span>
+    <span class="cession-value text-success">
+        {{ cessao.valorSolicitado | currency:'BRL':'symbol':'1.2-2' }}
+    </span>
+</div>
+<div class="step-components-wrapper">
+    <div class="step-component-icon-item-wrapper">
+        <div class="step-component-icon-wrapper">
+            <div class="step-component-icon bg-primary">
+                <i class="fa fa-check"></i>
+            </div>
+            <div class="step-component-icon-line" [class.bg-primary]="!pendente()"></div>
+        </div>
+        <div class="step-component-item-wrapper">
+            <div>
+                <strong class="step-component-item-title text-primary">
+                    Solicitada
+                </strong>
+                <span class="small">
+                    {{ cessao.fornecedor.nome }}
+                </span>
+                <span class="small">
+                    {{ cessao.fornecedor.documento | documento }}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="step-component-icon-item-wrapper">
+        <div class="step-component-icon-wrapper">
+            <div class="step-component-icon" [class.bg-primary]="!pendente()">
+                <i class="fa" [class.fa-ellipsis-h]="pendente()" [class.fa-check]="aprovado()" [class.fa-times]="recusado() || falha()"
+                    [class.fa-hourglass-3]="expirada()"></i>
+            </div>
+        </div>
+        <div class="step-component-item-wrapper">
+            <div>
+                <strong class="step-component-item-title" [class.text-primary]="!pendente()">
+                    {{ cessao.status | cessaoStatus }}
+                </strong>
+                <span class="small">
+                    {{ cessao.estabelecimento.nome }}
+                </span>
+                <span class="small">
+                    {{ cessao.estabelecimento.documento | documento }}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

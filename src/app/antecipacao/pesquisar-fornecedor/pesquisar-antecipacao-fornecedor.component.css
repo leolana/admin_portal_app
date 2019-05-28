@@ -1,0 +1,61 @@
+.antecipacoes-fornecedor .card {
+    margin: 16px;
+    overflow: hidden;
+    border: 1px solid #d2d6de;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.antecipacoes-fornecedor .card-row {
+    margin-bottom: 10px;
+    display: inline-block;
+    margin-right: 25px;
+}
+
+.antecipacoes-fornecedor .card-row label {
+    display: block;
+}
+
+.antecipacoes-fornecedor .card-row>* {
+    word-break: break-all;
+}
+
+.antecipacoes-fornecedor .mt-25 {
+    margin-top: 25px;
+}
+
+.antecipacoes-fornecedor .mr-15 {
+    margin-right: 15px;
+}
+
+.antecipacoes-fornecedor tr.border-top>td {
+    border-top: 2px solid #c4c4c4;
+}
+
+.antecipacoes-fornecedor .table-nowrap td,
+.antecipacoes-fornecedor .table-nowrap th {
+    white-space: nowrap;
+}
+
+.antecipacoes-fornecedor .table th {
+    padding: 8px;
+}
+
+.antecipacoes-fornecedor .table td {
+    vertical-align: middle;
+}
+
+.antecipacoes-fornecedor .debito {
+    color: red;
+    font-weight: bold;
+}
+
+.antecipacoes-fornecedor .debito-card {
+    border: 1px solid red;
+}
+
+.antecipacoes-fornecedor .total-recebivel {
+    color: #6c1980;
+    padding: 2%;
+    font-size: 1.2em;
+}

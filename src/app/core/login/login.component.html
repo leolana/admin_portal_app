@@ -1,0 +1,51 @@
+<div class="login">
+    <div class="login-flex">
+        <div class="login-box">
+            <div class="login-logo">
+                <img src="assets/logo-alpe.png" width="120px" height="117px" alt="Alpe">
+            </div>
+            <div class="login-box-body">
+                <p class="login-box-msg">
+                    {{ choosingMembership ? 'Escolha um participante' : 'Identifique-se para começar' }}
+                </p>
+
+                <form [formGroup]="login" *ngIf="!choosingMembership">
+                    <div class="form-group has-feedback" [class.has-error]="email.invalid && email.dirty">
+                        <input type="email" class="form-control" placeholder="E-mail" formControlName="email">
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        <div class="help-block" [hidden]="email.valid || email.pristine">
+                            E-mail inválido
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback" [class.has-error]="password.invalid && password.dirty">
+                        <input type="password" class="form-control" placeholder="Senha" formControlName="password">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        <div class="help-block" [hidden]="!password.hasError('required') || password.pristine">
+                            Senha inválida
+                        </div>
+                        <div class="help-block" [hidden]="!password.hasError('minlength') || password.pristine">
+                            A senha precisa ter no mínimo 8 caracteres
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block btn-flat" (click)="signin()">Entrar</button>
+                    <br>
+                    <a routerLink="/esqueci-minha-senha">Esqueci minha senha</a>
+                    <app-movidesk direction="pull-right"></app-movidesk>
+                </form>
+
+                <form *ngIf="choosingMembership" [formGroup]="formChooseParticipante">
+                    <div class="form-group has-feedback" [class.has-error]="participante.invalid && participante.dirty">
+                        <select class="form-control" [formControl]="participante">
+                            <option *ngFor="let p of participantes" [value]="p.id">{{ p.nome }}</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-block btn-flat mb-15" (click)="choose()">Selecionar</button>
+                    <app-movidesk direction="pull-right"></app-movidesk>
+                </form>
+            </div>
+        </div>
+        <div class="loginHome">
+            <app-footer> </app-footer>
+        </div>
+    </div>
+</div>

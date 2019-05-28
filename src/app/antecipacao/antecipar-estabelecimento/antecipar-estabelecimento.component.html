@@ -1,0 +1,136 @@
+<app-content-header title="Solicitar"></app-content-header>
+
+<section class="content antecipar-estabelecimento" *ngIf="limitHour">
+
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Filtros</h3>
+        </div>
+        <div class="box-body" [formGroup]="form">
+            <div class="row">
+                <div class="col-md-3">
+                    <date-picker label="Data Venda (Início)" [formControl]="controls.dataVendaInicio"
+                        id="inputDataVendaInicio" [hasError]="hasError.dataVendaInicio()">
+                    </date-picker>
+                </div>
+                <div class="col-md-3">
+                    <date-picker label="Data Venda (Fim)" [formControl]="controls.dataVendaFim" id="inputDataVendaFim"
+                        [hasError]="hasError.dataVendaFim()">
+                    </date-picker>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="selectBandeira">Bandeira</label>
+                        <select class="form-control" id="selectBandeira" [alpeSelect2]="controls.bandeirasId" multiple>
+                            <option *ngFor="let item of combos.bandeiras" [value]="item.id">
+                                {{ item.text }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="selectProduto">Produto</label>
+                        <select class="form-control" id="selectProduto" [alpeSelect2]="controls.produtoId" multiple>
+                            <option *ngFor="let item of combos.produtos" [value]="item.id">
+                                {{ item.nome }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="pull-left text-primary ml-15 mb-15">
+                    A partir das {{ limitHour }}hs não é possível Solicitar Antecipação de Recebíveis.
+                </div>
+                <button class="btn btn-primary pull-right mr-15" (click)="filter()">Pesquisar</button>
+                <button class="btn btn-default pull-right mr-15" (click)="reset()">Limpar</button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="resultados.any()" class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Valores</h3>
+        </div>
+        <div *ngIf="!mobile" class="box-body">
+            <div class="row total">
+                <div class="group">
+                    <div class="group-field">
+                        <span>Valor<br />disponível</span>
+                        <label class="block pink-block">{{ valores.valorSaldo | currency:'BRL' }}</label>
+                    </div>
+                    <i class="fa-4x">-</i>
+                    <div class="group-field">
+                        <span>Débitos<br />pendentes</span>
+                        <label class="block pink-block">{{ valores.valorDisponivelNegativo | currency:'BRL' }}</label>
+                    </div>
+                    <i class="fa-4x">=</i>
+
+                    <div class="group-field">
+                        <span>Valor<br />solicitado</span>
+                        <label class="block pink-block">{{ valores.valorSolicitado | currency:'BRL' }}</label>
+                    </div>
+                </div>
+
+                <div class="soltos">
+                    <i class="fa-4x">-</i>
+                    <div class="soltos-field">
+                        <span>Valor do desconto<br /> antecipação</span>
+                        <label class="block pink-block">{{ valores.valorDescontado | currency:'BRL' }}</label>
+                    </div>
+                    <i class="fa-4x">=</i>
+
+                    <div class="soltos-field soltos-field-antecipar">
+                        <span>Valor líquido à<br />antecipar</span>
+                        <label class="block antecipar">{{ valores.valorAntecipado | currency:'BRL' }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="mobile" class="box-body">
+            <div class="row">
+                <div class="row col-sm-12 mobile-group-field">
+                    <span class="ml-35 col-sm-5">Valor disponível</span>
+                    <label class="col-sm-6 pull-right mobile-pink-block">{{ valores.valorSaldo | currency:'BRL' }}</label>
+                </div>
+
+                <div class="row col-sm-12 mobile-group-field">
+                    <div class="col-sm-1 mobile-fa pull-left">-</div>
+                    <span class="col-sm-5">Débitos pendentes</span>
+                    <label class="col-sm-6 pull-right mobile-pink-block">{{ valores.valorDisponivelNegativo | currency:'BRL' }}</label>
+                </div>
+
+                <div class="row col-sm-12 mobile-group-field">
+                    <div class="col-sm-1 mobile-fa pull-left">=</div>
+                    <span class="col-sm-5">Valor solicitado</span>
+                    <label class="col-sm-6 pull-right mobile-pink-block">{{ valores.valorSolicitado | currency:'BRL' }}</label>
+                </div>
+
+                <div class="row col-sm-12 mobile-group-field">
+                    <div class="col-sm-1 mobile-fa pull-left">-</div>
+                    <span class="col-sm-5">Valor do desconto antecipação</span>
+                    <label class="col-sm-6 pull-right mobile-pink-block">{{ valores.valorDescontado | currency:'BRL' }}</label>
+                </div>
+
+                <div class="row col-sm-12 mobile-group-field mobile-soltos-field-antecipar">
+                    <div class="col-sm-1 mobile-fa pull-left">=</div>
+                    <span class="col-sm-5">Valor líquido à antecipar</span>
+                    <label class="col-sm-6 pull-right mobile-antecipar">{{ valores.valorAntecipado | currency:'BRL' }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div [hidden]="!resultados.any()" class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Simulação</h3>
+        </div>
+        <div class="table-primary">
+            <alpe-datatable [datatable]="resultados"></alpe-datatable>
+        </div>
+    </div>
+
+    <button *ngIf="resultados.any()" class="btn btn-primary pull-right mb-15 mr-15"
+        (click)="solicitar()">Solicitar</button>
+
+</section>

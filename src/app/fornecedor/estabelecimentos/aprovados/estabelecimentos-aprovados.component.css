@@ -1,0 +1,16 @@
+.valor-total-cessao {
+  padding: 20px 10px;
+}
+
+.valor-total-cessao>strong {
+  margin-bottom: 8px;
+}
+
+tr.row-red span,
+tr.row-red td {
+  color: #f00;
+}
+
+tr.row-red .btn-solicitar-cessao {
+  display: none;
+}

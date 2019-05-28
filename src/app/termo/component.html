@@ -1,0 +1,16 @@
+<section>
+    <header *ngIf="termo">
+        <img src="assets/logo-alpe.png">
+        <h3>{{ termo.titulo }}</h3>
+    </header>
+    <article *ngIf="termo" [innerHTML]="termo.texto"></article>
+    <footer>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" class="concordarTermosCheckbox" [checked]="acceptedTerms" (change)="acceptedTerms = !acceptedTerms">
+                Li e concordo com os termos descritos acima
+            </label>
+        </div>
+        <button class="btn btn-primary btn-block" [disabled]="!acceptedTerms" (click)="this.approve()">Aprovar</button>
+    </footer>
+</section>

@@ -1,0 +1,12 @@
+table thead th { text-align: center; }
+
+table thead th:nth-child(1) { width: 10%; }
+table thead th:nth-child(2) { width: 35%; }
+table thead th:nth-child(3) { width: 20%; }
+table thead th:nth-child(4) { width: 25%; }
+table thead th:nth-child(5) { width: 10%; }
+
+table tbody th {
+	text-align: right;
+	padding-top: 14px;
+}

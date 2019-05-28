@@ -1,0 +1,156 @@
+<app-content-header title="Credenciamento Pessoa {{ tiposPessoa.descricoes[tipoPessoa] }} / Condições Comerciais">
+</app-content-header>
+<app-wizard [steps]="steps" [tipoPessoa]="tipoPessoa" [config]="wizardConfig"></app-wizard>
+
+<section class="content">
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<h3 class="box-title">Escolha a melhor condição</h3>
+		</div>
+		<div class="box-body no-padding">
+			<div class="table-responsive">
+				<!-- Credenciamento novo -->
+				<table *ngIf="!edicao && !analise" class="table condicoes-comerciais" [waitFor]="loaded" url="true">
+					<thead>
+						<tr>
+							<th colspan="2"></th>
+							<th *ngFor="let t of taxas.administrativas; let i = index"
+								[attr.colspan]="t.opcoesParcelamento.length" class="bg-gray{{i%2?'':'-light'}}">
+								Tx. Adm. [{{t.prazo}} dias]
+							</th>
+						</tr>
+						<tr>
+							<th class="bg-light-primary">Produto</th>
+							<th class="bg-light-primary">Débito</th>
+							<ng-container *ngFor="let t of taxas.administrativas">
+								<th *ngFor="let opcao of t.opcoesParcelamento" class="bg-primary">
+									{{ formataParcelamento(opcao) }}
+								</th>
+							</ng-container>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let bandeira of taxas.bandeiras | keyvalue">
+							<td>{{ bandeira.value.nome }}</td>
+							<td>{{ bandeira.value.debito.valor | number:'1.2-5' }}%</td>
+							<ng-container *ngFor="let a of taxas.administrativas; let i = index">
+								<td *ngFor="let taxaValor of bandeira.value.administrativas[a.prazo]"
+									class="bg-gray{{i%2?'':'-light'}}">
+									{{ taxaValor.valor | number:'1.2-5' }}%
+								</td>
+							</ng-container>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr [formGroup]="formOpcaoSelecionada">
+							<td colspan="2"></td>
+							<td *ngFor="let t of taxas.administrativas; let i = index"
+								[attr.colspan]="t.opcoesParcelamento.length" class="bg-gray{{i%2?'':'-light'}}">
+								<label><input type="radio" name="opcoesPrazo" [formControl]="opcaoSelecionada"
+										[value]="t.prazo" tabindex="{{ i + 2 }}"></label>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<div class="table-responsive">
+				<!-- Credenciamento existente -->
+				<table *ngIf="edicao || analise" class="table condicoes-comerciais text-center">
+					<thead>
+						<tr>
+							<th colspan="2"></th>
+							<th [attr.colspan]="taxas.opcoesParcelamento.length" class="bg-gray">
+								Tx. Adm. Efetiva [{{this.taxas.prazoTaxaEfetiva}} dias]
+							<th [attr.colspan]="taxas.opcoesParcelamento.length" class="bg-gray-light">
+								Tx. Adm. Básica [{{this.taxas.prazoTaxaBase}} dias]
+							</th>
+						</tr>
+						<tr>
+							<th class="bg-light-primary">Produto</th>
+							<th class="bg-light-primary">Débito</th>
+							<th *ngFor="let opcao of taxas.opcoesParcelamento" class="bg-primary">
+								{{ formataParcelamento(opcao) }}
+							</th>
+							<th *ngFor="let opcao of taxas.opcoesParcelamento" class="bg-primary">
+								{{ formataParcelamento(opcao) }}
+							</th>
+						</tr>
+					</thead>
+					<tbody [formGroup]="tabela">
+						<tr *ngFor="let bandeira of bandeiras">
+							<td class="bold">{{ bandeira.text }}</td>
+							<td>
+								<div class="taxa-input">
+									<div class="input-group"
+										[class.has-error]="tabela.controls['b' + bandeira.id + 'deb'].invalid && tabela.controls['b' + bandeira.id + 'deb'].dirty">
+										<input class="form-control input-taxa" formControlName="b{{ bandeira.id }}deb"
+											currencyMask [options]="{ precision: 2 }" maxlength="5" required>
+										<label class="input-group-addon input-symbol">%</label>
+									</div>
+								</div>
+							</td>
+							<td *ngFor="let taxa of taxasPorBandeira[bandeira.id]; let i = index" class="bg-gray">
+								<div class="taxa-fixa">
+									{{ taxaAdministrativa(bandeira.id, i) | number:'1.2-5' }}%
+								</div>
+							</td>
+							<td *ngFor="let taxa of taxasPorBandeira[bandeira.id]" class="bg-gray-light">
+								<div class="taxa-input"
+									[class.has-error]="tabela.controls['b' + bandeira.id + 'tx' + taxa.id].invalid && tabela.controls['b' + bandeira.id + 'tx' + taxa.id].dirty">
+									<div class="input-group">
+										<input class="form-control input-taxa"
+											formControlName="b{{ bandeira.id }}tx{{ taxa.id }}" currencyMask
+											[options]="{ precision: 2 }" maxlength="5" required>
+										<label class="input-group-addon input-symbol">%</label>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="box box-primary">
+		<div class="box-body">
+			<div class="row">
+				<div class="col-md-4" [formGroup]="formTaxaAntecipacao">
+					<div class="form-group" [class.has-error]="taxaAntecipacao.invalid && taxaAntecipacao.dirty">
+						<label>Taxa de Antecipação</label>
+						<input type="text" class="form-control taxa-antecipacao" tabindex="-1" currencyMask
+							maxlength="5" [formControl]="taxaAntecipacao" [class.disable-pointer]="!edicao"
+							[options]="{ precision: 2 }" [readonly]="!edicao">
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Máximo de Parcelas</label>
+						<input type="text" class="form-control" [value]="taxas.contratual.maximoParcelas" tabindex="-1"
+							readonly>
+					</div>
+				</div>
+				<div class="col-md-4" [formGroup]="formTaxaAdesao">
+					<div class="form-group" [class.has-error]="taxaAdesao.invalid && taxaAdesao.dirty">
+						<label>Taxa de Adesão</label>
+						<div class="input-group">
+							<label for="taxaAdesao" class="input-group-addon">R$</label>
+							<input type="text" class="form-control" tabindex="-1" [formControl]="taxaAdesao"
+								currencyMask maxlength="10">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-6 text-right">
+			<button class="btn btn-default btn-wlg" (click)="goBack()">Voltar</button>
+		</div>
+		<div class="col-xs-6 text-left">
+			<button class="btn btn-primary btn-wlg" ng-disabled="!isLoading" (click)="submitForm()">Finalizar</button>
+		</div>
+	</div>
+</section>

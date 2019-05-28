@@ -1,0 +1,26 @@
+{
+  "extends": "../tslint.json",
+  "rules": {
+    "directive-selector": [
+      true,
+      "attribute",
+      [
+        "app",
+        "stat",
+        "tooltip",
+        "clone",
+        "switch",
+        "datepicker",
+        "select2",
+        "alpe"
+      ],
+      "camelCase"
+    ],
+    "triple-equals": false,
+    "one-line": false,
+    "curly": false,
+    "component-selector": false,
+    "no-input-rename": false,
+    "no-string-throw": false
+  }
+}

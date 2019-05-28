@@ -1,0 +1,11 @@
+.td-div-buttons> :not(:first-child) {
+    margin-left: 5px;
+}
+
+.nowrap {
+    white-space:nowrap;
+}
+
+.mt-15 {
+    margin-top: 15px;
+}

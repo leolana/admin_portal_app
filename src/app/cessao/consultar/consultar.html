@@ -1,0 +1,129 @@
+<app-content-header title="Listagem de cessões por status"></app-content-header>
+
+<section class="content">
+
+	<div class="nav-tabs-custom nav-tab-flex">
+		<ul class="nav nav-tabs nav-tab-fill" [class.flex-container]="mobile">
+			<ng-container *ngFor="let status of statuses">
+				<li class="nav-tab-fill" [class.active]="status === statusSelecionado" *ngIf="mobile ? status === statusSelecionado : true">
+					<a href="#tab_{{ status.id }}" class="nav-tab-active" data-toggle="tab">
+						{{ status.text }}
+					</a>
+				</li>
+			</ng-container>
+			<div class="dropdown pull-right flex-container" *ngIf="mobile">
+				<button type="button" class="btn-nav-tab" data-toggle="dropdown">
+					<i class="fa fa-chevron-down"></i>
+				</button>
+				<ul class="dropdown-menu">
+					<ng-container *ngFor="let status of statuses">
+						<li [class.active]="status === statusSelecionado" *ngIf="status !== statusSelecionado">
+							<a href="#tab_{{ status.id }}" data-toggle="tab" (click)="statusSelecionado = status">
+								{{ status.text }}
+							</a>
+						</li>
+					</ng-container>
+				</ul>
+			</div>
+		</ul>
+	</div>
+	<div class="tab-content" *ngIf="cessoes">
+		<div *ngFor="let status of statuses" class="tab-pane" [class.active]="status === statusSelecionado" id="tab_{{ status.id }}">
+
+			<div class="box text-center empty-content" *ngIf="!temCessoes(status.id)">
+				Nenhum registro encontrado
+			</div>
+
+			<div *ngIf="!mobile">
+				<div class="table-responsive" *ngIf="temCessoes(status.id)">
+					<table class="table table-primary table-striped table-hover text-center table-nowrap table-shadow">
+						<thead>
+							<tr>
+								<th>Ações</th>
+								<th>Tipo de Operação</th>
+								<th>Nome</th>
+								<th>CPF/ CNPJ</th>
+								<th>Código</th>
+								<th>Data Solicitação</th>
+								<th>Valor</th>
+								<th>Data Vencimento</th>
+								<th>Prazo de Aprovação</th>
+								<th *ngIf="temDataResposta(status.id)">Data Resposta</th>
+								<th>Referência</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let cessao of cessoes[status.id]">
+								<td class="text-center">
+									<button class="btn btn-primary btn-sm" (click)="abrirDetalhe(cessao)">
+										<i class="fa fa-search"></i>
+									</button>
+								</td>
+								<td *ngIf="isEstablishment()">{{ cessao.tipoCessao | tipoCessaoEC }}</td>
+								<td *ngIf="!isEstablishment()">{{ cessao.tipoCessao | tipoCessao }}</td>
+								<td>{{ cessao.nome }}</td>
+								<td>{{ cessao.documento | documento }}</td>
+								<td>{{ cessao.codigoCessao }}</td>
+								<td>{{ cessao.data | dateTime }}</td>
+								<td>{{ cessao.valorSolicitado | currency:'BRL':'symbol':'2.2-2' }}</td>
+								<td>{{ cessao.dataVencimento | date }}</td>
+								<td>{{ cessao.dataExpiracao | date }}</td>
+								<td *ngIf="temDataResposta(status.id)">{{ cessao.dataResposta | date }}</td>
+								<td>{{ cessao.referencia }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div *ngIf="mobile && temCessoes(status.id)">
+				<div class="card" *ngFor="let cessao of cessoes[status.id]">
+					<div class="row text-center" style="margin-bottom:15px;">
+						<strong class="col-xs-12">{{ cessao.nome }}</strong>
+						<span class="col-xs-12">{{ cessao.documento | documento }}</span>
+					</div>
+					<div class="show-data">
+						<strong>Código</strong>
+						<div>{{ cessao.codigoCessao }}</div>
+					</div>
+					<div class="show-data">
+						<strong>Tipo Operação</strong>
+						<div *ngIf="!isEstablishment()">{{ cessao.tipoCessao | tipoCessao }}</div>
+						<div *ngIf="isEstablishment()">{{ cessao.tipoCessao | tipoCessaoEC }}</div>
+					</div>
+					<div class="show-data">
+						<strong>Data Solicitação</strong>
+						<div>{{ cessao.data | dateTime }}</div>
+					</div>
+					<div class="show-data">
+						<strong>Valor</strong>
+						<div>{{ cessao.valorSolicitado | currency:'BRL':'symbol':'2.2-2' }}</div>
+					</div>
+					<div class="show-data">
+						<strong>Data Vencimento</strong>
+						<div>{{ cessao.dataVencimento | date }}</div>
+					</div>
+					<div class="show-data">
+						<strong>Prazo de Aprovação</strong>
+						<div>{{ cessao.dataExpiracao | date }}</div>
+					</div>
+					<div class="show-data" *ngIf="temDataResposta(status.id)">
+						<strong>Data Resposta</strong>
+						<div>{{ cessao.dataResposta | date }}</div>
+					</div>
+					<div class="show-data">
+						<strong>Referência</strong>
+						<div>{{ cessao.referencia }}</div>
+					</div>
+					<div class="text-center div-buttons">
+						<button class="btn btn-primary btn-sm" (click)="abrirDetalhe(cessao)">
+							<i class="fa fa-search"></i>
+							<span>Ver Detalhes</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</section>

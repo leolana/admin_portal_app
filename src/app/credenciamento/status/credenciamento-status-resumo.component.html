@@ -1,0 +1,134 @@
+<div class="content">
+    <h3 class="sub-title">Dados Cadastrais</h3>
+    <div class="sub-content">
+        <div class="row">
+            <label class="col-md-3 control-label text-right">Nome:</label>
+            <div class="col-md-3">{{ dados.nome }}</div>
+            <label class="col-md-2 control-label text-right">{{ dados.tipoPessoa | tipoDocumento }}:</label>
+            <div class="col-md-4">{{ dados.documento | documento }}</div>
+        </div>
+        <div class="row">
+            <label class="col-md-3 control-label text-right">{{ dados.tipoPessoa | aberturaNascimento }}:</label>
+            <div class="col-md-3">{{ dados.aberturaNascimento | date }}</div>
+            <label class="col-md-2 control-label text-right">Telefone:</label>
+            <div class="col-md-4">{{ dados.telefone | telefone }}</div>
+        </div>
+        <div class="row">
+            <div *ngIf="dados.tipoPessoa === tiposPessoa.juridica">
+                <label class="col-md-3 control-label text-right">Razão Social:</label>
+                <div class="col-md-3">{{ dados.razaoSocial }}</div>
+            </div>
+            <label class="{{ dados.tipoPessoa === tiposPessoa.fisica ? 'col-md-3' : 'col-md-2' }} control-label text-right">Ramo de Atividade:</label>
+            <div class="{{ dados.tipoPessoa === tiposPessoa.fisica ? 'col-md-9' : 'col-md-4' }}">{{ dados.ramoAtividade }}</div>
+        </div>
+        <div class="row" *ngIf="dados.tipoPessoa === tiposPessoa.juridica">
+            <label class="col-md-3 control-label text-right">Inscrição Estadual:</label>
+            <div class="col-md-3">{{ dados.inscricaoEstadual }}</div>
+            <label class="col-md-2 control-label text-right">Inscrição Municipal:</label>
+            <div class="col-md-4">{{ dados.inscricaoMunicipal }}</div>
+        </div>
+        <div class="row">
+            <label class="col-md-3 control-label text-right">Endereço:</label>
+            <div class="col-md-9">{{ dados.logradouro }}, {{ dados.numero }}, {{ dados.complemento }} - {{ dados.bairro }}
+                -
+                {{ dados.cidade }}/{{ dados.estado }}.
+                CEP: {{ dados.cep }}
+            </div>
+        </div>
+        <div class="row" *ngIf="captura.url && captura.url.length > 0">
+            <label class="col-md-3 control-label text-right">Site:</label>
+            <div class="col-md-9">
+                <a href="{{captura.url}}" target="_blank">{{ captura.url }}</a>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="sub-title">Contato</h3>
+    <div class="sub-content">
+        <div class="row">
+            <label class="col-md-3 control-label text-right">Telefone</label>
+            <div class="col-md-3">{{ dados.contato.telefone | telefone }}</div>
+
+            <label class="col-md-2 control-label text-right">Nome</label>
+            <div class="col-md-4">{{ dados.contato.nome }}</div>
+        </div>
+        <div class="row">
+            <label class="col-md-3 control-label text-right">Celular</label>
+            <div class="col-md-3">{{ dados.contato.celular | telefone }}</div>
+            <label class="col-md-2 control-label text-right">E-mail</label>
+            <div class="col-md-4">{{ dados.contato.email }}</div>
+        </div>
+    </div>
+
+    <h3 class="sub-title">Informações Financeiras</h3>
+    <div class="sub-content">
+        <div class="row">
+            <label class="col-md-3 control-label text-right">Faturamento Anual com Cartões:</label>
+            <div class="col-md-3">{{ dados.informacoesFinanceiras.faturamentoAnual.text }}</div>
+            <label class="col-md-2 control-label text-right">Ticket Médio:</label>
+            <div class="col-md-4">{{ dados.informacoesFinanceiras.ticketMedio.text }}</div>
+        </div>
+    </div>
+
+    <h3 class="sub-title">Condições Comerciais</h3>
+    <div class="sub-content">
+        <div class="row">
+            <label class="col-md-3 control-label text-right">Taxa de Antecipação:</label>
+            <div class="col-md-3">{{ condicoesComerciais.taxaContratual.antecipacao | number:'1.2-2' }} %</div>
+            <label class="col-md-2 control-label text-right">Taxa de Adesão:</label>
+            <div class="col-md-4">{{ condicoesComerciais.taxaContratual.adesao | currency:'BRL':'symbol':'1.2-2' }}
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-md-3 control-label text-right">Máx. de Parcelas:</label>
+            <div class="col-md-3">{{ condicoesComerciais.taxaContratual.maximoParcelas }}</div>
+        </div>
+        <table class="table table-condensed table-small condicoes-comerciais">
+            <thead>
+                <tr>
+                    <th colspan="2"></th>
+                    <th class="bg-gray" colspan="3">Tx. Adm. [{{ condicoesComerciais.taxasAdministrativas[0].prazo }}
+                        dias]
+                    </th>
+                </tr>
+                <tr>
+                    <th class="bg-light-primary">Produto</th>
+                    <th class="bg-light-primary">Débito</th>
+                    <th class="bg-primary" *ngFor="let item of obterTaxasAdministrativasPeriodos()">
+                        ({{ item | taxaAdministrativaParcelas }})
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let taxaDebito of condicoesComerciais.taxasDebito">
+                    <td>{{ taxaDebito.bandeira.text }}</td>
+                    <td>{{ taxaDebito.valor.toFixed(2) }}%</td>
+                    <td class="bg-gray" *ngFor="let taxa of obterTaxasAdministrativasPorProduto(taxaDebito.bandeira)">
+                        {{ taxa.valor | number:'1.2-2' }}%
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3 class="sub-title">Produtos</h3>
+    <div class="sub-content">
+        <table class="table table-small table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th class="text-right">Quantidade</th>
+                    <th class="text-right">Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of captura.capturas">
+                    <td>{{ item.captura.produto.nome }} - {{ item.captura.tipoCaptura | tipoCaptura }}</td>
+                    <td class="text-right">{{ item.quantidade }}</td>
+                    <td class="text-right">{{ item.valor * item.quantidade | currency:'BRL':'symbol':'2.2-2' }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

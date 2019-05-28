@@ -1,0 +1,103 @@
+<app-content-header title="Credenciamento / Status"></app-content-header>
+
+<section class="content">
+    <div class="box box-primary" *ngIf="resumo">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Fonte</label>
+                        <div>{{ resumo.credenciamento.fonte }}</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Data Envio</label>
+                        <div>{{ resumo.credenciamento.dataEnvio | dateTime }}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Enviado por</label>
+                        <div>{{ resumo.credenciamento.nomeEnvio }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Status</label>
+                        <div>{{ resumo.credenciamento.status | credenciamentoStatus }}</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Última alteração</label>
+                        <div>{{ resumo.credenciamento.dataUpdate | dateTime }}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Alterado por</label>
+                        <div>{{ resumo.credenciamento.alteradoPor }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-footer" *ngIf="!estaAprovadoOuRecusado()">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button class="btn btn-info" (click)="iniciarAnalise()" *ngIf="podeIniciarAnalise()">
+                        <em class="fa fa-edit"></em>
+                        Iniciar Análise
+                    </button>
+                    <button class="btn btn-success" (click)="aprovar()" *ngIf="podeAprovarRecusar()">
+                        <em class="fa fa-thumbs-o-up"></em>
+                        Aprovar
+                    </button>
+                    <button class="btn btn-danger push-left" (click)="recusar()" *ngIf="podeAprovarRecusar()">
+                        <em class="fa fa-thumbs-o-down"></em>
+                        Reprovar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <alpe-tabs [tabs]="tabs">
+        <ng-template #tabCadastro>
+            <alpe-credenciamento-status-resumo [dados]="resumo.cadastro" [captura]="resumo.captura"
+                [condicoesComerciais]="resumo.condicoesComerciais">
+            </alpe-credenciamento-status-resumo>
+        </ng-template>
+        <ng-template #tabSocios>
+            <alpe-credenciamento-status-socios [dados]="resumo.socios">
+            </alpe-credenciamento-status-socios>
+        </ng-template>
+        <ng-template #tabInstalacao>
+            <alpe-credenciamento-status-instalacao [dados]="resumo.instalacao" *ngIf="resumo.instalacao">
+            </alpe-credenciamento-status-instalacao>
+        </ng-template>
+        <ng-template #tabDomicilio>
+            <alpe-credenciamento-status-domicilio [dados]="resumo.domiciliosBancarios">
+            </alpe-credenciamento-status-domicilio>
+        </ng-template>
+        <ng-template #tabDocumentos>
+            <alpe-credenciamento-status-documentos [dados]="resumo.arquivos">
+            </alpe-credenciamento-status-documentos>
+        </ng-template>
+        <ng-template #tabAnaliseDocumentos>
+            <alpe-credenciamento-status-analise-documentos [resumoId]="resumo.id" [dados]="resumo.arquivos">
+            </alpe-credenciamento-status-analise-documentos>
+        </ng-template>
+        <ng-template #tabUsuarios>
+            <alpe-credenciamento-status-usuarios [idEstabelecimento]="resumo.cadastro.participanteId">
+            </alpe-credenciamento-status-usuarios>
+        </ng-template>
+        <ng-template #tabConvites>
+            <alpe-credenciamento-status-convites [dados]="resumo.convites" [idEstabelecimento]="resumo.cadastro.participanteId">
+            </alpe-credenciamento-status-convites>
+        </ng-template>
+    </alpe-tabs>
+
+</section>

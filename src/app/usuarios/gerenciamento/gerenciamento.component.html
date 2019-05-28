@@ -1,0 +1,45 @@
+<app-content-header></app-content-header>
+
+<section class="content">
+  <div class="box box-primary" *ngIf="loggedUserIsBKO()">
+    <div class="box-header with-border">
+      <h3 class="box-title">Filtros</h3>
+    </div>
+    <form class="box-body" [formGroup]="form" (submit)="setFilters()">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="nome">Nome do Participante:</label>
+            <input class="form-control" id="nome" [formControl]="controls.nomeParticipante">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-primary btn-search-unlabeled ">Pesquisar</button>
+          <button type="button" class="btn btn-default btn-search-unlabeled ml-15" (click)="reset()">Limpar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <alpe-tabs [tabs]="tabs">
+    <ng-template #usuariosAtivos>
+      <alpe-usuarios-ativos [filters]="filters"></alpe-usuarios-ativos>
+    </ng-template>
+    <ng-template #usuariosInativos>
+      <alpe-usuarios-inativos [filters]="filters"></alpe-usuarios-inativos>
+    </ng-template>
+    <ng-template #usuariosConviteAtivo>
+      <alpe-usuarios-convite-ativo #refletirInclusaoConvidados [filters]="filters"></alpe-usuarios-convite-ativo>
+    </ng-template>
+    <ng-template #usuariosConviteExpirado>
+      <alpe-usuarios-convite-expirado #refletirInclusaoExpirados [filters]="filters"></alpe-usuarios-convite-expirado>
+    </ng-template>
+  </alpe-tabs>
+
+  <div>
+    <button class="btn btn-primary" (click)="adicionarUsuario()">
+      Incluir Usuário
+    </button>
+  </div>
+
+</section>

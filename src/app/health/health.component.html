@@ -1,0 +1,301 @@
+<app-content-header title="Health Check"></app-content-header>
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Tests</h3>
+        </div>
+        <div class="box-body no-padding">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 200px;">Test</th>
+                        <th>Result</th>
+                        <th style="width: 250px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Main services</td>
+                        <td>
+                            <div *ngIf="mainServices.result === null">
+                                <em class="fa fa-spinner"></em>
+                                Aguarde ...
+                            </div>
+                            <div *ngIf="mainServices.result === true">
+                                <em class="fa fa-check-circle text-success"></em>
+                                OK
+                            </div>
+                            <div *ngIf="mainServices.result === false">
+                                <em class="fa fa-exclamation-circle text-danger"></em>
+                                {{ mainServices.mensagem }}
+                            </div>
+                        </td>
+                        <td class="text-right"><button class="btn btn-primary btn-xs btn-wsm"
+                                (click)="testMainServices()">Atualizar</button></td>
+                    </tr>
+                    <tr>
+                        <td>Postgres Connection</td>
+                        <td>
+                            <div *ngIf="postgresConnection.result === null">
+                                <em class="fa fa-spinner"></em>
+                                Aguarde ...
+                            </div>
+                            <div *ngIf="postgresConnection.result === true">
+                                <em class="fa fa-check-circle text-success"></em>
+                                OK
+                            </div>
+                            <div *ngIf="postgresConnection.result === false">
+                                <em class="fa fa-exclamation-circle text-danger"></em>
+                                {{ postgresConnection.error.message }}
+                            </div>
+                        </td>
+                        <td class="text-right"><button class="btn btn-primary btn-xs btn-wsm"
+                                (click)="testPostgresConnection()">Atualizar</button></td>
+                    </tr>
+                    <tr>
+                        <td>Oracle Connection</td>
+                        <td>
+                            <div *ngIf="oracleConnection.result === null">
+                                <em class="fa fa-spinner"></em>
+                                Aguarde ...
+                            </div>
+                            <div *ngIf="oracleConnection.result === true">
+                                <em class="fa fa-check-circle text-success"></em>
+                                OK
+                            </div>
+                            <div *ngIf="oracleConnection.result === false">
+                                <em class="fa fa-exclamation-circle text-danger"></em>
+                                {{ oracleConnection.error.message }}
+                            </div>
+                        </td>
+                        <td class="text-right"><button class="btn btn-primary btn-xs btn-wsm"
+                                (click)="testOracleConnection()">Atualizar</button></td>
+                    </tr>
+                    <tr>
+                        <td>KeyCloak Access</td>
+                        <td>
+                            <div *ngIf="keyCloakAccess.result === null">
+                                <em class="fa fa-spinner"></em>
+                                Aguarde ...
+                            </div>
+                            <div *ngIf="keyCloakAccess.result === true">
+                                <em class="fa fa-check-circle text-success"></em>
+                                OK
+                            </div>
+                            <div *ngIf="keyCloakAccess.result === false">
+                                <em class="fa fa-exclamation-circle text-danger"></em>
+                                {{ keyCloakAccess.error.message }}
+                            </div>
+                        </td>
+                        <td class="text-right"><button class="btn btn-primary btn-xs btn-wsm"
+                                (click)="testKeyCloakAccess()">Atualizar</button></td>
+                    </tr>
+                    <tr>
+                        <td>Mailer</td>
+                        <td>
+                            <div *ngIf="mailer.result === null">
+                                <em class="fa fa-spinner"></em>
+                                Aguarde ...
+                            </div>
+                            <div *ngIf="mailer.result === true">
+                                <em class="fa fa-check-circle text-success"></em>
+                                OK
+                            </div>
+                            <div *ngIf="mailer.result === false">
+                                <em class="fa fa-exclamation-circle text-danger"></em>
+                                {{ mailer.error.message }}
+                            </div>
+                        </td>
+                        <td class="text-right">
+                            <div class="input-group" [formGroup]="formTestMailer">
+                                <input class="form-control input-xs" type="email" [formControl]="to">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary btn-xs btn-wsm"
+                                        (click)="testMailer()">Enviar</button>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Status</h3>
+        </div>
+        <div class="box-body no-padding">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 200px;">Description</th>
+                        <th>Result</th>
+                        <th style="width: 1px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Credenciamentos</td>
+                        <td>
+                            <div *ngIf="credenciamentos.result === null">
+                                <i class="fa fa-spinner"></i>
+                                Aguarde ...
+                            </div>
+                            <div *ngIf="credenciamentos.result === true">
+                                <i class="fa fa-check-circle text-success"></i>
+                                <span *ngIf="!mobile">
+                                    OK - Count: {{ credenciamentos.count }} - Latest: {{ credenciamentos.latest }}
+                                </span>
+                                <span *ngIf="mobile">
+                                    OK
+                                </span>
+                            </div>
+                            <div *ngIf="credenciamentos.result === false">
+                                <i class="fa fa-exclamation-circle text-danger"></i>
+                                {{ credenciamentos.error }}
+                            </div>
+                        </td>
+                        <td><button class="btn btn-primary btn-xs btn-wsm"
+                                (click)="getStatusCredenciamentos()">Atualizar</button></td>
+                    </tr>
+                    <tr>
+                        <td>Fornecedores</td>
+                        <td>
+                            <div *ngIf="fornecedores.result === null">
+                                <i class="fa fa-spinner"></i>
+                                Aguarde ...
+                            </div>
+                            <div *ngIf="fornecedores.result === true">
+                                <i class="fa fa-check-circle text-success"></i>
+                                <span *ngIf="!mobile">
+                                    OK - Count: {{ fornecedores.count }} - Latest: {{ fornecedores.latest }}
+                                </span>
+                                <span *ngIf="mobile">
+                                    OK
+                                </span>
+                            </div>
+                            <div *ngIf="fornecedores.result === false">
+                                <i class="fa fa-exclamation-circle text-danger"></i>
+                                {{ fornecedores.error }}
+                            </div>
+                        </td>
+                        <td><button class="btn btn-primary btn-xs btn-wsm"
+                                (click)="getStatusFornecedores()">Atualizar</button></td>
+                    </tr>
+                    <tr>
+                        <td>Cessões</td>
+                        <td>
+                            <div *ngIf="cessoes.result === null">
+                                <i class="fa fa-spinner"></i>
+                                Aguarde ...
+                            </div>
+                            <div *ngIf="cessoes.result === true">
+                                <i class="fa fa-check-circle text-success"></i>
+                                <span *ngIf="!mobile">
+                                    OK - Count: {{ cessoes.count }} - Latest: {{ cessoes.latest }}
+                                </span>
+                                <span *ngIf="mobile">
+                                    OK
+                                </span>
+                            </div>
+                            <div *ngIf="cessoes.result === false">
+                                <i class="fa fa-exclamation-circle text-danger"></i>
+                                {{ cessoes.error }}
+                            </div>
+                        </td>
+                        <td><button class="btn btn-primary btn-xs btn-wsm"
+                                (click)="getStatusCessoes()">Atualizar</button></td>
+                    </tr>
+                    <tr>
+                        <td>SignIns</td>
+                        <td>
+                            <div *ngIf="signins.result === null">
+                                <i class="fa fa-spinner"></i>
+                                Aguarde ...
+                            </div>
+                            <div *ngIf="signins.result === true">
+                                <i class="fa fa-check-circle text-success"></i>
+                                OK
+                            </div>
+                            <div *ngIf="signins.result === false">
+                                <i class="fa fa-exclamation-circle text-danger"></i>
+                                <span *ngIf="!mobile"> {{signins.error}}</span>
+                            </div>
+                        </td>
+                        <td><button class="btn btn-primary btn-xs btn-wsm"
+                                (click)="getStatusSignins()">Atualizar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Versões</h3>
+        </div>
+        <div class="box-body no-padding">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 200px;">Description</th>
+                        <th>Result</th>
+                        <th style="width: 1px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>API</td>
+                        <td>
+                            <div *ngIf="versionApi.result === null">
+                                <i class="fa fa-spinner"></i>
+                                Aguarde ...
+                            </div>
+                            <div *ngIf="versionApi.result">
+                                Versão: {{ versionApi.result }}
+                            </div>
+                        </td>
+                        <td><button class="btn btn-primary btn-xs btn-wsm" (click)="getVersionAPI()">Atualizar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="box box-primary collapsed-box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Migrations</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body no-padding">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Executed At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let migration of migrations">
+                        <td class="text-migration">
+                            {{ migration.key }}
+                        </td>
+                        <td>
+                            {{migration.executedAt | dateTime}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p *ngIf="!migrations.length" class="no-records-found">
+                {{ 'Nenhum registro encontrado' }}
+            </p>
+        </div>
+    </div>
+</section>

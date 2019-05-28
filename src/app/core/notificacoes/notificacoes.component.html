@@ -1,0 +1,27 @@
+<app-content-header title="Notificações"></app-content-header>
+
+
+<section class="content">
+    <ul class="timeline timeline-notification" *ngFor="let item of notificacoes">
+        <li class="time-label">
+            <span class="bg-light">
+                {{item[0] | date}}
+            </span>
+        </li>
+        <li *ngFor="let notificacao of item[1]">
+            <i class="{{notificacao.icon}} bg-primary"></i>
+            <div class="timeline-item">
+                <span class="time"><i class="fa fa-clock-o"></i> {{ notificacao.horario }}</span>
+                <div class="timeline-body"> {{  notificacao.mensagem }} </div>
+            </div>
+        </li>
+    </ul>
+
+    <div class="text-center">
+        <button class="btn btn-default" (click)="carregarMais()" *ngIf="hasMore; else messageNotFound">Carregar
+            Mais</button>
+    </div>
+    <ng-template #messageNotFound>
+        <div class="text-center">Não há mais notificações</div>
+    </ng-template>
+</section>

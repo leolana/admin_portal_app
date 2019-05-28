@@ -1,0 +1,32 @@
+.td-div-buttons> :not(:first-child) {
+    margin-left: 5px;
+}
+
+.nowrap {
+    white-space:nowrap;
+}
+
+.mt-15 {
+    margin-top: 15px;
+}
+
+.title {
+    display: inline-block;
+    width: 80%;
+}
+
+.download {
+    display: inline-block;
+    text-align: right;
+    width: 20%;
+}
+
+.download label {
+    font-size: 12px;
+}
+
+
+.pd-5{
+    padding-left: 5%; 
+}
+

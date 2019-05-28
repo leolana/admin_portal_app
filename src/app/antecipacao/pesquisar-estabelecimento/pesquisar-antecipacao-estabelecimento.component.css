@@ -1,0 +1,119 @@
+.antecipacoes-estabelecimento .card {
+    margin: 16px;
+    overflow: hidden;
+    border: 1px solid #d2d6de;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.antecipacoes-estabelecimento .card-row {
+    margin-bottom: 10px;
+    display: inline-block;
+    margin-right: 25px;
+}
+
+.antecipacoes-estabelecimento .card-row label {
+    display: block;
+}
+
+.antecipacoes-estabelecimento .card-row>* {
+    word-break: break-all;
+}
+
+.antecipacoes-estabelecimento .mt-25 {
+    margin-top: 25px;
+}
+
+.antecipacoes-estabelecimento .mr-15 {
+    margin-right: 15px;
+}
+
+.antecipacoes-estabelecimento table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.antecipacoes-estabelecimento .table-primary th.mat-header-cell:nth-child(1) div.mat-sort-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.antecipacoes-estabelecimento .table-primary th.mat-header-cell:nth-child(1),
+.antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(1) {
+    width: 107px;
+}
+
+.antecipacoes-estabelecimento .table-primary th.mat-header-cell:nth-child(2),
+.antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(2) {
+    width: 84px;
+}
+
+.antecipacoes-estabelecimento .table-primary th.mat-header-cell:nth-child(3),
+.antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(3) {
+    width: 102px;
+}
+
+.antecipacoes-estabelecimento .table-primary th.mat-header-cell:nth-child(4),
+.antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(4) {
+    width: 66px;
+}
+
+.antecipacoes-estabelecimento .table-primary th.mat-header-cell:nth-child(9),
+.antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(9) {
+    width: 105px;
+}
+
+.antecipacoes-estabelecimento .table-primary th.mat-header-cell:nth-child(10),
+.antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(10),
+.antecipacoes-estabelecimento .table-primary th.mat-header-cell:nth-child(14),
+.antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(14) {
+    width: 77px;
+}
+
+.antecipacoes-estabelecimento .table-primary td.mat-cell {
+    text-align: center;
+}
+
+.antecipacoes-estabelecimento .table-primary th.mat-header-cell,
+.antecipacoes-estabelecimento .table-primary td.mat-cell {
+    overflow-wrap: break-word;
+    white-space: normal;
+    font-size: 12px;
+}
+
+.antecipacoes-estabelecimento .debito {
+    color: red;
+    font-weight: bold;
+}
+
+.antecipacoes-estabelecimento .debito-card {
+    border: 1px solid red;
+}
+
+@media (max-width: 700px) {
+
+    .antecipacoes-estabelecimento .table-primary th.mat-header-cell:nth-child(1),
+    .antecipacoes-estabelecimento .table-primary th.mat-header-cell:nth-child(2),
+    .antecipacoes-estabelecimento .table-primary th.mat-header-cell:nth-child(3),
+    .antecipacoes-estabelecimento .table-primary th.mat-header-cell:nth-child(4),
+    .antecipacoes-estabelecimento .table-primary th.mat-header-cell:nth-child(9),
+    .antecipacoes-estabelecimento .table-primary th.mat-header-cell:nth-child(10),
+    .antecipacoes-estabelecimento .table-primary th.mat-header-cell:nth-child(14),
+    .antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(1),
+    .antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(2),
+    .antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(3),
+    .antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(4),
+    .antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(9),
+    .antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(10),
+    .antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(14) {
+        width: 100%;
+        text-align: left;
+    }
+
+    .antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(1),
+    .antecipacoes-estabelecimento .table-primary td.mat-cell:nth-child(16) {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+}

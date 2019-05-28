@@ -1,0 +1,58 @@
+<div class="modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header btn-primary">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title">Arquivos enviados</h4>
+			</div>
+			<div class="modal-body no-padding">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Descrição</th>
+							<th style="width:1px"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr [hidden]="!fichaCadastro">
+							<td>Ficha de Cadastro ({{ fichaCadastro }})</td>
+							<td>
+								<button class="btn btn-xs btn-primary" (click)="download('fichaCadastro')"><i class="fa fa-download"></i></button>
+							</td>
+						</tr>
+						<tr [hidden]="!identidade">
+							<td>Documento de Identidade ({{ identidade }})</td>
+							<td>
+								<button class="btn btn-xs btn-primary" (click)="download('identidade')"><i class="fa fa-download"></i></button>
+							</td>
+						</tr>
+						<tr [hidden]="!comprovanteDeResidencia">
+							<td>Comprovante de Residência ({{ comprovanteDeResidencia }})</td>
+							<td>
+								<button class="btn btn-xs btn-primary" (click)="download('comprovanteDeResidencia')"><i class="fa fa-download"></i></button>
+							</td>
+						</tr>
+						<tr [hidden]="!contratoSocial">
+							<td>Contrato Social ({{ contratoSocial }})</td>
+							<td>
+								<button class="btn btn-xs btn-primary" (click)="download('contratoSocial')"><i class="fa fa-download"></i></button>
+							</td>
+						</tr>
+						<tr *ngFor="let extrato of extratosBancarios; let i = index">
+							<td>Extrato Bancário ({{ extrato }})</td>
+							<td>
+								<button class="btn btn-xs btn-primary" (click)="download('extratosBancarios', i)"><i class="fa fa-download"></i></button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" (click)="downloadAll()">
+					<i class="fa fa-download"></i> Baixar Todos
+				</button>
+				<button type="button" class="btn btn-wsm btn-default" data-dismiss="modal">Fechar</button>
+			</div>
+		</div>
+	</div>
+</div>

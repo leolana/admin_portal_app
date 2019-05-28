@@ -1,0 +1,94 @@
+.card {
+    margin: 10px 0 20px 0;
+    overflow: hidden;
+    border: 1px solid #d2d6de;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.show-data {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.show-data> :nth-child(1) {
+    flex: 1;
+}
+
+.show-data> :nth-child(2) {
+    margin-left: 5px;
+    padding-left: 10px;
+    text-align: right;
+    align-self: center;
+}
+
+td.fit,
+th.fit {
+    white-space: nowrap;
+    width: 1px;
+}
+
+.div-buttons> :not(:first-child) {
+    margin-left: 5px;
+}
+
+.div-buttons i {
+    margin-right: 5px;
+}
+
+.table-nowrap td,
+.table-nowrap th {
+    white-space: nowrap;
+}
+
+.table-empty-message {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    color: #6c1980;
+}
+
+
+.table>tbody>tr>td {
+    vertical-align: middle;
+}
+
+.table-shadow {
+    box-shadow: 0 0 2px 1px #ccc;
+}
+
+.empty-content {
+    padding: 15px;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.nav-tabs-custom>.nav-tabs>li.nav-tab-fill {
+    flex-grow: 1;
+    margin-right: 0;
+}
+
+.nav-tab-fill {
+    flex-grow: 1;
+}
+
+.btn-nav-tab {
+    display: flex;
+    flex-grow: 1;
+    background-color: transparent;
+    border: none;
+    border-top: 3px solid #6c1980;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.btn-nav-tab:focus {
+    outline: none;
+}
+
+.nav-tabs-custom>.nav-tabs>li:first-of-type.active>a.nav-tab-active {
+    border: 0;
+    background-color: transparent;
+}

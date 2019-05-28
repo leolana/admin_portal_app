@@ -1,0 +1,194 @@
+<app-content-header title="Solicitar"></app-content-header>
+
+<section class="content antecipar-fornecedor" *ngIf="limitHour">
+
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<h3 class="box-title">Filtros</h3>
+		</div>
+		<div class="box-body">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group" [class.has-error]="controls.mes | hasError">
+						<label for="mes">Mês</label>
+						<select class="form-control" id="mes" [alpeSelect2]="controls.mes">
+							<option value="">Todos</option>
+							<option *ngFor="let mes of combos.meses" [value]="mes.id">
+								{{ mes.text }}
+							</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group" [class.has-error]="controls.bandeirasId | hasError">
+						<label for="selectBandeira">Bandeira</label>
+						<select class="form-control" id="selectBandeira" [alpeSelect2]="controls.bandeirasId" multiple>
+							<option *ngFor="let item of combos.bandeiras" [value]="item.id">
+								{{ item.text }}
+							</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group" [class.has-error]="controls.produtoId | hasError">
+						<label for="selectProduto">Produto</label>
+						<select class="form-control" id="selectProduto" [alpeSelect2]="controls.produtoId" multiple>
+							<option *ngFor="let item of combos.produtos" [value]="item.id">
+								{{ item.nome }}
+							</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="pull-left text-primary ml-15 mb-15">
+						A partir das {{ limitHour }}hs não é possível Solicitar Antecipação de Recebíveis.
+					</div>
+					<button class="btn btn-primary pull-right mr-15" (click)="filter()">Pesquisar</button>
+					<button class="btn btn-default pull-right mr-15" (click)="reset()">Limpar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<h3 class="box-title">Resultado</h3>
+		</div>
+		<div class="box-body no-padding">
+			<div class="text-center" [hidden]=!table.length>
+				<strong>Valor Liquído Disponível</strong>
+				<h3 class="valor-disponivel">{{valorAntecipado() | currency:'BRL'}}</h3>
+			</div>
+
+			<div class="cards" *ngIf="mobile">
+				<div class="card" [class.debito-card]="isDebit(row)" *ngFor="let row of table" (click)="!isDebit(row) ? row.selecionado = !row.selecionado : null"
+				 [class.card-selected]="row.selecionado">
+					<div class="card-row" *ngIf="row.dataVenda">
+						<span class="small">Data de Vencimento</span>
+						<label>{{ row.dataPagamento | date }}</label>
+					</div>
+					<div class="card-row" *ngIf="row.valorVenda">
+						<span class="small">Valor Disponível</span>
+						<label [class.debito]="isDebit(row)">{{ row.valorPagar | currency:'BRL' }}</label>
+					</div>
+					<div class="card-row" *ngIf="row.bandeira">
+						<span class="small">Bandeira</span>
+						<label>{{ row.bandeira ? row.bandeira.nome : '' }}</label>
+					</div>
+					<div class="card-row" *ngIf="row.evento">
+						<span class="small">Produto</span>
+						<label>{{ row.evento ? row.evento.nome : '' }}</label>
+					</div>
+					<div class="card-row" *ngIf="row.parcelaAtual">
+						<span class="small">Plano</span>
+						<label>{{ row.parcelaAtual }}</label>
+					</div>
+					<div class="card-row" *ngIf="row.parcelaAtual">
+						<span class="small">Plano</span>
+						<label>{{ row.parcelaAtual + '/' + row.qtdeParcelas }}</label>
+					</div>
+					<div class="card-row" *ngIf="row.diasAntecipacao">
+						<span class="small">Dias Antecipação</span>
+						<label>{{ row.diasAntecipacao }}</label>
+					</div>
+					<div class="card-row" *ngIf="row.taxaAntecipacao">
+						<span class="small">Taxa Antecipação</span>
+						<label>{{ row.taxaAntecipacao }} %</label>
+					</div>
+					<div class="card-row" *ngIf="row.descontoAntecipacao">
+						<span class="small">Valor Desconto ARV</span>
+						<label>{{ row.descontoAntecipacao | currency:'BRL' }}</label>
+					</div>
+					<div class="card-row" *ngIf="row.valorAntecipado">
+						<span class="small">Valor Antecipado</span>
+						<label>{{ row.valorAntecipado | currency:'BRL' }}</label>
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card-row">
+						<span class="small">Total Desconto Antecipação ARV</span>
+						<label>{{ totais.descontoAntecipacao || 0 | currency:'BRL' }}</label>
+					</div>
+					<div class="card-row">
+						<span class="small">Total Valor Anteciapdo</span>
+						<label>{{ totais.valorAntecipado || 0 | currency:'BRL' }}</label>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="table-responsive" *ngIf="!mobile">
+				<table class="table table-primary table-striped table-hover text-center table-nowrap" [hidden]="!table.length">
+					<thead>
+						<th><input type="checkbox" [checked]="isChecked" [(ngModel)]="isChecked" (change)="checkAll()"></th>
+						<th>Data de<br>Vencimento</th>
+						<th>Valor <br> Disponível</th>
+						<th>Bandeira</th>
+						<th>Produto</th>
+						<th>Plano</th>
+						<th>Dias de<br> Antecipação</th>
+						<th>Taxa de<br> Antecipação</th>
+						<th>Valor Desconto <br> ARV</th>
+						<th>Valor <br> Antecipado</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let row of table" [class.debito]="isDebit(row)">
+							<td><input type="checkbox" [checked]="row.selecionado" [disabled]="isDebit(row)" (change)="row.selecionado = $event.target.checked"></td>
+							<td>{{ row.dataPagamento| date }}</td>
+							<td>{{ row.valorPagar | currency:'BRL' }}</td>
+							<td>{{ row.bandeira ? row.bandeira.nome : '' }}</td>
+							<td>{{ row.evento ? row.evento.nome : '' }}</td>
+							<td>{{(row.valorPagar < 0) ? '-' : row.parcelaAtual + '/' + row.qtdeParcelas }}</td> <td>{{ row.diasAntecipacao
+									}}</td>
+							<td>{{ row.taxaAntecipacao}} {{row.valorPagar < 0 ? '' : '%' }}</td> <td>{{ row.valorPagar < 0 ? '-' :
+									 row.descontoAntecipacao | currency:'BRL' }}</td> <td>{{ row.valorAntecipado | currency:'BRL' }}</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td class="bold">{{ totais.descontoAntecipacao | currency:'BRL' }}</td>
+							<td class="bold">{{ totais.valorAntecipado | currency:'BRL' }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<p class="no-records-found" [hidden]="table.length">
+				{{ 'Nenhum registro encontrado' }}
+			</p>
+		</div>
+	</div>
+
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<h3 class="box-title">Valores</h3>
+		</div>
+		<div class="box-body">
+			<div class="col-md-2">
+				<span>Valor Solicitado</span>
+				<label class="block">{{ valorSolicitado() | currency:'BRL' }}</label>
+			</div>
+			<div class="col-md-2">
+				<span>Débitos pendentes</span>
+				<label class="block">{{ valorDisponivelNegativo() | currency:'BRL' }}</label>
+			</div>
+			<div class="col-md-2">
+				<span>Valor Desconto ARV</span>
+				<label class="block">{{ valorDescontado() | currency:'BRL' }}</label>
+			</div>
+			<div class="col-md-2">
+				<span>Valor Antecipado</span>
+				<label class="block">{{ valorAntecipado() | currency:'BRL' }}</label>
+			</div>
+			<button class="pull-right btn btn-primary mt-15 mr-15" (click)="solicitar()">Solicitar</button>
+		</div>
+	</div>
+
+</section>

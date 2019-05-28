@@ -1,0 +1,297 @@
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import "./app/core/datatable/datatable.component.css";
+/**/
+
+/* fix switch buttons tabinex */
+
+.bootstrap-switch input[type="radio"],
+.bootstrap-switch input[type="checkbox"] {
+  visibility: visible !important;
+}
+
+[apptrigger] {
+  cursor: pointer;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.loginHome .main-footer {
+  margin-left: 0px !important;
+}
+
+body {
+  min-height: 100%;
+  /* min-height: 100vh; */
+}
+
+.sub-content div {
+  word-break: break-word !important;
+}
+
+.breadcrumb {
+  background-color: transparent !important;
+  padding: 0 !important;
+  margin-bottom: 1% !important;
+}
+
+.breadcrumb,
+.breadcrumb-item a {
+  font-family: Nunito, sans-serif !important;
+  color: #6c1980;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #f4f3f5;
+}
+
+.table-striped td {
+  word-break: break-word;
+}
+.clickable {
+  cursor: pointer;
+}
+
+.form-control {
+  font-size: 16px;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.m-5 {
+  margin: 5px;
+}
+
+.push-right {
+  margin-right: 4px;
+}
+
+.push-left {
+  margin-left: 4px;
+}
+
+.btn-wsm {
+  width: 80px;
+}
+
+.btn-wmd {
+  width: 120px;
+}
+
+.btn-wlg {
+  width: 200px;
+}
+
+.btn-search-unlabeled {
+  margin-top: 25px;
+}
+
+.input-group.list-item {
+  margin-bottom: 15px;
+}
+
+table.table-small {
+  font-size: 12px;
+}
+
+.checkbox-group,
+.radio-group {
+  margin-top: 4px;
+}
+
+.has-error .btn-primary i {
+  color: #fff;
+}
+
+.no-records-found {
+  color: #777;
+  text-align: center;
+  padding: 0;
+  margin: 14px;
+}
+
+.form-group .bootstrap-switch-small {
+  margin-top: 2px;
+}
+
+.form-group .bootstrap-switch-mini {
+  margin-top: 5px;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-off,
+.bootstrap-switch .bootstrap-switch-handle-on {
+  min-width: 50px;
+}
+
+.bootstrap-switch-small .bootstrap-switch-handle-off,
+.bootstrap-switch-small .bootstrap-switch-handle-on {
+  min-width: 42px;
+}
+
+.bootstrap-switch-mini .bootstrap-switch-handle-off,
+.bootstrap-switch-mini .bootstrap-switch-handle-on {
+  min-width: 36px;
+}
+
+.datepicker .disabled {
+  color: #777 !important;
+}
+
+.rows {
+  overflow: hidden;
+}
+
+.sub-title {
+  display: block;
+  padding: 6px;
+  background-color: #83139e;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.ml-15 {
+  margin-left: 15px;
+}
+
+.mr-15 {
+  margin-right: 15px;
+}
+
+.mb-15 {
+  margin-bottom: 15px;
+}
+
+.sub-content {
+  margin-bottom: 10px;
+}
+
+.main-header .logo {
+  padding: 0;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header {
+  height: auto !important;
+}
+
+.text-success {
+  color: #28a745;
+}
+
+.help-block .progress {
+  height: 5px;
+}
+
+@media (max-width: 450px) {
+  .btn-wlg {
+    width: 90%;
+  }
+
+  .text-migration {
+    word-break: break-all;
+  }
+}
+
+@media (max-width: 767px) {
+  .btn-xs-block {
+    display: block;
+    width: 100%;
+  }
+  input[type="submit"].btn-xs-block,
+  input[type="reset"].btn-xs-block,
+  input[type="button"].btn-xs-block {
+    width: 100%;
+  }
+  .btn-block + .btn-xs-block,
+  .btn-xs-block + .btn-block,
+  .btn-xs-block + .btn-xs-block {
+    margin-top: 0.5rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .btn-sm-block {
+    display: block;
+    width: 100%;
+  }
+  input[type="submit"].btn-sm-block,
+  input[type="reset"].btn-sm-block,
+  input[type="button"].btn-sm-block {
+    width: 100%;
+  }
+  .btn-block + .btn-sm-block,
+  .btn-sm-block + .btn-block,
+  .btn-sm-block + .btn-sm-block {
+    margin-top: 0.5rem;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .btn-md-block {
+    display: block;
+    width: 100%;
+  }
+  input[type="submit"].btn-md-block,
+  input[type="reset"].btn-md-block,
+  input[type="button"].btn-md-block {
+    width: 100%;
+  }
+  .btn-block + .btn-md-block,
+  .btn-md-block + .btn-block,
+  .btn-md-block + .btn-md-block {
+    margin-top: 0.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .btn-lg-block {
+    display: block;
+    width: 100%;
+  }
+  input[type="submit"].btn-lg-block,
+  input[type="reset"].btn-lg-block,
+  input[type="button"].btn-lg-block {
+    width: 100%;
+  }
+  .btn-block + .btn-lg-block,
+  .btn-lg-block + .btn-block,
+  .btn-lg-block + .btn-lg-block {
+    margin-top: 0.5rem;
+  }
+}
+
+.input-xs {
+  height: 22px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+
+.table-primary th {
+  background-color: #6c1980;
+  color: #fff;
+  border-right: 1px solid #fff;
+  vertical-align: middle;
+  font-weight: normal;
+}
+
+input.form-control.mat-input-element {
+  border: 1px solid #d2d6de;
+}
+
+#md-chat-widget {
+  bottom: 52px !important;
+}
+
+#md-chat-widget-header {
+  background-color: rgb(111, 57, 128) !important;
+}

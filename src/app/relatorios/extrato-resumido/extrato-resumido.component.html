@@ -1,0 +1,88 @@
+<app-content-header title="Extrato Resumido"></app-content-header>
+
+<section class="content">
+	<div class="box box-primary">
+		<div class="header-report">
+			<div>
+				<h2 class="box-title">{{ nomeFantasia }}</h2>
+				<strong>{{ formatarDocumento(documento) }}</strong>
+			</div>
+			<div>
+				<small class="text-right">Código do {{ehEstabelecimento ? "EC" : "Fornecedor"}}: {{codigoParticipante}} </small> <br>
+				<small>{{ currentDate  }}</small>
+			</div>
+		</div>
+		<div class="box-body no-padding">
+			<div class="cards" *ngIf="mobile">
+				<div class="card" *ngFor="let item of data">
+					<div class="text-center title-margin">
+						<strong>{{ item.bandeira }}<br>{{ item.tipoOperacao }}</strong>
+					</div>
+					<div class="text-left-right">
+						<span>Vendas de ontem</span>
+						<strong>{{ item.valorOntem | currency:'BRL' }}</strong>
+					</div>
+					<div class="text-left-right">
+						<span>Líquido a receber hoje</span>
+						<strong>{{ item.valorHoje | currency:'BRL' }}</strong>
+					</div>
+					<div class="text-left-right">
+						<span>Líquido a receber futuro</span>
+						<strong>{{ item.valorFuturo | currency:'BRL' }}</strong>
+					</div>
+					<div class="text-left-right">
+						<span>Líquido disponível antecipação/cessão</span>
+						<strong>{{ item.valorDisponivel | currency:'BRL' }}</strong>
+					</div>
+					<div class="text-left-right">
+						<span>Antecipado</span>
+						<strong>{{ item.valorAntecipado | currency:'BRL' }}</strong>
+					</div>
+					<div class="text-left-right">
+						<span>Cedidos</span>
+						<strong>{{ item.valorCedido | currency:'BRL' }}</strong>
+					</div>
+					<div class="text-left-right">
+						<span>Vendas canceladas</span>
+						<strong>{{ item.valorCancelado | currency:'BRL' }}</strong>
+					</div>
+				</div>
+			</div>
+			<div class="table-responsive table-reporter" *ngIf="!mobile">
+				<table class="table table-striped table-td-nowrap" *ngIf="data && data.length">
+					<thead>
+						<tr>
+							<th>Bandeira</th>
+							<th>Modalidade</th>
+							<th>Vendas de ontem</th>
+							<th>Líquido <br>a receber hoje</th>
+							<th>Líquido <br>a receber futuro</th>
+							<th>Líquido disponível <br>antecipação/cessão</th>
+							<th>Antecipado</th>
+							<th>Cedidos</th>
+							<th>Vendas canceladas</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of data">
+							<td>{{ item.bandeira }}</td>
+							<td>{{ item.tipoOperacao }}</td>
+							<td>{{ item.valorOntem | currency:'BRL' }}</td>
+							<td>{{ item.valorHoje | currency:'BRL' }}</td>
+							<td>{{ item.valorFuturo | currency:'BRL' }}</td>
+							<td>{{ item.valorDisponivel | currency:'BRL' }}</td>
+							<td>{{ item.valorAntecipado | currency:'BRL' }}</td>
+							<td>{{ item.valorCedido | currency:'BRL' }}</td>
+							<td>{{ item.valorCancelado | currency:'BRL' }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div *ngIf="!data || !data.length">
+				<div class="text-center title-margin">
+					<strong>Nenhum registro encontrado</strong>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

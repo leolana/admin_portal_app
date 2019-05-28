@@ -1,0 +1,271 @@
+.bloco {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 50%;
+  max-width: 500px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  text-align: center;
+}
+
+.bloco-container {
+  border-color: #6c1980;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.bloco-header {
+  display: block;
+  background-color: #6c1980;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: left;
+  margin-top: 0px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 8px;
+}
+
+.bloco-content {
+  display: block;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  margin: 5px;
+  text-align: center;
+}
+
+.bloco-collection {
+  display: block;
+  padding: 10px;
+}
+
+.header-arquivo {
+  width: 10px;
+}
+
+.header-download {
+  text-align: right;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-container {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  width: 36px;
+  height: 36px;
+}
+
+.loading {
+  padding: 20px;
+  border-top: 3px solid #00a65a;
+  border-radius: 100%;
+  animation: rotating 1s linear infinite;
+}
+
+.titulo {
+  padding: 1.5%;
+  background: #6c1980;
+  color: whitesmoke;
+  font-weight: bold;
+  text-align: left;
+}
+
+.bloco-content {
+  padding: 1.5%;
+  margin: 1.5%;
+}
+
+.no-padding-top {
+  padding-top: 0;
+}
+
+.header-taxa{
+    font-size: 14px;
+    background: #eee9ef;
+    width: 100%;
+    margin: 0;
+}
+
+.bandeira-header{
+    font-size: 14px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    color: #6c1980;
+}
+
+.with-minwidth{
+    min-width: 65px
+}
+
+
+.mt-20{
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.box-body{
+  margin-bottom: 35px;
+}
+
+
+.header-report {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1% 1%;
+  border-bottom: 1px solid #6c1980;
+}
+
+.head-table{
+  padding: 2px;
+  font-size: 18px;
+}
+
+.head-table-color{
+  background: #6c1980;
+  color: #ffffff;
+}
+
+.head-table p{
+  margin: 0;
+  padding: 2px;
+}
+
+.data-table{
+  font-size: 14px;
+}
+
+.style-table tr td {
+  width: 50%;
+}
+
+.second-table tr td{
+  width: 25%;
+}
+
+.title-taxas{
+  border-bottom: 0.2px solid #6c1980;
+  font-weight: bold;
+}
+
+.layer-white{
+  margin: 0 2% 2% 2%;
+
+}
+
+.taxa-adm{
+  padding: 5px;
+}
+
+.dados-taxa{
+  border-bottom: 0.1px solid #b6b6b6;
+  margin: auto;
+}
+
+.mobile {
+  margin-bottom: 10%;
+}
+
+.style-table{
+  text-align: center;
+}
+
+.third-table tr td{
+  width: 50%;
+}
+
+.fourth-table tr td{
+  width: 33%;
+}
+
+.dados-cadastrais tr td{
+  margin: 0 20% 0 20%;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.btn-nav-tab {
+  display: flex;
+  flex-grow: 1;
+  background-color: transparent;
+  border: none;
+  border-top: 3px solid #6c1980;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.btn-nav-tab:focus {
+  outline: none;
+}
+
+.nav-tabs-custom>.nav-tabs>li.nav-tab-fill {
+  flex-grow: 1;
+  margin-right: 0;
+}
+
+.nav-tab-fill {
+  flex-grow: 1;
+}
+
+.nav-tabs-custom>.nav-tabs>li:first-of-type.active>a.nav-tab-active {
+  border: 0;
+  background-color: transparent;
+}
+
+
+@media (min-width: 992px) {
+  .taxa-debito {
+    margin-left: 8%;
+    margin-right: 5%;
+  }
+}
+
+@media (min-width: 756px) {
+  .mobile {
+    display: none;
+  }
+  .style-table tr > td {
+    width: 50%;
+  }
+}
+@media (max-width: 755px) {
+  .desktop {
+    display: none;
+  }
+  .style-table tr td:first-child{
+    text-align: start;
+  }
+  .style-table tr > td {
+    width: 70%;
+  }
+  .label-captura{
+    font-size: 11px;
+  }
+  .third-table tr td:first-child{
+    color: #6c1980;
+  }
+}
+

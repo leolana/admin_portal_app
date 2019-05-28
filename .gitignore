@@ -1,0 +1,11 @@
+# WWW
+node_modules
+yarn.lock
+dist
+temp
+out-tsc
+
+# System Files
+.DS_Store
+Thumbs.db
+.vscode/launch.json

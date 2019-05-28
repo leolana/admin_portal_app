@@ -1,0 +1,29 @@
+.row-card {
+  height: 45px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: all 600ms;
+  transition: all 600ms;
+  z-index: 20;
+}
+
+.row-card td {
+  vertical-align: middle;
+}
+
+.row-card .row-card-front,
+.row-card .row-card-back {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.row-card .row-card-back,
+.row-card.editando .row-card-actions {
+  -webkit-transform: rotateX(180deg);
+  transform: rotateX(180deg);
+}
+
+.row-card.editando {
+  transform: rotateX(180deg);
+  -webkit-transform: rotateX(180deg);
+}

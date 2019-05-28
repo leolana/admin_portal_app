@@ -1,0 +1,40 @@
+.available-value {
+    margin: 15px 0 0 0;
+}
+
+label {
+    font-weight: normal;
+}
+
+.desktop .row-flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.desktop .row-flex>.row {
+    flex: 1;
+}
+
+.buttons {
+    margin-left: 15px;
+}
+
+.desktop .buttons {
+    padding-top: 25px;
+}
+
+.mobile .buttons {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 15px;
+}
+
+.btn-reset-filter {
+    margin-right: 15px;
+}
+
+.text-sobre-cessao-recorrente {
+    text-align: justify;
+    font-size: 12px;
+    color: #6c1980;
+}

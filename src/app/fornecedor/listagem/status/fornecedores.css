@@ -1,0 +1,9 @@
+.white {
+    color:white !important;
+}
+
+@media  (max-width: 700px){
+    .btn-mobile{
+        margin-right: 130px;
+    }
+}

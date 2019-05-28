@@ -1,0 +1,40 @@
+@media (min-width: 720px) { 
+    .header-message {
+        text-align: end;
+    }
+  }
+table thead th { text-align: center; }
+
+table thead th:nth-child(1) { width: 10%; }
+table thead th:nth-child(2) { width: 35%; }
+table thead th:nth-child(3) { width: 20%; }
+table thead th:nth-child(4) { width: 25%; }
+table thead th:nth-child(5) { width: 10%; }
+
+table tbody th {
+	text-align: right;
+	padding-top: 14px;
+}
+
+.size-reminder {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 12px
+}
+
+.contact-message {
+    font-size: .8pc;
+    background-color: #eeebef;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+    padding: 3px;
+}
+
+.hide{
+    display: none;
+}
+
+.btn-add {
+    margin-right: 10px;
+}

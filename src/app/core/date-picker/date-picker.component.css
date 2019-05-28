@@ -1,0 +1,20 @@
+date-picker .mat-icon-button {
+    display: none;
+}
+
+date-picker .form-control {
+    padding-bottom: 5px;
+    margin-top: 0;
+}
+
+date-picker .form-control[disabled] {
+    color: #545454;
+}
+
+date-picker .input-group-addon {
+    cursor: pointer;
+}
+
+date-picker .mat-input-element {
+    padding: 6px 12px;
+}

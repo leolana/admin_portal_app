@@ -1,0 +1,26 @@
+<div class="form-group" [class.has-error]="hasError && (formControl.touched || formControl.dirty)">
+    <label [for]="id" class="{{ labelClass }}">
+        {{ label }}
+    </label>
+    <div class="input-group">
+        <input #DatePickerControl
+               matInput
+               [matDatepicker]="picker"
+               [required]="required"
+               [formControl]="formControl"
+               [max]="maxDate"
+               (blur)="onBlur($event)"
+               (dateChange)="onDateChange($event)"
+               type="text"
+               class="form-control"
+               [id]="id"
+               formControlName="picker"
+               [attr.disabled]="disable || null"
+        />
+        <label class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+            <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker ></mat-datepicker>
+        </label>
+    </div>
+</div>

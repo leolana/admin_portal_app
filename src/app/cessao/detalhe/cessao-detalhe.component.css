@@ -1,0 +1,39 @@
+.form-group>label {
+    display: block;
+}
+
+.small {
+    font-size: 12px;
+}
+
+.division {
+    border-bottom: 1px solid #d2d6de;
+    padding-top: 20px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+.division:first-child {
+    padding-top: 10px;
+}
+
+.ml-10 {
+    margin-left: 10px;
+}
+
+.div-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+@media (min-width: 992px) {
+    .div-buttons {
+        margin-top: 15px;
+    }
+    .div-buttons>button {
+        width: 150px;
+    }
+    .box-aprovador {
+        text-align: center;
+    }
+}

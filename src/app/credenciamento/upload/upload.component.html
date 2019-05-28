@@ -1,0 +1,169 @@
+<app-content-header title="Credenciamento / Upload"></app-content-header>
+
+<section class="content">
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<h3 class="box-title">Dados do Credenciado</h3>
+		</div>
+		<div class="box-body">
+			<form class="form-horizontal" [formGroup]="dadosCredenciado">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Tipo de Pessoa</label>
+					<div class="col-sm-9">
+						<label class="radio-inline">
+							<input type="radio" name="tipoPessoa" formControlName="tipoPessoa" [value]="tiposPessoa.fisica"> Física
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="tipoPessoa" formControlName="tipoPessoa" [value]="tiposPessoa.juridica"> Jurídica
+						</label>
+					</div>
+				</div>
+				<div class="form-group" *ngIf="pessoaFisica" [class.has-error]="documento.invalid && documento.dirty">
+					<label for="inputCPF" class="col-sm-3 control-label">CPF</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" id="inputCPF" required mask="000.000.000-00" dropSpecialCharacters="false" minlength="11" placeholder="000.000.000-00" formControlName="documento">
+						<div class="help-block" [hidden]="documento.valid || documento.pristine">
+							CPF inválido
+						</div>
+					</div>
+                </div>
+				<div class="form-group" *ngIf="!pessoaFisica" [class.has-error]="documento.invalid && documento.dirty">
+					<label for="inputCNPJ" class="col-sm-3 control-label">CNPJ</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" id="inputCNPJ" required mask="00.000.000/0000-00" dropSpecialCharacters="false" minlength="14" placeholder="00.000.000/0000-00" formControlName="documento">
+						<div class="help-block" [hidden]="documento.valid || documento.pristine">
+							CNPJ inválido
+						</div>
+					</div>
+                </div>
+				<div class="form-group" [class.has-error]="nome.invalid && nome.dirty">
+					<label for="inputNome" class="col-sm-3 control-label">{{ pessoaFisica ? 'Nome' : 'Nome Fantasia' }}</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" id="inputNome" required maxlength="100" formControlName="nome">
+						<div class="help-block" [hidden]="nome.valid || nome.pristine">
+							Nome inválido
+						</div>
+					</div>
+                </div>
+			</form>
+		</div>
+	</div>
+
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<h3 class="box-title">Documentos</h3>
+		</div>
+		<div class="box-body">
+			<form class="form-horizontal" [formGroup]="arquivos">
+				<div class="form-group" [class.has-error]="fichaCadastro.invalid && fichaCadastro.dirty">
+					<label for="inputFichaCadastro" class="col-sm-3 control-label">Ficha de Credenciamento</label>
+					<div class="col-sm-9">
+						<div class="input-group">
+							<span class="input-group-btn">
+								<label class="btn btn-primary input-file">
+									<i class="fa fa-camera"></i>
+									<input id="inputFichaCadastro" type="file" hidden (change)="bindFile('fichaCadastro', $event)">
+								</label>
+							</span>
+							<input type="text" class="form-control" readonly [value]="fichaCadastroFileName">
+						</div>
+						<div class="help-block" [hidden]="fichaCadastro.valid || fichaCadastro.pristine">
+							Este documento é obrigatório.
+						</div>
+					</div>
+				</div>
+				<div class="form-group" *ngIf="pessoaFisica" [class.has-error]="identidade.invalid && identidade.dirty">
+					<label for="inputIdentidade" class="col-sm-3 control-label">Documento de Identidade</label>
+					<div class="col-sm-9">
+						<div class="input-group">
+							<span class="input-group-btn">
+								<label class="btn btn-primary input-file">
+									<i class="fa fa-camera"></i>
+									<input id="inputIdentidade" type="file" hidden (change)="bindFile('identidade', $event)">
+								</label>
+							</span>
+							<input type="text" class="form-control" readonly [value]="identidadeFileName">
+						</div>
+						<div class="help-block" [hidden]="identidade.valid || identidade.pristine">
+							Este documento é obrigatório.
+						</div>
+					</div>
+				</div>
+				<div class="form-group" *ngIf="pessoaFisica" [class.has-error]="comprovanteDeResidencia.invalid && comprovanteDeResidencia.dirty">
+					<label for="inputComprovanteDeResidencia" class="col-sm-3 control-label">Comprovante de Residência</label>
+					<div class="col-sm-9">
+						<div class="input-group">
+							<span class="input-group-btn">
+								<label class="btn btn-primary input-file">
+									<i class="fa fa-camera"></i>
+									<input id="inputComprovanteDeResidencia" type="file" hidden (change)="bindFile('comprovanteDeResidencia', $event)">
+								</label>
+							</span>
+							<input type="text" class="form-control" readonly [value]="comprovanteDeResidenciaFileName">
+						</div>
+						<div class="help-block" [hidden]="comprovanteDeResidencia.valid || comprovanteDeResidencia.pristine">
+							Este documento é obrigatório.
+						</div>
+					</div>
+				</div>
+				<div class="form-group" *ngIf="!pessoaFisica" [class.has-error]="contratoSocial.invalid && contratoSocial.dirty">
+					<label for="inputContratoSocial" class="col-sm-3 control-label">Contrato Social</label>
+					<div class="col-sm-9">
+						<div class="input-group">
+							<span class="input-group-btn">
+								<label class="btn btn-primary input-file">
+									<i class="fa fa-camera"></i>
+									<input id="inputContratoSocial" type="file" hidden (change)="bindFile('contratoSocial', $event)">
+								</label>
+							</span>
+							<input type="text" class="form-control" readonly [value]="contratoSocialFileName">
+						</div>
+						<div class="help-block" [hidden]="contratoSocial.valid || contratoSocial.pristine">
+							Este documento é obrigatório.
+						</div>
+					</div>
+				</div>
+				<div class="form-group" [class.has-error]="extratosBancarios.invalid && extratosBancarios.dirty">
+					<label for="inputNovoExtratoBancario" class="col-sm-3 control-label">Extratos Bancários</label>
+					<div class="col-sm-9">
+						<div class="input-group list-item" *ngFor="let control of extratosBancarios.controls; let i=index">
+							<span class="input-group-btn">
+								<label class="btn btn-primary input-file">
+									<i class="fa fa-camera"></i>
+									<input type="file" hidden (change)="bindFile('extratosBancarios', $event, i)">
+								</label>
+							</span>
+							<input type="text" class="form-control" readonly [value]="control.value && control.value.name">
+							<span class="input-group-btn">
+								<button class="btn btn-danger" (click)="extratosBancarios.removeAt(i)">
+									<i class="fa fa-remove"></i>
+								</button>
+							</span>
+						</div>
+
+						<div class="input-group">
+							<span class="input-group-btn">
+								<label class="btn btn-primary input-file">
+									<i class="fa fa-camera"></i>
+									<input id="inputNovoExtratoBancario" type="file" hidden (change)="bindFile('extratosBancarios', $event)">
+								</label>
+							</span>
+							<input type="text" class="form-control" readonly>
+						</div>
+
+						<div class="help-block" [hidden]="extratosBancarios.valid || extratosBancarios.pristine">
+							É necessário apresentar pelo menos 1 extrato.
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="box-body documents-size-reminder">
+			O tamanho total dos arquivos selecionados não deve ultrapassar 20MB.
+		</div>
+	</div>
+
+	<div class="text-center">
+		<button class="btn btn-primary" (click)="submitForm()">Enviar Formulário</button>
+	</div>
+</section>

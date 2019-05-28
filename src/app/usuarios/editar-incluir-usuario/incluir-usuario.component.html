@@ -1,0 +1,230 @@
+<app-content-header title="Usuários"></app-content-header>
+
+<section class="content">
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<h3 class="box-title">{{id ? 'Edição de Usuário' : 'Cadastro de Usuário'}}</h3>
+		</div>
+		<div class="box-body">
+			<form [formGroup]="formUsuario">
+
+				<!-- EDIÇÃO USUARIO -->
+				<div class="row" *ngIf="id">
+					<div class="col-md-4">
+						<div class="form-group" [class.has-error]="email.invalid && email.dirty">
+							<label>E-mail</label>
+							<input type="text" class="form-control" formControlName="email" maxlength="100" [readonly]="this.id"
+								email>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group" [class.has-error]="nome.invalid && nome.dirty">
+							<label>Nome</label>
+							<input type="text" class="form-control" maxlength="100" formControlName="nome">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group no-margin" [class.has-error]="celular.invalid && celular.dirty">
+							<label>Celular</label>
+							<input type="text" class="form-control" formControlName="celular" mask="(00) 00000-0000"
+								mask-value="clean">
+						</div>
+					</div>
+				</div>
+
+				<div class="row" *ngIf="id">
+					<div class="col-md-6">
+						<div class="form-group"
+							[class.has-error]="checkCampos.documento() || (documento.invalid && documento.dirty)">
+							<label>CPF</label>
+							<input type="text" class="form-control" formControlName="documento" mask="000.000.000-00"
+								placeholder="000.000.000-00">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group"
+							[class.has-success]=" username.value &&  (username.valid && username.touched && usernameValid)"
+							[class.has-error]="(checkCampos.username && username.valid && username.touched && !usernameValid ) ||( username | hasError)">
+							<label>Username</label>
+							<input type="text" class="form-control" formControlName="username" maxlength="50"
+								(blur)="username.valid && checarUsernameExistente(username.value)">
+
+							<label class="control-label"
+								*ngIf="username.value &&  username.valid && username.touched && usernameValid">
+								<em class="fa fa-check-circle"></em>Username válido
+							</label>
+							<label class="control-label" *ngIf="username.valid && username.touched && !usernameValid">
+								<em class="fa fa-times-circle"></em> Username existente
+							</label>
+						</div>
+					</div>
+				</div>
+				<!-- FINAL -->
+
+
+
+				<!-- CADASTRO USUARIO -->
+				<div class="row" *ngIf="!id">
+					<div class="col-md-6">
+						<div class="form-group" [class.has-error]="email.invalid && email.dirty">
+							<label>E-mail</label>
+							<input type="text" class="form-control" formControlName="email" maxlength="100" [readonly]="this.id"
+								email>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group" [class.has-error]="nome.invalid && nome.dirty">
+							<label>Nome</label>
+							<input type="text" class="form-control" maxlength="100" formControlName="nome">
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-md-6" *ngIf="!id">
+						<div class="form-group no-margin" [class.has-error]="celular.invalid && celular.dirty">
+							<label>Celular</label>
+							<input type="text" class="form-control" formControlName="celular" mask="(00) 00000-0000"
+								mask-value="clean">
+						</div>
+					</div>
+					<!-- FINAL -->
+
+					<div class="col-md-4" *ngIf="showBORoles">
+						<div class="form-group" [class.has-error]="roleBackoffice | hasError">
+							<label>Perfil BackOffice</label>
+							<em class="fa fa-info-circle" style="margin-left: 10px; cursor: pointer"
+								(click)="showInfoTable('bko')"></em>
+							<br />
+							<div class="btn-group btn-group-toggle">
+								<label class="btn btn-outline-primary"
+									[ngClass]="{active: roleBackoffice.value === roles.boAdministrador}">
+									<input type="radio" class="btn-group-toggle" name="roleBackoffice" formControlName="roleBackoffice"
+										[value]="roles.boAdministrador">
+									{{ roles.boAdministrador | roleUsuario }}
+								</label>
+								<label class="btn btn-outline-primary" [ngClass]="{active: roleBackoffice.value === roles.boOperacoes}">
+									<input type="radio" class="btn-group-toggle" name="roleBackoffice" formControlName="roleBackoffice"
+										[value]="roles.boOperacoes">
+									{{ roles.boOperacoes | roleUsuario }}
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-4" *ngIf="showECRoles">
+						<div class="form-group" [class.has-error]="roleEstabelecimento | hasError">
+							<label>Perfil Estabelecimento</label>
+							<em class="fa fa-info-circle" style="margin-left: 10px; cursor: pointer"
+								(click)="showInfoTable('ec')"></em>
+							<br />
+							<div class="btn-group btn-group-toggle">
+								<label class="btn btn-outline-primary"
+									[ngClass]="{active: roleEstabelecimento.value === roles.ecAdministrador}">
+									<input type="radio" class="btn-group-toggle" name="roleEstabelecimento"
+										formControlName="roleEstabelecimento" [value]="roles.ecAdministrador">
+									{{ roles.ecAdministrador | roleUsuario }}
+								</label>
+								<label class="btn btn-outline-primary"
+									[ngClass]="{active: roleEstabelecimento.value === roles.ecFinanceiro}">
+									<input type="radio" class="btn-group-toggle" name="roleEstabelecimento"
+										formControlName="roleEstabelecimento" [value]="roles.ecFinanceiro">
+									{{ roles.ecFinanceiro | roleUsuario }}
+								</label>
+								<label class="btn btn-outline-primary"
+									[ngClass]="{active: roleEstabelecimento.value === roles.ecCompras}">
+									<input type="radio" class="btn-group-toggle" name="roleEstabelecimento"
+										formControlName="roleEstabelecimento" [value]="roles.ecCompras">
+									{{ roles.ecCompras | roleUsuario }}
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-4" *ngIf="showFornRoles">
+						<div class="form-group" [class.has-error]="roleFornecedor | hasError">
+							<label>Perfil Fornecedor</label>
+							<em class="fa fa-info-circle" style="margin-left: 10px; cursor: pointer"
+								(click)="showInfoTable('fc')"></em>
+							<br />
+							<div class="btn-group btn-group-toggle">
+								<label class="btn btn-outline-primary"
+									[ngClass]="{active: roleFornecedor.value === roles.fcAdministrador}">
+									<input type="radio" class="btn-group-toggle" name="roleFornecedor" formControlName="roleFornecedor"
+										[value]="roles.fcAdministrador">
+									{{ roles.fcAdministrador | roleUsuario }}
+								</label>
+								<label class="btn btn-outline-primary"
+									[ngClass]="{active: roleFornecedor.value === roles.fcFinanceiro}">
+									<input type="radio" class="btn-group-toggle" name="roleFornecedor" formControlName="roleFornecedor"
+										[value]="roles.fcFinanceiro">
+									{{ roles.fcFinanceiro | roleUsuario }}
+								</label>
+								<label class="btn btn-outline-primary" [ngClass]="{active: roleFornecedor.value === roles.fcComercial}">
+									<input type="radio" class="btn-group-toggle" name="roleFornecedor" formControlName="roleFornecedor"
+										[value]="roles.fcComercial">
+									{{ roles.fcComercial | roleUsuario }}
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</form>
+
+			<div *ngIf="showInformation" class="row">
+				<div class="information col-md-12">
+					<em class="fa fa-lg fa-times-circle pull-right" style="margin: 8px 8px auto auto; cursor: pointer;"
+						(click)="hideInfoTable()"></em>
+					<div class="cards">
+						<div *ngFor="let perfil of perfis" class="card">
+							<strong>{{perfil.name}}</strong>
+							<ul style="padding-left: 0px;">
+								<li class="card-item" *ngFor="let funcionalidade of perfil.funcionalidades">
+									{{funcionalidade.name}}</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<hr>
+
+			<div class="buttons">
+				<div>
+					<button type="button" class="btn btn-danger pull-left" *ngIf="email.value !== auth.user.email"
+						[hidden]="!id || inativo" (click)="inativar()">Inativar</button>
+					<button type="button" class="btn btn-success pull-left" *ngIf="email.value !== auth.user.email"
+						[hidden]="!id || !inativo" (click)="reativar()">Reativar</button>
+				</div>
+				<div>
+					<button type="button" class="btn btn-primary btn-wsm pull-right ml-15 mt-10"
+						(click)="validate()">Salvar</button>
+					<button type="button" class="btn btn-default btn-wsm pull-right mt-10" (click)="voltar()">Voltar</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="box box-primary" *ngIf="loggedUserIsBKO() && user && user.associacoes">
+		<div class="box-header with-border">
+			<h3 class="box-title">Vínculos</h3>
+		</div>
+		<div class="box-body">
+			<div class="row" *ngFor="let item of user.associacoes">
+				<div class="form-group col-md-6">
+					<label class="control-label mr-15">Empresa: </label>
+					<span>{{item.participante.nome}}</span>
+				</div>
+				<div class="form-group col-md-6">
+					<label class="control-label mr-15">Perfil: </label>
+					<span>{{ user.roles }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</section>

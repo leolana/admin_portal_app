@@ -1,0 +1,11 @@
+.table>thead>tr>th {
+    background-color: #6c1980;
+    color: #fff;
+    border-right: 1px solid #fff;
+    vertical-align: middle;
+    font-weight: normal;
+}
+
+.margin-top-30 {
+    margin-top: 30px;
+}

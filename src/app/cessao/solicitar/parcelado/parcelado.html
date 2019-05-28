@@ -1,0 +1,90 @@
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Cessão Parcelada</h3>
+    </div>
+    <form [formGroup]="form" (submit)="submit()" class="box-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group" [class.has-error]="hasError.pagamento() && (_form.pagamento.dirty || _form.pagamento.touched)">
+                    <label for="pagamento">Plano de Recebimento a partir do vencimento</label>
+                    <select class="form-control" id="pagamento" formControlName="pagamento" [attr.disabled]="calculado || null">
+                        <option *ngFor="let o of pagamentos" [value]="o.id">{{ o.text }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <date-picker label="Prazo de Aprovação" [formControl]="_form.dataExpiracao" id="dataExpiracao"
+                    [dateChanged]="warnings.dataExpiracao" [hasError]="hasError.dataExpiracao()" [disable]="calculado">
+                </date-picker>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" [class.has-error]="hasError.valorCessao() && (_form.valorCessao.dirty || _form.valorCessao.touched)">
+                    <label for="valorCessao">Valor da Cessão</label>
+                    <div class="input-group">
+                        <label for="valorCessao" class="input-group-addon">R$</label>
+                        <input type="numeric" class="form-control" id="valorCessao" formControlName="valorCessao"
+                            currencyMask [options]="{ precision: 2, align: 'left' }" [attr.disabled]="calculado || null"
+                            maxlength="15">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <date-picker label="Data de Vencimento" [formControl]="_form.dataVencimento" id="dataVencimento"
+                    [hasError]="hasError.dataVencimento()" [disable]="calculado">
+                </date-picker>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="referencia">Referência</label>
+                    <input type="text" class="form-control" id="referencia" formControlName="referencia" placeholder="NF 123..."
+                        [attr.disabled]="calculado || null" maxlength="30">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" class="btn btn-primary" *ngIf="!calculado" (click)="calcular()">
+                    Calcular
+                </button>
+                <button type="button" class="btn btn-outline-primary" *ngIf="calculado" (click)="limpar()">
+                    Limpar
+                </button>
+            </div>
+        </div>
+        <div class="block margin-top-30" *ngIf="calculado">
+            <label>Escolha 1 opção de parcelamento:</label>
+            <div class="table-responsive">
+                <table class="table table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>N° de Parcelas</th>
+                            <th>Valor da Parcela</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let opcao of opcoesParcelamento">
+                            <td>
+                                <input type="radio" formControlName="parcelamento" [value]="opcao.qtParcelas">
+                            </td>
+                            <td>{{ opcao.qtParcelas }}</td>
+                            <td>{{ opcao.valorParcela | currency:'BRL' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button class="btn btn-primary">
+                        <i class="fa fa-check"></i>
+                        Confirmar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

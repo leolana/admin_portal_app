@@ -1,0 +1,81 @@
+.card {
+    width: calc(100% - 22px);
+    margin: 0 10px;
+    display: flex;
+    overflow: hidden;
+}
+
+.card-main {
+    padding: 10px;
+    flex: 1;
+    border: 1px solid #d2d6de;
+    background-color: #fff;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.card .show-data {
+    width: calc(50% - 20px);
+    float: left;
+}
+
+.card .show-data:nth-of-type(even) {
+    margin-left: 20px;
+}
+
+.show-data {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+.show-data> :nth-child(1) {
+    flex: 1;
+}
+
+.show-data> :nth-child(2) {
+    margin-left: 5px;
+    height: 20px;
+}
+
+@media only screen and (max-width: 700px) {
+    .card .show-data {
+        width: 100%;
+    }
+    .card .show-data:nth-of-type(even) {
+        margin-left: 0;
+    }
+}
+
+.form-group>label,
+.overflow-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.container-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1%;
+}
+
+.btn-wlg {
+    margin-left: 2%;
+}
+
+.header-report {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1% 1%;
+    border-bottom: 1px solid #75007f;
+}

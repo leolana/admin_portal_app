@@ -1,0 +1,11 @@
+@media(max-width: 768px){
+    .text-copy{
+        text-align: center;
+    }
+}
+
+@media(min-width: 768px) and (width: 768px){
+    .text-copy{
+        text-align: initial;
+    }
+}

@@ -1,0 +1,14 @@
+<div class="login-box">
+    <div class="login-logo">
+        <img src="assets/logo-alpe.png" width="120px" height="117px">
+    </div>
+    <div class="login-box-body">
+        <p class="login-box-msg">Definir senha</p>
+
+        <form [formGroup]="formRegister" (submit)="change()">
+            <input-nova-senha (typingPassword)="setValuePassword($event)" [valuePassword]="newPassword"></input-nova-senha>
+            <input-confirmar-senha (typingConfirmPassword)="setValueConfirmPassword($event)" [valuePassword]="confirmNewPassword"></input-confirmar-senha>
+            <button class="btn btn-primary btn-block btn-flat" type="submit">Enviar</button>
+        </form>
+    </div>
+</div>
